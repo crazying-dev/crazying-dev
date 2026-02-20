@@ -1,1 +1,5 @@
-![snake gif](https://github.com/crazying-dev/crazying-dev/blob/gh-pages/github-contribution-grid-snake.svg)
+<picture> 
+  <source media="(prefers-color-scheme: dark)" srcset="https://crazying-dev.github.io/crazying-dev/github-contribution-grid-snake-dark.svg" />  
+  <source media="(prefers-color-scheme: light)" srcset="https://crazying-dev.github.io/crazying-dev/github-contribution-grid-snake.svg" />   
+  <img alt="github-snake" src="https://crazying-dev.github.io/crazying-dev/github-contribution-grid-snake.svg" /> 
+</picture>
