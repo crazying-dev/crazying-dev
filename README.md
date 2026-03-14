@@ -12,7 +12,9 @@ Hello,欢迎来到我的主页
 小红书也要
 [![动态-小红书](https://img.shields.io/badge/动态-小红书-E4405F?style=flat&logo=xiaohongshu&labelColor=444444&logoColor=white&logoSize=auto)](https://www.xiaohongshu.com/user/profile/682d321b000000000a03c93b)  
 既然这样了，再给我一点点Q(os:我是不是有点不要脸,不管了，我就要）
-[![打赏](https://img.shields.io/badge/-创作支持-946ce6?logo=wechat&style=flat&labelColor=444444&logoSize=auto)](https://raw.githubusercontent.com/crazying-dev/other/main/%E5%8B%9F%E6%8D%90.md)
+[![打赏](https://img.shields.io/badge/-创作支持-946ce6?logo=wechat&style=flat&labelColor=444444&logoSize=auto)](https://raw.githubusercontent.com/crazying-dev/other/main/%E5%8B%9F%E6%8D%90.md)  
+<img src="https://raw.githubusercontent.com/crazying-dev/other/main/%E5%8B%9F%E6%8D%90%E7%A0%81.png" alt="投喂二维码" nerror="this.src='https://raw.githubusercontent.com/crazying-dev/other/main/photo-error.png'" style="width:200px;height:auto;border-radius:8px;">  
+谢谢哥哥姐姐们，喵~
 
 
 <picture> 
