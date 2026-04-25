@@ -2,36 +2,35 @@ name: Update GitHub Avatar
 
 on:
   schedule:
-    - cron: "0 2 * * *"  # 每天凌晨 2 点自动运行
-  workflow_dispatch:     # 允许你手动点一下运行
+    - cron: "0 2 * * *"  # 每天凌晨 2 点
+  workflow_dispatch:     # 允许手动运行
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # 强制使用 Node.js 24 → 彻底消除警告
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         run: sudo apt install -y imagemagick
 
-      - name: Download avatar
+      - name: Download and generate avatar
         run: |
-          # 替换成你的 GitHub 用户名
-          GITHUB_USER="crazying-dev"
+          GITHUB_USER="crazying-dev"  # 改成你自己的用户名
           
-          # 下载头像
           curl -L "https://github.com/${GITHUB_USER}.png" -o raw-avatar.png
 
-          # 生成 favicon.ico (16x16 32x32 48x48)
+          # 生成 favicon.ico
           convert raw-avatar.png -resize 48x48 \
             -define icon:auto-resize=48,32,16 assets/img/favicon.ico
 
           # 生成 me.png
           cp raw-avatar.png assets/img/me.png
-
           rm raw-avatar.png
 
       - name: Commit and push
@@ -39,5 +38,5 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           git add assets/img/favicon.ico assets/img/me.png
-          git commit -m "Auto update avatar [$(date)]" || exit 0
+          git commit -m "Auto update avatar $(date +'%Y-%m-%d')" || exit 0
           git push
