@@ -2,11 +2,345 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>卡里的窝</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <link rel="stylesheet" href="assets/CSS/body.css">
+
+    <style>
+        @media (min-width: 1000px) {
+            body {
+                min-width: 1200px;
+            }
+        }
+    </style>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            position: relative;
+            background: transparent;
+        }
+        .bg-box {
+            position: fixed;
+            inset: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: top center;
+            filter: blur(6px) brightness(0.7);
+            transform: scale(1.1);
+            z-index: -1;
+            transition: opacity 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 电脑端横图 */
+        @media (min-width: 1020px) {
+            .bg-box-for1 { background-image: url("https://img.hk256.top/random?t=webp&o=h"); }
+            .bg-box-for2 { display: none; }
+        }
+
+        /* 1000px - 1020px 渐变区间 */
+        @media (min-width: 1000px) and (max-width: 1020px) {
+            .bg-box-for1, .bg-box-for2 { display: block; }
+        }
+        @media (min-width: 1018px) and (max-width: 1020px) { .bg-box-for1{opacity:0.9} .bg-box-for2{opacity:0.1} }
+        @media (min-width: 1016px) and (max-width: 1018px) { .bg-box-for1{opacity:0.8} .bg-box-for2{opacity:0.2} }
+        @media (min-width: 1014px) and (max-width: 1016px) { .bg-box-for1{opacity:0.7} .bg-box-for2{opacity:0.3} }
+        @media (min-width: 1012px) and (max-width: 1014px) { .bg-box-for1{opacity:0.6} .bg-box-for2{opacity:0.4} }
+        @media (min-width: 1010px) and (max-width: 1012px) { .bg-box-for1{opacity:0.5} .bg-box-for2{opacity:0.5} }
+        @media (min-width: 1008px) and (max-width: 1010px) { .bg-box-for1{opacity:0.4} .bg-box-for2{opacity:0.6} }
+        @media (min-width: 1006px) and (max-width: 1008px) { .bg-box-for1{opacity:0.3} .bg-box-for2{opacity:0.7} }
+        @media (min-width: 1004px) and (max-width: 1006px) { .bg-box-for1{opacity:0.2} .bg-box-for2{opacity:0.8} }
+        @media (min-width: 1002px) and (max-width: 1004px) { .bg-box-for1{opacity:0.1} .bg-box-for2{opacity:0.9} }
+        @media (min-width: 1000px) and (max-width: 1002px) { .bg-box-for1{opacity:0.0} .bg-box-for2{opacity:1.0} }
+
+        /* 手机端竖图 */
+        @media (max-width: 1000px) {
+            .bg-box-for2 { background-image: url("https://img.hk256.top/random?t=webp&o=v"); }
+            .bg-box-for1 { display: none; }
+        }
+    </style>
+    <script>
+        // 双背景图 自动备用图源
+        const bgList = {
+            pc: [
+                "https://img.hk256.top/random?t=webp&o=h",
+                "https://api.rls.icu/horizontal",
+                "https://random.moejue.cn/randbg?type=pc"
+            ],
+            mobile: [
+                "https://img.hk256.top/random?t=webp&o=v",
+                "https://api.rls.icu/vertical",
+                "https://api.sretna.cn/mobile"
+            ]
+        };
+
+        // 加载图片并失败自动重试
+        function loadImage(urls, element) {
+            let index = 0;
+            function tryLoad() {
+                if (index >= urls.length) return;
+                const img = new Image();
+                img.src = urls[index];
+                img.onload = () => {
+                    element.style.backgroundImage = `url(${urls[index]})`;
+                };
+                img.onerror = () => {
+                    index++;
+                    tryLoad();
+                };
+            }
+            tryLoad();
+        }
+
+        // 初始化两个背景层
+        window.addEventListener('load', () => {
+            const bg1 = document.querySelector('.bg-box-for1');
+            const bg2 = document.querySelector('.bg-box-for2');
+            loadImage(bgList.pc, bg1);
+            loadImage(bgList.mobile, bg2);
+        });
+    </script>
+
+    <style>
+        header{
+            display: flex;
+            background-color: rgba(0,0,0,0);
+            height: 70px;
+        }
+        #Go-to-Github{
+            height: 100%;
+            width: 70px;
+            aspect-ratio: unset;
+            display: inline-block;
+        }
+        #me {
+            height: calc(100% - 10px);
+            margin-top: 5px ;
+            margin-bottom: 5px;
+            margin-left: 10px;
+            border-radius: 50%;
+        }
+        .HeaderButton{
+            display: flex;
+            height: 20px;
+            margin-top: 20px;
+            font-size: 20px;
+            margin-right: 15px;
+            margin-left: 20px;
+        }
+        #AboutMeForHeader {
+            margin-right: 15px;
+            margin-left: 20px;
+        }
+    </style>
 </head>
 <body>
+<!-- 背景图混合 -->
+<div class="bg-box-for1 bg-box"></div>
+<div class="bg-box-for2 bg-box"></div>
 
+<!-- 提示栏 -->
+<div class="card" from="Go-to-Github">前往GitHub</div>
+<div class="card" from="AboutMeForHeader">emm...来让我做一下自我介绍吧</div>
+<div class="card" from="WorkWithMe">来看看还有那些神经病陪我发疯</div>
+<div class="card" from="Thanks">看看这个小站收到了那些人的赞助</div>
+<div class="card" from="CommentMe">联系我</div>
+<div class="card" from="friend">我的朋友</div>
+
+<!-- 头 -->
+<header>
+    <a href="https://github.com/crazying-dev" id="Go-to-Github">
+        <img src="assets/img/me.png" alt="This is me Github Avatar" id="me">
+    </a>
+    <a href="./HTML/AboutMe.html" class="HeaderButton" id="AboutMeForHeader">关于我</a>
+    <a href="./HTML/WorkWithMe.html" class="HeaderButton" id="WorkWithMe">协作者</a>
+    <a href="./HTML/Thanks.html" class="HeaderButton" id="Thanks">鸣谢</a>
+    <a href="./HTML/CommentMe.html" class="HeaderButton" id="CommentMe">联系我</a>
+    <a href="./HTML/friend.html" class="HeaderButton" id="friend">友人</a>
+</header>
+
+<img src="https://count.getloli.com/@A?name=A&theme=sketch-2&padding=3&offset=0&align=top&scale=1&pixelated=1&darkmode=auto">
+
+<!-- 定义card的from属性 -->
+<script src="assets/JS/body.js"></script>
+
+<!-- 鼠标事件函数 -->
+<script>
+function MouseGoToGotoGithub() {
+    console.log("Mouse Go to Go-to-Github");
+    // 遍历处理
+    GetStrFromForCard('Go-to-Github').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,1)`;
+        card.style.backgroundColor = `rgba(142, 142, 142, 0.6)`
+        card.style.height = '20px'
+    });
+}
+function MouseGoOutGotoGithub(){
+    console.log("Mouse Go out Go-to-Github");
+    // 遍历处理
+    GetStrFromForCard('Go-to-Github').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,0)`;
+        card.style.backgroundColor = `rgba(0,0,0,0)`
+        card.style.height = '0'
+    });
+}
+
+function MouseGoToAboutMeForHeader(){
+    console.log("Mouse Go to AboutMeForHeader");
+    // 遍历处理
+    GetStrFromForCard('AboutMeForHeader').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,1)`;
+        card.style.backgroundColor = `rgba(142, 142, 142, 0.6)`
+        card.style.height = '20px'
+    });
+}
+function MouseGoOutAboutMeForHeader(){
+    console.log("Mouse Go out AboutMeForHeader");
+    // 遍历处理
+    GetStrFromForCard('AboutMeForHeader').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,0)`;
+        card.style.backgroundColor = `rgba(0,0,0,0)`
+        card.style.height = '0'
+    });
+}
+
+function MouseGoToWorkWithMe(){
+    console.log("Mouse Go to WorkWithMe");
+    // 遍历处理
+    GetStrFromForCard('WorkWithMe').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,1)`;
+        card.style.backgroundColor = `rgba(142, 142, 142, 0.6)`
+        card.style.height = '20px'
+    });
+}
+function MouseGoOutWorkWithMe(){
+    console.log("Mouse Go out WorkWithMe");
+    // 遍历处理
+    GetStrFromForCard('WorkWithMe').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,0)`;
+        card.style.backgroundColor = `rgba(0,0,0,0)`
+        card.style.height = '0'
+    });
+}
+
+function MouseGoToThanks(){
+    console.log("Mouse Go to Thanks");
+
+    GetStrFromForCard('Thanks').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,1)`;
+        card.style.backgroundColor = `rgba(142, 142, 142, 0.6)`
+        card.style.height = '20px'
+    });
+}
+function MouseGoOutThanks(){
+    console.log("Mouse Go out Thanks");
+    // 遍历处理
+    GetStrFromForCard('Thanks').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,0)`;
+        card.style.backgroundColor = `rgba(0,0,0,0)`
+        card.style.height = '0'
+    });
+}
+
+
+function MouseGoToCommentMe(){
+    console.log("Mouse Go to CommentMe");
+
+    GetStrFromForCard('CommentMe').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,1)`;
+        card.style.backgroundColor = `rgba(142, 142, 142, 0.6)`
+        card.style.height = '20px'
+    });
+}
+function MouseGoOutCommentMe(){
+    console.log("Mouse Go out CommentMe");
+    // 遍历处理
+    GetStrFromForCard('CommentMe').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,0)`;
+        card.style.backgroundColor = `rgba(0,0,0,0)`
+        card.style.height = '0'
+    });
+}
+
+function MouseGoTofriend(){
+    console.log("Mouse Go to friend");
+
+    GetStrFromForCard('friend').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,1)`;
+        card.style.backgroundColor = `rgba(142, 142, 142, 0.6)`
+        card.style.height = '20px'
+    });
+}
+function MouseGoOutfriend(){
+    console.log("Mouse Go out friend");
+    // 遍历处理
+    GetStrFromForCard('friend').forEach(card => {
+        // 比如：改变样式
+        card.style.color = `rgba(0,0,0,0)`;
+        card.style.backgroundColor = `rgba(0,0,0,0)`
+        card.style.height = '0'
+    });
+}
+</script>
+
+<!-- 提示栏初始化 -->
+<script>
+    MouseGoOutGotoGithub()
+
+    MouseGoOutAboutMeForHeader()
+
+    MouseGoOutWorkWithMe()
+
+    MouseGoOutThanks()
+
+    MouseGoOutCommentMe()
+
+    MouseGoOutfriend()
+</script>
+
+<!-- 事件布置 -->
+<script>
+    const Go_to_Github = document.getElementById('Go-to-Github')
+    Go_to_Github.addEventListener('mouseenter', MouseGoToGotoGithub);
+    Go_to_Github.addEventListener('mouseleave', MouseGoOutGotoGithub);
+
+    const AboutMeForHeader = document.getElementById('AboutMeForHeader');
+    AboutMeForHeader.addEventListener('mouseenter', MouseGoToAboutMeForHeader)
+    AboutMeForHeader.addEventListener('mouseleave', MouseGoOutAboutMeForHeader);
+
+    const WorkWithMe = document.getElementById('WorkWithMe');
+    WorkWithMe.addEventListener('mouseenter', MouseGoToWorkWithMe);
+    WorkWithMe.addEventListener('mouseleave', MouseGoOutWorkWithMe);
+
+    const Thanks = document.getElementById('Thanks');
+    Thanks.addEventListener('mouseenter', MouseGoToThanks);
+    Thanks.addEventListener('mouseleave', MouseGoOutThanks);
+
+    const CommentMe = document.getElementById('CommentMe');
+    CommentMe.addEventListener('mouseenter', MouseGoToCommentMe);
+    CommentMe.addEventListener('mouseleave', MouseGoOutCommentMe);
+
+    const friend = document.getElementById('friend');
+    friend.addEventListener('mouseenter', MouseGoTofriend)
+    friend.addEventListener('mouseleave', MouseGoOutfriend)
+</script>
 </body>
 </html>

@@ -12,6 +12,23 @@ html, body {
     font-family: 'OriginalHandWrite', "楷体", KaiTi, "华文行楷", STXingkai, 'Ma Shan Zheng', cursive, sans-serif, PingFang SC, HarmonyOS_Regular, Helvetica Neue, Microsoft YaHei, serif, -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif !important;
 }
 
+.card{
+    height: 0;
+    width: auto;
+    background-color: rgba(142, 142, 142, 0);
+    font-size: 19px;
+    border-radius: 1px;
+    color: rgba(0,0,0,1);
+    /* display: none; */
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    transition:
+            left 0.01s ease,
+            top 0.01s ease,
+            all 0.2s ease;
+}
+
 /* 借鉴自哔哩哔哩的CSS文件:https://s1.hdslb.com/bfs/static/shanks/laputa-home/assets/index-4e78abb0.css 源文件在本仓库 /assets/CSS/From/Bilibili/win/win.css */
 html,body {
     -webkit-box-sizing: border-box;
