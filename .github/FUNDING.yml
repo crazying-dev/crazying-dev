@@ -1,0 +1,16 @@
+# These are supported funding model platforms
+
+github: [crazying-dev]
+patreon: # 不用则留空
+open_collective: # 不用则留空
+ko_fi: # 不用则留空
+tidelift: # 不用则留空
+community_bridge: # 不用则留空
+liberapay: # 不用则留空
+issuehunt: # 不用则留空
+lfx_crowdfunding: # 不用则留空
+polar: # 不用则留空
+buy_me_a_coffee: # 不用则留空
+thanks_dev: # 不用则留空
+# 核心：你的微信收款码图片链接（加说明更清晰）
+custom: ['https://raw.githubusercontent.com/crazying-dev/other/main/%E5%8B%9F%E6%8D%90%E7%A0%81.png（微信扫码赞助）']
