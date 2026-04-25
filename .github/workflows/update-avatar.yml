@@ -2,41 +2,55 @@ name: Update GitHub Avatar
 
 on:
   schedule:
-    - cron: "0 2 * * *"  # 每天凌晨 2 点
-  workflow_dispatch:     # 允许手动运行
+    - cron: "0 2 * * *"  # 每天凌晨2点运行
+  workflow_dispatch:      # 支持手动触发
+
+permissions:
+  # 关键！给Action完整读写仓库权限
+  contents: write
+
+env:
+  # 消除Node.js 20弃用警告
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      # 强制使用 Node.js 24 → 彻底消除警告
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install dependencies
+      - name: Install ImageMagick
         run: sudo apt install -y imagemagick
 
-      - name: Download and generate avatar
+      - name: Prepare folder & download avatar
         run: |
-          GITHUB_USER="crazying-dev"  # 改成你自己的用户名
+          # 改成你的GitHub用户名
+          GITHUB_USER="crazying-dev"
+          mkdir -p assets/img
           
           curl -L "https://github.com/${GITHUB_USER}.png" -o raw-avatar.png
 
-          # 生成 favicon.ico
-          convert raw-avatar.png -resize 48x48 \
-            -define icon:auto-resize=48,32,16 assets/img/favicon.ico
-
-          # 生成 me.png
+          # 生成favicon
+          convert raw-avatar.png -resize 48x48 -define icon:auto-resize=48,32,16 assets/img/favicon.ico
+          # 生成me.png
           cp raw-avatar.png assets/img/me.png
-          rm raw-avatar.png
+          
+          rm -f raw-avatar.png
 
-      - name: Commit and push
+      - name: Commit & Push changes
         run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
           git add assets/img/favicon.ico assets/img/me.png
-          git commit -m "Auto update avatar $(date +'%Y-%m-%d')" || exit 0
-          git push
+          
+          # 没有变更就跳过提交，避免报错
+          git diff --cached --quiet || {
+            git commit -m "🤖 Auto update avatar $(date +'%Y-%m-%d')"
+            git push
+          }
