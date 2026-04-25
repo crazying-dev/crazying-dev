@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "楷体", KaiTi, "华文行楷", STXingkai, serif;
+}
+html, body {
+    min-width: 1847.8px;
+}
+button {
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+input {
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
