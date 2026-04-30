@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: 'OriginalHandWrite';
-    src: url('https://ciallovo.top/assets/fonts/CEFFontsCJK.woff2') format('woff2'),url('assets/font/CEFFontsCJK.woff2') format('woff2'), url('https://cdn.bootcdn.net/ajax/libs/webfont/1.6.28/fonts/ma-shan-zheng.woff2') format('woff2');
+    src: url('https://ciallovo.top/assets/fonts/CEFFontsCJK.woff2') format('woff2'),url('/static/font/CEFFontsCJK.woff2') format('woff2'), url('https://cdn.bootcdn.net/ajax/libs/webfont/1.6.28/fonts/ma-shan-zheng.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap; /* 防止字体加载前显示默认字体 */
@@ -17,9 +17,10 @@ html, body {
     width: auto;
     background-color: rgba(142, 142, 142, 0);
     font-size: 19px;
-    border-radius: 1px;
+    border-radius: 5px;
     color: rgba(0,0,0,1);
     /* display: none; */
+    white-space: nowrap;
     position: fixed;
     z-index: 9999;
     pointer-events: none;

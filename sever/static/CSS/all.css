@@ -1,0 +1,97 @@
+@media (min-width: 1000px) {
+    body {
+        min-width: 1200px;
+    }
+}
+
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    min-height: 100vh;
+    position: relative;
+    background: transparent;
+}
+.bg-box {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top center;
+    filter: blur(6px) brightness(0.7);
+    transform: scale(1.1);
+    z-index: -1;
+    transition: opacity 0.3s ease; /* 平滑过渡 */
+}
+
+/* 电脑端横图 */
+@media (min-width: 1020px) {
+    .bg-box-for1 { background-image: url("https://img.hk256.top/random?t=webp&o=h"); }
+    .bg-box-for2 { display: none; }
+}
+
+/* 1000px - 1020px 渐变区间 */
+@media (min-width: 1000px) and (max-width: 1020px) {
+    .bg-box-for1, .bg-box-for2 { display: block; }
+}
+@media (min-width: 1018px) and (max-width: 1020px) { .bg-box-for1{opacity:0.9} .bg-box-for2{opacity:0.1} }
+@media (min-width: 1016px) and (max-width: 1018px) { .bg-box-for1{opacity:0.8} .bg-box-for2{opacity:0.2} }
+@media (min-width: 1014px) and (max-width: 1016px) { .bg-box-for1{opacity:0.7} .bg-box-for2{opacity:0.3} }
+@media (min-width: 1012px) and (max-width: 1014px) { .bg-box-for1{opacity:0.6} .bg-box-for2{opacity:0.4} }
+@media (min-width: 1010px) and (max-width: 1012px) { .bg-box-for1{opacity:0.5} .bg-box-for2{opacity:0.5} }
+@media (min-width: 1008px) and (max-width: 1010px) { .bg-box-for1{opacity:0.4} .bg-box-for2{opacity:0.6} }
+@media (min-width: 1006px) and (max-width: 1008px) { .bg-box-for1{opacity:0.3} .bg-box-for2{opacity:0.7} }
+@media (min-width: 1004px) and (max-width: 1006px) { .bg-box-for1{opacity:0.2} .bg-box-for2{opacity:0.8} }
+@media (min-width: 1002px) and (max-width: 1004px) { .bg-box-for1{opacity:0.1} .bg-box-for2{opacity:0.9} }
+@media (min-width: 1000px) and (max-width: 1002px) { .bg-box-for1{opacity:0.0} .bg-box-for2{opacity:1.0} }
+
+/* 手机端竖图 */
+@media (max-width: 1000px) {
+    .bg-box-for2 { background-image: url("https://img.hk256.top/random?t=webp&o=v"); }
+    .bg-box-for1 { display: none; }
+}
+
+
+
+
+header{
+    display: flex;
+    background-color: rgba(0,0,0,0);
+    height: 70px;
+}
+#Go-to-Github{
+    height: 100%;
+    width: 70px;
+    aspect-ratio: unset;
+    display: inline-block;
+}
+#me {
+    height: calc(100% - 10px);
+    margin-top: 5px ;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    border-radius: 50%;
+}
+.HeaderButton{
+    display: flex;
+    height: 20px;
+    margin-top: 20px;
+    font-size: 20px;
+    margin-right: 15px;
+    margin-left: 20px;
+}
+#title {
+    display: flex;
+    position: fixed;
+    right: 20px;
+    transition: all 0.8s ease;
+    white-space: nowrap;
+    opacity: 1;
+    visibility: visible;
+}
