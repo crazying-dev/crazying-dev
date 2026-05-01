@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/test.py",
+      "src": "test.py",
       "use": "@vercel/python",
       "config": {
         "runtime": "python3.11"
@@ -12,7 +12,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "server/test.py"
+      "dest": "test.py"
     }
   ]
 }
