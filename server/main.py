@@ -1,4 +1,4 @@
-from GET import *
+from GET import app, render_template, abort, send_file, request
 from tool import *
 
 base = '/path/base.html'
@@ -35,4 +35,3 @@ def bg():
 
 if __name__ == '__main__':
 	app.run(debug=True)
-	
