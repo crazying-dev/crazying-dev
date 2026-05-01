@@ -43,13 +43,6 @@
             tryLoad();
         }
 
-        // 初始化两个背景层
-        window.addEventListener('load', () => {
-            const bg1 = document.querySelector('.bg-box-for1');
-            const bg2 = document.querySelector('.bg-box-for2');
-            loadImage(bgList.pc, bg1);
-            loadImage(bgList.mobile, bg2);
-        });
     </script>
 
 </head>
@@ -89,38 +82,52 @@
 
 <!-- 页面内容获取 -->
 <script>
-    // 功能：获取当前URL → 拼接GET → 请求HTML → 渲染到 #ui 组件
     function loadGetHtml() {
-        // 1. 获取当前页面 URL
         let baseUrl = window.location.href;
-
-        // 处理末尾斜杠，避免重复
         if (baseUrl.endsWith('/')) {
             baseUrl = baseUrl.slice(0, -1);
         }
-
-        // 2. 在 URL 后面加上 /GET
         const targetUrl = baseUrl + '/GET';
-
-        // 3. 请求并把返回的 HTML 加载到 id="ui" 的元素中
-        fetch(targetUrl)
+        return fetch(targetUrl)
             .then(res => res.text())
             .then(html => {
                 const uiContainer = document.getElementById('ui');
-                if (uiContainer) {
-                    uiContainer.innerHTML = html;
+                if (!uiContainer) return;
+
+                // 先清空
+                uiContainer.innerHTML = '';
+
+                // 创建临时容器
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+
+                // 把所有节点挪进去，并自动执行script
+                const arr = Array.from(temp.childNodes);
+                arr.forEach(node => {
+                    // 如果是script标签，手动创建新script执行
+                    if(node.tagName === 'SCRIPT'){
+                        let s = document.createElement('script');
+                        // 复制属性
+                        Array.from(node.attributes).forEach(attr=>{
+                            s.setAttribute(attr.name, attr.value);
+                        });
+                        // 复制脚本内容
+                        s.textContent = node.textContent;
+                        uiContainer.appendChild(s);
+                    }else{
+                        uiContainer.appendChild(node);
+                    }
+                });
+
+                // 初始化卡片
+                if (window.initCards) {
+                    window.initCards();
                 }
             })
             .catch(err => {
                 console.error('加载GET页面失败：', err);
             });
     }
-
-    // 页面加载后自动执行
-    // window.onload = function() {
-    //     loadGetHtml();
-    // };
-    loadGetHtml();
 </script>
 
 <!-- 定义window的大小更改时的组件更改 -->
@@ -129,242 +136,24 @@
 <!-- 定义card的from属性 ＆ 自跟踪动作 ＆ 事件布置 ＆ 提示栏初始化 ＆ 事件函数 -->
 <script src="/static/JS/Card.js"></script>
 
-<!-- Card加载＆事件布置的弃用代码 弃用原因：使用其他替代 -->
-<template>
-    <script>
-        function MouseGoToGotoGithub() {
-            Goto('Go-to-Github')
-        }
-        function MouseGoOutGotoGithub(){
-            GoOut('Go-to-Github')
-        }
+<script>
+    // 先加载页面内容，再执行Card、背景逻辑
+    loadGetHtml().then(() => {
+        // 1. 初始化背景
+        const bg1 = document.querySelector('.bg-box-for1');
+        const bg2 = document.querySelector('.bg-box-for2');
+        loadImage(bgList.pc, bg1);
+        loadImage(bgList.mobile, bg2);
 
+        // 2. 再加载Card、window相关JS（保证在内容之后执行）
+        let s1 = document.createElement('script');
+        s1.src = "/static/JS/window.js";
+        document.body.appendChild(s1);
 
-        function MouseGoToAboutMeForHeader(){
-            Goto('AboutMeForHeader')
-        }
-        function MouseGoOutAboutMeForHeader(){
-            GoOut('AboutMeForHeader')
-        }
-
-
-        function MouseGoToWorkWithMe(){
-            Goto("WorkWithMe")
-        }
-        function MouseGoOutWorkWithMe(){
-            GoOut('WorkWithMe')
-        }
-
-
-        function MouseGoToThanks(){
-            Goto("Thanks")
-        }
-        function MouseGoOutThanks(){
-            GoOut("Thanks")
-        }
-
-
-        function MouseGoToCommentMe(){
-            Goto("CommentMe")
-        }
-        function MouseGoOutCommentMe(){
-            GoOut("CommentMe")
-        }
-
-
-        function MouseGoToFriend(){
-            Goto("friend")
-        }
-        function MouseGoOutFriend(){
-            GoOut("friend")
-        }
-
-
-        function MouseGoToTitle(){
-            Goto("title")
-        }
-        function MouseGoOutTitle(){
-            GoOut("title")
-        }
-    </script>
-    <!-- 提示栏初始化 -->
-    <script>
-        MouseGoOutGotoGithub()
-
-        MouseGoOutAboutMeForHeader()
-
-        MouseGoOutWorkWithMe()
-
-        MouseGoOutThanks()
-
-        MouseGoOutCommentMe()
-
-        MouseGoOutFriend()
-
-        MouseGoOutTitle()
-    </script>
-    <!-- 事件布置 -->
-    <script>
-        const Go_to_Github = document.getElementById('Go-to-Github')
-        Go_to_Github.addEventListener('mouseenter', MouseGoToGotoGithub);
-        Go_to_Github.addEventListener('mouseleave', MouseGoOutGotoGithub);
-
-        const AboutMeForHeader = document.getElementById('AboutMeForHeader');
-        AboutMeForHeader.addEventListener('mouseenter', MouseGoToAboutMeForHeader)
-        AboutMeForHeader.addEventListener('mouseleave', MouseGoOutAboutMeForHeader);
-
-        const WorkWithMe = document.getElementById('WorkWithMe');
-        WorkWithMe.addEventListener('mouseenter', MouseGoToWorkWithMe);
-        WorkWithMe.addEventListener('mouseleave', MouseGoOutWorkWithMe);
-
-        const Thanks = document.getElementById('Thanks');
-        Thanks.addEventListener('mouseenter', MouseGoToThanks);
-        Thanks.addEventListener('mouseleave', MouseGoOutThanks);
-
-        const CommentMe = document.getElementById('CommentMe');
-        CommentMe.addEventListener('mouseenter', MouseGoToCommentMe);
-        CommentMe.addEventListener('mouseleave', MouseGoOutCommentMe);
-
-        const friend = document.getElementById('friend');
-        friend.addEventListener('mouseenter', MouseGoToFriend)
-        friend.addEventListener('mouseleave', MouseGoOutFriend)
-
-        title.addEventListener('mouseenter', MouseGoToTitle)
-        title.addEventListener('mouseleave', MouseGoOutTitle)
-    </script>
-</template>
-<!-- Live2D 宠物弃用代码 启用原因：无法加载 -->
-<template>
-    <!-- 1. 必须依赖 -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-
-    <!-- 2. Live2D 核心 -->
-    <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
-
-    <!-- 3. 看板娘样式（含图标、动画、UI） -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/waifu.css">
-
-    <!-- 4. 看板娘主逻辑（已修复、干净、无恶意代码） -->
-    <script>
-        // ==========================
-        // 模型列表（100% 可用 JSON）
-        // 直接复制即可扩展
-        // ==========================
-        const LIVE2D_MODELS = [
-            {
-                name: "春 Haru",
-                url: "https://fastly.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model.json"
-            },
-            {
-                name: "雫 Shizuku",
-                url: "https://fastly.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json"
-            },
-            {
-                name: "初音 Miku",
-                url: "https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model/miku/model.json"
-            },
-            {
-                name: "Kizuna AI",
-                url: "https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model/kizuna/model.json"
-            },
-            {
-                name: "Konata",
-                url: "https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model/konata/model.json"
-            },
-            {
-                name: "Chitanda",
-                url: "https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model/chitanda/model.json"
-            },
-            {
-                name: "Keqing",
-                url: "https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model/keqing/model.json"
-            },
-            {
-                name: "Paimon",
-                url: "https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model/paimon/model.json"
-            },
-            {
-                name: "Ganyu",
-                url: "https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model/ganyu/model.json"
-            },
-            {
-                name: "HuTao",
-                url: "https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model/hutao/model.json"
-            }
-        ];
-
-        // ==========================
-        // 工具函数
-        // ==========================
-        String.prototype.render = function (context) {
-            return this.replace(/\{([^}]+)\}/g, (_, key) => context[key] || '');
-        };
-
-        function showMessage(text, timeout = 5000, force = false) {
-            if (force || !sessionStorage.getItem('waifu-msg')) {
-                if (Array.isArray(text)) text = text[Math.random() * text.length | 0];
-                if (force) sessionStorage.setItem('waifu-msg', text);
-                $('.waifu-tips').html(text).fadeTo(200, 1);
-                setTimeout(() => {
-                    sessionStorage.removeItem('waifu-msg');
-                    $('.waifu-tips').fadeTo(200, 0);
-                }, timeout);
-            }
-        }
-
-        // ==========================
-        // 加载模型
-        // ==========================
-        let currentModelIndex = 0;
-        function loadModel(url) {
-            window.L2Dwidget.init({
-                model: { jsonPath: url },
-                display: { position: "left", width: 200, height: 300 },
-                mobile: { show: false }
-            });
-            showMessage("加载成功！", 2000, true);
-        }
-
-        // ==========================
-        // 切换下一个模型
-        // ==========================
-        function nextModel() {
-            currentModelIndex = (currentModelIndex + 1) % LIVE2D_MODELS.length;
-            const m = LIVE2D_MODELS[currentModelIndex];
-            loadModel(m.url);
-            showMessage(`切换：${m.name}`, 3000, true);
-        }
-
-        // ==========================
-        // 初始化
-        // ==========================
-        $(function() {
-            loadModel(LIVE2D_MODELS[0].url);
-            $('.waifu-tool .fui-eye').click(nextModel);
-
-            // 欢迎语
-            const hour = new Date().getHours();
-            const welcome = hour < 6 ? '熬夜对身体不好哦' :
-                hour < 12 ? '早上好！' :
-                    hour < 18 ? '下午好呀' : '晚上好～';
-            showMessage(welcome, 4000);
-        });
-    </script>
-
-    <!-- 看板娘 UI -->
-    <div class="waifu">
-        <div class="waifu-tips"></div>
-        <canvas id="live2d"></canvas>
-        <div class="waifu-tool">
-            <span class="fui-home"></span>
-            <span class="fui-eye"></span>
-            <span class="fui-chat"></span>
-            <span class="fui-user"></span>
-            <span class="fui-info-circle"></span>
-            <span class="fui-cross"></span>
-            <span class="fui-photo"></span>
-        </div>
-    </div>
-</template>
+        let s2 = document.createElement('script');
+        s2.src = "/static/JS/Card.js";
+        document.body.appendChild(s2);
+    });
+</script>
 </body>
 </html>

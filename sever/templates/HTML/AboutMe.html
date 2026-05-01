@@ -1,47 +1,102 @@
 <div class="card" from="ConntWithMeTheDivFor1">喵喵喵？</div>
 <div class="card" from="AboutMeThe性格WihtMBIT&SBIT">这种东西会变的  应该吧  也许吧</div>
-<div class="card" from="AboutMeThe性格WithTips">当然你想也是不可以的啦，我是一点政治都不懂的</div>
+<div class="card" from="AboutMeThe性格WithTips">当然你想也是不可以的啦，我是一点都不懂的啦</div>
 <div class="card" from="PlaceConntLook">看不到看不到看不到</div>
 <div class="card" from="AboutMeConntMe">不要尝试在上课时间让我回消息</div>
-<img class="card" from="公众号" src="/static/img/公众号.jpg" alt="公众号">
+<img class="card" from="公众号" src="/static/img/公众号.jpg" alt="公众号" width="430" height="430">
 
-<div>
-    Ciallo～(∠・ω< )⌒★
-    很高兴认识你
-    喵～
-    欢迎来看一个初中生发疯
+<style>
+    #AboutMe div{
+        display: inline-block;
+    }
 
-    emm看一下我的自我介绍
+    #AboutMe{
+        margin-left: 5%;
+        font-size: 20px;
 
-    兴趣：
-    喜欢play电脑
-    罗小黑死粉
+        line-height: 1.5;
+        letter-spacing: 1px;
+    }
 
-    性格:
+    #PlaceConntLook{
+        font-size: 1px;
+    }
+
+    .AboutMebutton{
+        font-size: 15px;
+        background-color: rgba(0,0,0,0);
+        color: rgb(255 150 0 / 0.85);
+    }
+</style>
+
+
+<div id="AboutMe">
+    很高兴认识你<br>
+    喵～<br>
+    欢迎来看一个初中生发疯<br>
+    emm 看一下我的自我介绍<br>
+    <div><button class="AboutMebutton" id="AboutMeMore" onclick="(() => {UpdataAboutMeMore()})()">more?</button></div><br>
+    <br>
+    兴趣：<br>
+    喜欢play电脑<br>
+    罗小黑死粉<br>
+    <br>
+    性格:<br>
     <div id="AboutMeThe性格WihtMBIT&SBIT">
-        MBIT:INFP
-        SBIT:DREAM-R
+        MBIT:INFP<br>
+        SBIT:DREAM-R<br>
     </div>
-
+    <br>
     <div id="AboutMeThe性格WithTips">
-        tips:不喜欢聊政治话题哦？
+        tips:不喜欢聊政治话题<br>
     </div>
+    <br>
+    <br>
+    <div id="AboutMeConntMe">联系方式：</div><br>
+    邮箱：3890320020@qq.com<br>
+    Github（大号）：<a href="https://github.com/crazying-dev">crazying-dev</a><br>
+    Github（小号）：<a href="https://github.com/cary-ing">cary-ing</a><br>
+    B站：不告诉你~（这不是名字-_-）(实际上是还没定下来)<br>
+    小红书：<a href="https://xhslink.com/m/7yCXhVvmCaJ">卡里</a><br>
+    微信号<div id="ConntWithMeTheDivFor1">（来唠唠嗑喵？）</div>：Alan_120615<br>
+    公众号：<div id="公众号">悬停扫码</div><br>
+    状态：未知<br>
 
-    <div id="AboutMeConntMe">联系方式：</div>
-    邮箱：3890320020@qq.com
-    Github（大号）：<a href="https://github.com/crazying-dev">crazying-dev</a>
-    Github（小号）：<a href="https://github.com/cary-ing">cary-ing</a>
-    B站：不告诉你~（这不是名字-_-）(实际上是还没定下来)
-    小红书：<a href="https://xhslink.com/m/7yCXhVvmCaJ">卡里</a>
-    微信号<div id="ConntWithMeTheDivFor1">（来唠唠嗑喵？）</div>：Alan_120615
-    公众号：<div id="公众号">悬停扫码</div>
-    状态：未知
-
-    <div id="PlaceConntLook">
-    注：
-    本人语文不太好，用词不太美观，谅解一下
-    情商也不太高〈捂脸〉
-
-    参考文献（应该看不到吧）：https://ciallovo.top/aboutme.html
+    <div id="PlaceConntLook"><br>
+    注：<br>
+    本人语文不太好，用词不太美观，谅解一下<br>
+    情商也不太高〈捂脸〉<br>
     </div>
+    <br>
+    我学习编程的路线:<br>
+    小学的时候上过一些有关编程的社团课，正经开始学编程是在2025年，开始接触python随后向C++，JavaScript等扩展，随后就有了一些小成就
+    <br>
+    我会什么语言：<br>
+    Python<br>
+    <div class="AboutMebutton" id="AboutMeCan"><button onclick="UpdataAboutMeCan()">更多...</button></div>
 </div>
+<script>
+    function UpdataAboutMeMore(){
+        const AboutMeMroe = document.getElementById("AboutMeMore");
+        AboutMeMroe.innerHTML =
+            "170cm 50kg" + "<br>" +
+            "INFP" + "<br>" +
+            "DREAM-R" + "<br>" +
+            "小部分时间情绪不太稳定" + "<br>" +
+            "不具备对他人的攻击力(至少我是这么觉得的)" + "<br>" +
+            "理科生，不会文科" + "<br>" +
+            "不会吵架" + "<br>" +
+            "稍稍有一点心理问题(没啥大不了的)" + "<br>" +
+            "平常闲着可无聊，会找人聊天" + "<br>" +
+            "是0(不许说我，不然我以后让我男朋友揍你)" + "<br>" +
+            "单身(不准说我是单身狗)" + "<br>" +
+            "情商不高(不准说我)"
+        AboutMeMroe.style.color = 'rgba(150,160,140,0.8)';
+    }
+
+    function UpdataAboutMeCan(){
+        const AboutMeCan = document.getElementById("AboutMeCan");
+        AboutMeCan.innerHTML = "没了";
+        AboutMeMroe.style.color = 'rgba(150,160,140,0.8)';
+    }
+</script>

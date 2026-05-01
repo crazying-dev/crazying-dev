@@ -17,7 +17,7 @@ def AboutMe():
 
 @app.route('/bg')
 def bg():
-	Type = request.args.get('Type', None)
+	Type = request.args.get('type', None)
 	if (Type is None) or (Type not in ['pc', 'mobile']):
 		return abort(404)
 	if Type == 'pc':
@@ -35,3 +35,4 @@ def bg():
 
 if __name__ == '__main__':
 	app.run(debug=True)
+	
