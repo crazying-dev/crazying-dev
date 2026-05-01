@@ -1,7 +1,7 @@
 from GET import app, render_template, abort, send_file, request
 from tool import *
 
-base = '/path/base.html'
+base = 'path/base.html'
 
 
 @app.route('/')
