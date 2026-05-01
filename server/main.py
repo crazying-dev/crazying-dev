@@ -15,6 +15,7 @@ def AboutMe():
 	return render_template(base)
 
 
+"""
 @app.route('/bg')
 def bg():
 	Type = request.args.get('type', None)
@@ -31,6 +32,7 @@ def bg():
 			return abort(404)
 		return send_file(file, mimetype='image/webg')
 	abort(404)
+"""
 
 
 if __name__ == '__main__':
