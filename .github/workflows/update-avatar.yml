@@ -36,9 +36,9 @@ jobs:
           curl -L "https://github.com/${GITHUB_USER}.png" -o raw-avatar.png
 
           # 生成favicon
-          convert raw-avatar.png -resize 48x48 -define icon:auto-resize=48,32,16 assets/img/favicon.ico
+          convert raw-avatar.png -resize 48x48 -define icon:auto-resize=48,32,16 server/static/img/favicon.ico
           # 生成me.png
-          cp raw-avatar.png assets/img/me.png
+          cp raw-avatar.png server/static/img/me.png
           
           rm -f raw-avatar.png
 
