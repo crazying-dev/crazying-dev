@@ -9,7 +9,6 @@ app = Flask(__name__)
 base = 'path/base.html'
 webside = 'www.crazying-dev.top'
 
-f = open('posts.json','r')
 
 # tool.py
 def get_random_file(dir_path):
@@ -91,6 +90,7 @@ def bg():
 
 @app.route('/rss.xml')
 def rss():
+	f = open('posts.json', 'r')
 	posts = json.loads(f.read().replace('<;;;>',f'https://{webside}'))
 	
 
@@ -111,6 +111,7 @@ def rss():
 
 	res = make_response(xml)
 	res.headers["Content-Type"] = "application/xml"
+	f.close()
 	return res
 
 @app.route('/post/<int:id>')
