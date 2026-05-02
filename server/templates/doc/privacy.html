@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>卡里的窝</title>
+    <title>隐私政策</title>
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     <link rel="stylesheet" href="/static/CSS/body.css">
     <link rel="stylesheet" href="/static/CSS/all.css">
@@ -77,7 +77,10 @@
 <!-- <img src="https://count.getloli.com/@A?name=A&theme=sketch-2&padding=3&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="计数器"> -->
 
 
-<div id="ui"></div>
+<div id="ui">
+    
+</div>
+
 
 <footer class="DontTon">
     <div class="card" from="FooterConntWithMeTheDivFor1">喵喵喵？</div>
@@ -98,55 +101,7 @@
 </footer>
 
 
-<!-- 页面内容获取 -->
-<script>
-    function loadGetHtml() {
-        let baseUrl = window.location.href;
-        if (baseUrl.endsWith('/')) {
-            baseUrl = baseUrl.slice(0, -1);
-        }
-        const targetUrl = baseUrl + '/GET';
-        return fetch(targetUrl)
-            .then(res => res.text())
-            .then(html => {
-                const uiContainer = document.getElementById('ui');
-                if (!uiContainer) return;
-
-                // 先清空
-                uiContainer.innerHTML = '';
-
-                // 创建临时容器
-                const temp = document.createElement('div');
-                temp.innerHTML = html;
-
-                // 把所有节点挪进去，并自动执行script
-                const arr = Array.from(temp.childNodes);
-                arr.forEach(node => {
-                    // 如果是script标签，手动创建新script执行
-                    if(node.tagName === 'SCRIPT'){
-                        let s = document.createElement('script');
-                        // 复制属性
-                        Array.from(node.attributes).forEach(attr=>{
-                            s.setAttribute(attr.name, attr.value);
-                        });
-                        // 复制脚本内容
-                        s.textContent = node.textContent;
-                        uiContainer.appendChild(s);
-                    }else{
-                        uiContainer.appendChild(node);
-                    }
-                });
-
-                // 初始化卡片
-                if (window.initCards) {
-                    window.initCards();
-                }
-            })
-            .catch(err => {
-                console.error('加载GET页面失败：', err);
-            });
-    }
-</script>
+<!-- 隐私不需要更新UI -->
 
 <!-- 定义window的大小更改时的组件更改 -->
 <script src="/static/JS/window.js"></script>
@@ -158,23 +113,20 @@
     // 把年份写入span标签
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 先加载页面内容，再执行Card、背景逻辑
-    loadGetHtml().then(() => {
-        // 1. 初始化背景
-        const bg1 = document.querySelector('.bg-box-for1');
-        const bg2 = document.querySelector('.bg-box-for2');
-        loadImage(bgList.pc, bg1);
-        loadImage(bgList.mobile, bg2);
+    // 1. 初始化背景
+    const bg1 = document.querySelector('.bg-box-for1');
+    const bg2 = document.querySelector('.bg-box-for2');
+    loadImage(bgList.pc, bg1);
+    loadImage(bgList.mobile, bg2);
 
-        // 2. 再加载Card、window相关JS（保证在内容之后执行）
-        let s1 = document.createElement('script');
-        s1.src = "/static/JS/window.js";
-        document.body.appendChild(s1);
+    // 2. 再加载Card、window相关JS（保证在内容之后执行）
+    let s1 = document.createElement('script');
+    s1.src = "/static/JS/window.js";
+    document.body.appendChild(s1);
 
-        let s2 = document.createElement('script');
-        s2.src = "/static/JS/Card.js";
-        document.body.appendChild(s2);
-    });
+    let s2 = document.createElement('script');
+    s2.src = "/static/JS/Card.js";
+    document.body.appendChild(s2);
 </script>
 </body>
 </html>
