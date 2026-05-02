@@ -10,6 +10,43 @@
 
     <script src="/static/JS/bg.js"></script>
 
+    <style>
+        footer{
+            position: absolute;
+            bottom: 0;
+        }
+        .errorTitle {
+            font-size: 50px;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .errorTitlefor2{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            margin-top: 50px;
+            color: rgba(0,0,0,1);
+            transition: all 1s ease;
+            width: 100%;
+            height: 50px;
+            font-size: 50px;
+
+        }
+        #errorTitleFor {
+            width: 25px;
+        }
+        .errorTitle div{
+            width: 0;
+            color: rgba(0,0,0,0);
+        }
+        .errorTitle #errorTitleFormouse{
+            color: rgba(0,0,0,1);
+        }
+    </style>
+
 </head>
 <body>
 <!-- 背景图混合 -->
@@ -28,7 +65,7 @@
 <!-- 头 -->
 <header>
     <a href="https://github.com/crazying-dev" id="Go-to-Github">
-        <img src="/static/img/me.png" alt="This is me Github Avatar" id="me">
+        <img src="//img.crazying-dev.top/crazying-dev.top/me.png" alt="This is me Github Avatar" id="me">
     </a>
     <a href="/AboutMe" class="HeaderButton" id="AboutMeForHeader">关于我</a>
     <a href="/HTML/WorkWithMe.html" class="HeaderButton" id="WorkWithMe">协作者</a>
@@ -43,7 +80,71 @@
 
 
 <div id="ui">
-    <img src="/static/img/404.jpg" id="404Img" alt="404Img">
+    <div class="errorTitle">
+        <div id="errorTitleForN1">N</div>
+        <div id="errorTitleForo1">o</div>
+        <div id="errorTitleFort">t</div>
+        <div id="errorTitleFor">  </div>
+        <div id="errorTitleForF">F</div>
+        <div id="errorTitleForo2">o</div>
+        <div id="errorTitleForu">u</div>
+        <div id="errorTitleForn2">n</div>
+        <div id="errorTitleFord">d</div>
+        <div id="errorTitleFormouse">|</div>
+        <script>
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            function change(id){
+                let a = document.getElementById(id)
+                a.style.color = 'rgba(0,0,0,1)'
+                if (id === 'errorTitleFor'){
+                    a.style.width = '25px'
+                }else {
+                    a.style.width = 'auto'
+                }
+            }
+
+            // 使用
+            async function RunErrorTitle() {
+                change('errorTitleForN1')
+                await sleep(200);
+                change('errorTitleForo1')
+                await sleep(200);
+                change('errorTitleFort')
+                await sleep(200);
+                change('errorTitleFor')
+                await sleep(200);
+                change('errorTitleForF')
+                await sleep(200);
+                change('errorTitleForo2')
+                await sleep(200);
+                change('errorTitleForu')
+                await sleep(200);
+                change('errorTitleForn2')
+                await sleep(200);
+                change('errorTitleFord')
+            }
+        </script>
+    </div>
+    <div class="errorTitlefor2">
+        <div class="errorTiTleForChinese">不</div>
+        <div class="errorTiTleForChinese">好</div>
+        <div class="errorTiTleForChinese">！</div>
+        <div class="errorTiTleForChinese">找</div>
+        <div class="errorTiTleForChinese">不</div>
+        <div class="errorTiTleForChinese">到</div>
+        <div class="errorTiTleForChinese">页</div>
+        <div class="errorTiTleForChinese">面</div>
+        <div class="errorTiTleForChinese">了</div>
+        <script></script>
+    </div>
+    <script>
+        window.onload = function() {
+            RunErrorTitle();
+        }
+    </script>
 </div>
 
 <footer class="DontTon">
