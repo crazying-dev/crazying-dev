@@ -8,42 +8,7 @@
     <link rel="stylesheet" href="/static/CSS/body.css">
     <link rel="stylesheet" href="/static/CSS/all.css">
 
-    <script>
-        // 双背景图 自动备用图源
-        const bgList = {
-            pc: [
-                "/bg?type=pc",                             // 来自服务器
-                "https://img.hk256.top/random?t=webp&o=h",
-                "https://api.rls.icu/horizontal",
-                "https://random.moejue.cn/randbg?type=pc"
-            ],
-            mobile: [
-                "/bg?type=mobile",                        // 来自服务器
-                "https://img.hk256.top/random?t=webp&o=v",
-                "https://api.rls.icu/vertical",
-                "https://api.sretna.cn/mobile"
-            ]
-        };
-
-        // 加载图片并失败自动重试
-        function loadImage(urls, element) {
-            let index = 0;
-            function tryLoad() {
-                if (index >= urls.length) return;
-                const img = new Image();
-                img.src = urls[index];
-                img.onload = () => {
-                    element.style.backgroundImage = `url(${urls[index]})`;
-                };
-                img.onerror = () => {
-                    index++;
-                    tryLoad();
-                };
-            }
-            tryLoad();
-        }
-
-    </script>
+    <script src="/static/JS/bg.js"></script>
 
 </head>
 <body>
@@ -84,7 +49,7 @@
 
 <footer class="DontTon">
     <div class="card" from="FooterConntWithMeTheDivFor1">喵喵喵？</div>
-    <img class="card" from="Footer公众号" src="/static/img/公众号.jpg" alt="公众号" width="430" height="430">
+    <img class="card" from="Footer公众号" src="/img/OfficialAccount.jpg" alt="公众号" width="430" height="430">
     <del class="card" from="FooterPrivacy">不同意也不行</del>
 
     <p style="font-family: -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;">© 2026-<span id="year"></span> Ryousuke. All rights reserved.</p>|<a href="/privacy" id="FooterPrivacy">隐私</a>|<a href="https://icp.gov.moe/?keyword=20261018" target="_blank">萌ICP备20261018号</a><br>|<a href="/rss.xml">rss</a>

@@ -90,7 +90,7 @@ def bg():
 
 @app.route('/rss.xml')
 def rss():
-	f = open('posts.json', 'r')
+	f = app.open_resource('posts.json', 'r')
 	posts = json.loads(f.read().replace('<;;;>',f'https://{webside}'))
 	
 
