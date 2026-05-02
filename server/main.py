@@ -1,3 +1,4 @@
+import mimetypes
 import os
 import random
 import json
@@ -8,7 +9,7 @@ app = Flask(__name__)
 
 base = 'path/base.html'
 webside = 'www.crazying-dev.top'
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # tool.py
 def get_random_file(dir_path):
@@ -58,7 +59,7 @@ def postGet(id):
 		
 #GET.py end
 
-
+#page.py
 @app.route('/')
 def index():
 	return render_template(base)
@@ -71,18 +72,23 @@ def AboutMe():
 
 
 
+#   page.py end
+@app.route('/favicon.ico')
+def favicon():
+	return send_file(os.path.join(BASE_DIR, 'static', 'img', 'favicon.ico'), mimetype='image/x-icon')
+
 @app.route('/bg')
 def bg():
 	Type = request.args.get('type', None)
 	if (Type is None) or (Type not in ['pc', 'mobile']):
 		return abort(400)
 	if Type == 'pc':
-		file = get_random_file('/static/img/bg/pc')
+		file = get_random_file(os.path.join(BASE_DIR, 'static', 'img', 'bg', 'pc'))
 		if file is None:
 			return abort(500)
 		return send_file(file, mimetype='image/webg')
 	elif Type == 'mobile':
-		file = get_random_file('/static/img/bg/mobile')
+		file = get_random_file(os.path.join(BASE_DIR, 'static', 'img', 'bg', 'mobile'))
 		if file is None:
 			return abort(500)
 		return send_file(file, mimetype='image/webg')
@@ -90,7 +96,7 @@ def bg():
 
 @app.route('/rss.xml')
 def rss():
-	f = app.open_resource('posts.json', 'r')
+	f = app.open_resource('posts.json', 'r', encoding='utf-8')
 	posts = json.loads(f.read().replace('<;;;>',f'https://{webside}'))
 	
 
@@ -120,7 +126,7 @@ def post(id):
 
 	
 @app.errorhandler(404)
-def not_found():
+def not_found(error):
 	return render_template('error/404.html'),404
 
 if __name__ == '__main__':
