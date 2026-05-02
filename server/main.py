@@ -1,4 +1,3 @@
-import mimetypes
 import os
 import random
 import json
@@ -75,7 +74,8 @@ def AboutMe():
 #   page.py end
 @app.route('/favicon.ico')
 def favicon():
-	return send_file(os.path.join(BASE_DIR, 'static', 'img', 'favicon.ico'), mimetype='image/x-icon')
+	
+	return redirect("https://img.crazying-dev.top/crazying-dev.top/favicon.ico")
 
 @app.route('/bg')
 def bg():
