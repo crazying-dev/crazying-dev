@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="//assets.crazying-dev.top/CSS/all.css">
 
-    <script src="//assets.crazying-dev.top/JS/bg.js"></script>
+    <script src="//assets.crazying-dev.top/JS/BeforeBody.min.js"></script>
 
 </head>
 <body>
@@ -61,88 +61,89 @@
     <br>
 </footer>
 
+<template>
+    <!-- 页面内容获取 -->
+    <script>
+        function loadGetHtml() {
+            let baseUrl = window.location.href;
+            if (baseUrl.endsWith('/')) {
+                baseUrl = baseUrl.slice(0, -1);
+            }
+            const targetUrl = baseUrl + '/GET';
+            return fetch(targetUrl)
+                .then(res => res.text())
+                .then(html => {
+                    const uiContainer = document.getElementById('ui');
+                    if (!uiContainer) return;
 
-<!-- 页面内容获取 -->
-<script>
-    function loadGetHtml() {
-        let baseUrl = window.location.href;
-        if (baseUrl.endsWith('/')) {
-            baseUrl = baseUrl.slice(0, -1);
-        }
-        const targetUrl = baseUrl + '/GET';
-        return fetch(targetUrl)
-            .then(res => res.text())
-            .then(html => {
-                const uiContainer = document.getElementById('ui');
-                if (!uiContainer) return;
+                    // 先清空
+                    uiContainer.innerHTML = '';
 
-                // 先清空
-                uiContainer.innerHTML = '';
+                    // 创建临时容器
+                    const temp = document.createElement('div');
+                    temp.innerHTML = html;
 
-                // 创建临时容器
-                const temp = document.createElement('div');
-                temp.innerHTML = html;
+                    // 把所有节点挪进去，并自动执行script
+                    const arr = Array.from(temp.childNodes);
+                    arr.forEach(node => {
+                        // 如果是script标签，手动创建新script执行
+                        if(node.tagName === 'SCRIPT'){
+                            let s = document.createElement('script');
+                            // 复制属性
+                            Array.from(node.attributes).forEach(attr=>{
+                                s.setAttribute(attr.name, attr.value);
+                            });
+                            // 复制脚本内容
+                            s.textContent = node.textContent;
+                            uiContainer.appendChild(s);
+                        }else{
+                            uiContainer.appendChild(node);
+                        }
+                    });
 
-                // 把所有节点挪进去，并自动执行script
-                const arr = Array.from(temp.childNodes);
-                arr.forEach(node => {
-                    // 如果是script标签，手动创建新script执行
-                    if(node.tagName === 'SCRIPT'){
-                        let s = document.createElement('script');
-                        // 复制属性
-                        Array.from(node.attributes).forEach(attr=>{
-                            s.setAttribute(attr.name, attr.value);
-                        });
-                        // 复制脚本内容
-                        s.textContent = node.textContent;
-                        uiContainer.appendChild(s);
-                    }else{
-                        uiContainer.appendChild(node);
+                    // 初始化卡片
+                    if (window.initCards) {
+                        window.initCards();
                     }
+                })
+                .catch(err => {
+                    console.error('加载GET页面失败：', err);
                 });
+        }
+    </script>
 
-                // 初始化卡片
-                if (window.initCards) {
-                    window.initCards();
-                }
-            })
-            .catch(err => {
-                console.error('加载GET页面失败：', err);
-            });
-    }
-</script>
+    <!-- 定义window的大小更改时的组件更改 -->
+    <script src="//assets.crazying-dev.top/JS/window.js"></script>
 
-<!-- 定义window的大小更改时的组件更改 -->
-<script src="//assets.crazying-dev.top/JS/window.js"></script>
+    <!-- 定义card的from属性 ＆ 自跟踪动作 ＆ 事件布置 ＆ 提示栏初始化 ＆ 事件函数 -->
+    <script src="//assets.crazying-dev.top/JS/Card.js"></script>
 
-<!-- 定义card的from属性 ＆ 自跟踪动作 ＆ 事件布置 ＆ 提示栏初始化 ＆ 事件函数 -->
-<script src="//assets.crazying-dev.top/JS/Card.js"></script>
+    <script>
+        // 把年份写入span标签
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-<script>
-    // 把年份写入span标签
-    document.getElementById('year').textContent = new Date().getFullYear();
+        // 先加载页面内容，再执行Card、背景逻辑
+        loadGetHtml().then(() => {
+            // 1. 初始化背景
+            const bg1 = document.querySelector('.bg-box-for1');
+            const bg2 = document.querySelector('.bg-box-for2');
+            loadImage(bgList.pc, bg1);
+            loadImage(bgList.mobile, bg2);
 
-    // 先加载页面内容，再执行Card、背景逻辑
-    loadGetHtml().then(() => {
-        // 1. 初始化背景
-        const bg1 = document.querySelector('.bg-box-for1');
-        const bg2 = document.querySelector('.bg-box-for2');
-        loadImage(bgList.pc, bg1);
-        loadImage(bgList.mobile, bg2);
+            // 2. 再加载Card、window相关JS（保证在内容之后执行）
+            let s1 = document.createElement('script');
+            s1.src = "//assets.crazying-dev.top/JS/window.js";
+            document.body.appendChild(s1);
 
-        // 2. 再加载Card、window相关JS（保证在内容之后执行）
-        let s1 = document.createElement('script');
-        s1.src = "//assets.crazying-dev.top/JS/window.js";
-        document.body.appendChild(s1);
+            let s2 = document.createElement('script');
+            s2.src = "//assets.crazying-dev.top/JS/Card.js";
+            document.body.appendChild(s2);
 
-        let s2 = document.createElement('script');
-        s2.src = "//assets.crazying-dev.top/JS/Card.js";
-        document.body.appendChild(s2);
-
-        let s3 = document.createElement('script');
-        s3.src = "//assets.crazying-dev.top/JS/all.js";
-        document.body.appendChild(s3);
-    });
-</script>
+            let s3 = document.createElement('script');
+            s3.src = "//assets.crazying-dev.top/JS/all.js";
+            document.body.appendChild(s3);
+        });
+    </script>
+</template>
 </body>
 </html>
