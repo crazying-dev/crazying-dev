@@ -8,23 +8,29 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:  # 👇 新增：显式授予权限
+    permissions:
       contents: write
-      pages: write
-      id-token: write
     steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+
+      # 创建 snake 文件夹（不存在则自动创建）
+      - name: Create snake directory
+        run: mkdir -p snake
+
+      # 生成 SVG 到 snake/ 文件夹
       - name: Generate snake SVG
         uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            snake/github-contribution-grid-snake.svg
+            snake/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4  # 👇 升级到 v4 版本
+      # 提交更新到 main 分支
+      - name: Commit and push to main
+        uses: EndBug/add-and-commit@v9
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./dist
-          force_orphan: true
+          message: "Update snake animation"
+          committer_name: GitHub Actions
+          committer_email: actions@github.com
