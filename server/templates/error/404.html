@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="//assets.crazying-dev.top/CSS/body.css">
     <link rel="stylesheet" href="//assets.crazying-dev.top/CSS/all.css">
 
-    <script src="//assets.crazying-dev.top/JS/bg.js"></script>
+    <script src="//assets.crazying-dev.top/JS/BeforBody.js"></script>
 
     <style>
         footer{
@@ -168,33 +168,7 @@
 <!-- 404不需要更新UI -->
 
 <!-- 定义window的大小更改时的组件更改 -->
-<script src="//assets.crazying-dev.top/JS/window.js"></script>
-
 <!-- 定义card的from属性 ＆ 自跟踪动作 ＆ 事件布置 ＆ 提示栏初始化 ＆ 事件函数 -->
-<script src="//assets.crazying-dev.top/JS/Card.js"></script>
-
-<script>
-    // 把年份写入span标签
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // 1. 初始化背景
-    const bg1 = document.querySelector('.bg-box-for1');
-    const bg2 = document.querySelector('.bg-box-for2');
-    loadImage(bgList.pc, bg1);
-    loadImage(bgList.mobile, bg2);
-
-    // 2. 再加载Card、window相关JS（保证在内容之后执行）
-    let s1 = document.createElement('script');
-    s1.src = "//assets.crazying-dev.top/JS/window.js";
-    document.body.appendChild(s1);
-
-    let s2 = document.createElement('script');
-    s2.src = "//assets.crazying-dev.top/JS/Card.js";
-    document.body.appendChild(s2);
-
-    let s3 = document.createElement('script');
-    s3.src = "//assets.crazying-dev.top/JS/all.js";
-    document.body.appendChild(s3);
-</script>
+<script src="//assets.crazying-dev.top/CSS/AfterBody.js"></script>
 </body>
 </html>

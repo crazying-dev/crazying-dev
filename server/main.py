@@ -83,12 +83,12 @@ def bg():
 	if (Type is None) or (Type not in ['pc', 'mobile']):
 		return abort(400)
 	if Type == 'pc':
-		file = get_random_file(os.path.join(BASE_DIR, 'static', 'img', 'bg', 'pc'))
+		file = get_random_file(os.path.join(BASE_DIR, 'img', 'bg', 'pc'))
 		if file is None:
 			return abort(500)
 		return send_file(file, mimetype='image/webg')
 	elif Type == 'mobile':
-		file = get_random_file(os.path.join(BASE_DIR, 'static', 'img', 'bg', 'mobile'))
+		file = get_random_file(os.path.join(BASE_DIR, 'img', 'bg', 'mobile'))
 		if file is None:
 			return abort(500)
 		return send_file(file, mimetype='image/webg')
