@@ -70,30 +70,43 @@
     <br>
     我会什么语言：<br>
     Python<br>
-    <div class="AboutMebutton" id="AboutMeCan"><button onclick="UpdataAboutMeCan()">更多...</button></div>
+    <div><button onclick="UpdataAboutMeCan()" class="AboutMebutton" id="AboutMeCan">更多...</button></div>
 </div>
 <script>
+    let A = 0
     function UpdataAboutMeMore(){
         const AboutMeMroe = document.getElementById("AboutMeMore");
-        AboutMeMroe.innerHTML =
-            "170cm 50kg" + "<br>" +
-            "INFP" + "<br>" +
-            "DREAM-R" + "<br>" +
-            "小部分时间情绪不太稳定" + "<br>" +
-            "不具备对他人的攻击力(至少我是这么觉得的)" + "<br>" +
-            "理科生，不会文科" + "<br>" +
-            "不会吵架" + "<br>" +
-            "稍稍有一点心理问题(没啥大不了的)" + "<br>" +
-            "平常闲着可无聊，会找人聊天" + "<br>" +
-            "是0(不许说我，不然我以后让我男朋友揍你)" + "<br>" +
-            "单身(不准说我是单身狗)" + "<br>" +
-            "情商不高(不准说我)"
-        AboutMeMroe.style.color = 'rgba(150,160,140,0.8)';
+        if (A === 0){
+            AboutMeMroe.innerHTML =
+                "170cm 50kg" + "<br>" +
+                "INFP" + "<br>" +
+                "DREAM-R" + "<br>" +
+                "小部分时间情绪不太稳定" + "<br>" +
+                "不具备对他人的攻击力(至少我是这么觉得的)" + "<br>" +
+                "理科生，不会文科" + "<br>" +
+                "不会吵架" + "<br>" +
+                "稍稍有一点心理问题(没啥大不了的)" + "<br>" +
+                "平常闲着可无聊，会找人聊天" + "<br>" +
+                "是0(不许说我，不然我以后让我男朋友揍你)" + "<br>" +
+                "单身(不准说我是单身狗)" + "<br>" +
+                "情商不高(不准说我)"
+            AboutMeMroe.style.color = 'rgba(150,160,140,0.8)';
+            A = 1
+        }else if (A === 1){
+            AboutMeMroe.innerHTML = "more?"
+            AboutMeMroe.style.color = 'rgb(255 150 0 / 0.85)'
+        }
     }
 
+    let B = 0
     function UpdataAboutMeCan(){
         const AboutMeCan = document.getElementById("AboutMeCan");
-        AboutMeCan.innerHTML = "没了";
-        AboutMeMroe.style.color = 'rgba(150,160,140,0.8)';
+        if (B === 0) {
+            AboutMeCan.innerHTML = "没了";
+            AboutMeCan.style.color = 'rgba(150,160,140,0.8)';
+        }else if (B === 1){
+            AboutMeCan.innerHTML = "更多..."
+            AboutMeCan.style.color = 'rgb(255 150 0 / 0.85)'
+        }
     }
 </script>
