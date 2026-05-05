@@ -2,18 +2,17 @@
 .pc,.all {
     background: rgba(0,0,0,0.4);
     border-radius: 8px;
-    border: 5px
+    border: 5px;
+    width: auto;
+    height: auto;
+    display: flex;
 }
 .pc,.all * {
     overflow: hidden;
     padding: 10px;
-}
+    display: inline-block;
 
-#my {
-    width: 100px;
-    height: 200px;
 }
-
 #Mya {
     width: 50px;
     height: 50px;
@@ -27,11 +26,13 @@
 }
 
 </style>
+<div class="card" from="MyName">英文看着高级些</div>
 <div>
     <div class="pc" id="my">
         <a href="/AboutMe" id="Mya">
             <img src="https://img.crazying-dev.top/crazying-dev.top/me.png" alt="我">
         </a>
+        <p id="MyName">crazying-dev</p>
     </div>
 
     <div class="all">
