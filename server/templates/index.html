@@ -1,38 +1,63 @@
+<!-- <i class="fa-brands fa-github"></i> -->
 <style>
-.pc,.all {
-    background: rgba(0,0,0,0.4);
-    border-radius: 8px;
-    border: 5px;
-    width: auto;
-    height: auto;
-    display: flex;
-}
-.pc,.all * {
-    overflow: hidden;
-    padding: 10px;
-    display: inline-block;
+    .pc,.all {
+        background: rgba(0,0,0,0.4);
+        border-radius: 8px;
+        border: 5px;
+        width: auto;
+        height: auto;
+        display: flex;
+        /* ========== 新增/修改的关键行 ========== */
+        align-items: center; /* 让所有子元素垂直居中 */
+        gap: 10px; /* 头像和文字之间的间距，可自己调 */
+        padding: 10px; /* 给容器加一点内边距，避免贴边 */
+        /* ====================================== */
+    }
 
-}
-#Mya {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
+    /* 删掉你原来的 .pc,.all * 这一段，或者改成下面这样 */
+    .pc,.all * {
+        overflow: hidden;
+        /* 删掉 display: inline-block，否则会干扰 flex 布局 */
+    }
 
-#Mya img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
+    #Mya {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        /* ========== 新增/修改的关键行 ========== */
+        display: flex; /* 让 a 标签也变成 flex，方便控制 */
+        align-items: center; /* 内部元素居中 */
+        gap: 8px; /* 图片和文字之间的间距 */
+        text-decoration: none; /* 去掉 a 标签的下划线 */
+        color: inherit; /* 继承父元素文字颜色 */
+        /* ====================================== */
+    }
+
+    #Mya img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        /* ========== 新增/修改的关键行 ========== */
+        flex-shrink: 0; /* 防止头像被压缩变形 */
+        object-fit: cover; /* 保证图片不变形 */
+        /* ====================================== */
+    }
+
+    #MyName {
+        margin: 0; /* 去掉 p 标签默认的上下外边距 */
+        padding: 0; /* 去掉 p 标签默认的内边距 */
+    }
 
 </style>
 <div class="card" from="MyName">英文看着高级些</div>
 <div>
-    <div class="pc" id="my">
-        <a href="/AboutMe" id="Mya">
-            <img src="https://img.crazying-dev.top/crazying-dev.top/me.png" alt="我">
-        </a>
-        <p id="MyName">crazying-dev</p>
+    <div class="pc" id="mycrad">
+        <div id="mypolist">
+            <a href="/AboutMe" id="Mya">
+                <img src="https://img.crazying-dev.top/crazying-dev.top/me.png" alt="我">
+                <p id="MyName">crazying-dev</p>
+            </a>
+        </div>
     </div>
 
     <div class="all">
