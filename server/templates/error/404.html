@@ -1,65 +1,137 @@
-<div class="errorTitle">
-    <div id="errorTitleForN1">N</div>
-    <div id="errorTitleForo1">o</div>
-    <div id="errorTitleFort">t</div>
-    <div id="errorTitleFor">  </div>
-    <div id="errorTitleForF">F</div>
-    <div id="errorTitleForo2">o</div>
-    <div id="errorTitleForu">u</div>
-    <div id="errorTitleForn2">n</div>
-    <div id="errorTitleFord">d</div>
-    <div id="errorTitleFormouse">|</div>
-    <script>
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不好！找不到页面</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//assets.crazying-dev.top/CSS/body.css">
+    <link rel="stylesheet" href="//assets.crazying-dev.top/CSS/all.css">
 
-        function change(id){
-            let a = document.getElementById(id)
-            a.style.color = 'rgba(0,0,0,1)'
-            if (id === 'errorTitleFor'){
-                a.style.width = '25px'
-            }else {
-                a.style.width = 'auto'
+    <script src="//assets.crazying-dev.top/JS/BeforBody.js"></script>
+
+</head>
+<body>
+<!-- 背景图混合 -->
+<div class="bg-box-for1 bg-box"></div>
+<div class="bg-box-for2 bg-box"></div>
+
+<!-- 提示栏 -->
+<div class="card" from="Go-to-Github">前往GitHub</div>
+<div class="card" from="AboutMeForHeader">emm...来让我做一下自我介绍吧</div>
+<div class="card" from="WorkWithMe">来看看还有那些神经病陪我发疯</div>
+<div class="card" from="Thanks">看看这个小站收到了那些人的赞助</div>
+<div class="card" from="CommentMe">联系我</div>
+<div class="card" from="friend">我的朋友</div>
+<div class="card" from="title">卡里の窝</div>
+
+<!-- 头 -->
+<header>
+    <a href="https://github.com/crazying-dev" id="Go-to-Github">
+        <img src="//img.crazying-dev.top/crazying-dev.top/me.png" alt="This is me Github Avatar" id="me">
+    </a>
+    <a href="/AboutMe" class="HeaderButton" id="AboutMeForHeader">关于我</a>
+    <a href="/HTML/WorkWithMe.html" class="HeaderButton" id="WorkWithMe">协作者</a>
+    <a href="/HTML/Thanks.html" class="HeaderButton" id="Thanks">鸣谢</a>
+    <a href="/HTML/CommentMe.html" class="HeaderButton" id="CommentMe">联系我</a>
+    <a href="/HTML/friend.html" class="HeaderButton" id="friend">友人</a>
+
+    <a id="title" class="HeaderButton" href="/">卡里の窝</a>
+</header>
+
+<!-- <img src="https://count.getloli.com/@A?name=A&theme=sketch-2&padding=3&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="计数器"> -->
+
+
+<div id="ui">
+    <div class="errorTitle">
+        <div id="errorTitleForN1">N</div>
+        <div id="errorTitleForo1">o</div>
+        <div id="errorTitleFort">t</div>
+        <div id="errorTitleFor">  </div>
+        <div id="errorTitleForF">F</div>
+        <div id="errorTitleForo2">o</div>
+        <div id="errorTitleForu">u</div>
+        <div id="errorTitleForn2">n</div>
+        <div id="errorTitleFord">d</div>
+        <div id="errorTitleFormouse">|</div>
+        <script>
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
             }
-        }
 
-        // 使用
-        async function RunErrorTitle() {
-            change('errorTitleForN1')
-            await sleep(200);
-            change('errorTitleForo1')
-            await sleep(200);
-            change('errorTitleFort')
-            await sleep(200);
-            change('errorTitleFor')
-            await sleep(200);
-            change('errorTitleForF')
-            await sleep(200);
-            change('errorTitleForo2')
-            await sleep(200);
-            change('errorTitleForu')
-            await sleep(200);
-            change('errorTitleForn2')
-            await sleep(200);
-            change('errorTitleFord')
+            function change(id){
+                let a = document.getElementById(id)
+                a.style.color = 'rgba(0,0,0,1)'
+                if (id === 'errorTitleFor'){
+                    a.style.width = '25px'
+                }else {
+                    a.style.width = 'auto'
+                }
+            }
+
+            // 使用
+            async function RunErrorTitle() {
+                change('errorTitleForN1')
+                await sleep(200);
+                change('errorTitleForo1')
+                await sleep(200);
+                change('errorTitleFort')
+                await sleep(200);
+                change('errorTitleFor')
+                await sleep(200);
+                change('errorTitleForF')
+                await sleep(200);
+                change('errorTitleForo2')
+                await sleep(200);
+                change('errorTitleForu')
+                await sleep(200);
+                change('errorTitleForn2')
+                await sleep(200);
+                change('errorTitleFord')
+            }
+        </script>
+    </div>
+    <div class="errorTitlefor2">
+        <div class="errorTiTleForChinese">不</div>
+        <div class="errorTiTleForChinese">好</div>
+        <div class="errorTiTleForChinese">！</div>
+        <div class="errorTiTleForChinese">找</div>
+        <div class="errorTiTleForChinese">不</div>
+        <div class="errorTiTleForChinese">到</div>
+        <div class="errorTiTleForChinese">页</div>
+        <div class="errorTiTleForChinese">面</div>
+        <div class="errorTiTleForChinese">了</div>
+        <script></script>
+    </div>
+    <script>
+        window.onload = function() {
+            RunErrorTitle();
         }
     </script>
 </div>
-<div class="errorTitlefor2">
-    <div class="errorTiTleForChinese">不</div>
-    <div class="errorTiTleForChinese">好</div>
-    <div class="errorTiTleForChinese">！</div>
-    <div class="errorTiTleForChinese">找</div>
-    <div class="errorTiTleForChinese">不</div>
-    <div class="errorTiTleForChinese">到</div>
-    <div class="errorTiTleForChinese">页</div>
-    <div class="errorTiTleForChinese">面</div>
-    <div class="errorTiTleForChinese">了</div>
-    <script></script>
-</div>
-<script>
-    window.onload = function() {
-        RunErrorTitle();
-    }
-</script>
+
+<footer class="DontTon">
+    <div class="card" from="FooterConntWithMeTheDivFor1">喵喵喵？</div>
+    <img class="card" from="Footer公众号" src="//img.crazying-dev.top/crazying-dev.top/OfficialAccount.jpg" alt="公众号" width="430" height="430">
+    <del class="card" from="FooterPrivacy">不同意也不行</del>
+
+    <p style="font-family: -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;">© 2026-<span id="year"></span> Ryousuke. All rights reserved.</p>|<a href="/privacy" id="FooterPrivacy">隐私</a>|<a href="https://icp.gov.moe/?keyword=20261018" target="_blank">萌ICP备20261018号</a><br>|<a href="/rss.xml">rss</a>
+    <br>
+    联系方式<br>
+    邮箱：3890320020@qq.com<br>
+    <a href="https://github.com/crazying-dev">Github（大号）：crazying-dev</a><br>
+    <a href="https://github.com/cary-ing">Github（小号）：cary-ing</a><br>
+    B站：不告诉你~（这不是名字-_-）(实际上是还没定下来)<br>
+    小红书：<a href="https://xhslink.com/m/7yCXhVvmCaJ">卡里</a><br>
+    微信号<div id="FooterConntWithMeTheDivFor1">（来唠唠嗑喵？）</div>：Alan_120615<br>
+    公众号：<div id="Footer公众号">悬停扫码</div><br>
+    <br>
+</footer>
+
+<!-- 404不需要更新UI -->
+
+<!-- 定义window的大小更改时的组件更改 -->
+<!-- 定义card的from属性 ＆ 自跟踪动作 ＆ 事件布置 ＆ 提示栏初始化 ＆ 事件函数 -->
+<script src="//assets.crazying-dev.top/JS/AfterBody.js"></script>
+</body>
+</html>
