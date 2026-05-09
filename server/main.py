@@ -69,9 +69,8 @@ def AboutMe():
 	print(2)
 	return render_template(base)
 
-
-
 #   page.py end
+
 @app.route('/favicon.ico')
 def favicon():
 	
