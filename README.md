@@ -2,7 +2,7 @@
 
 
 Hello,欢迎来到我的主页，小号在此👉[cary-ing(中文名:卡里)](https://github.com/cary-ing)  
-也欢迎来看一个12年的小屁孩发疯  
+[个人主页（正在开发...](crazying-dev.top)  也欢迎来看一个12年的小屁孩发疯  
 我是罗小黑的铁粉，永久铁粉，会更一些有关罗小黑的仓库，比如[众生之门](https://github.com/crazying-dev/The-Door-of-All-Beings),[妖精论坛](https://github.com/crazying-dev/fairy-forum)
 
 ---
