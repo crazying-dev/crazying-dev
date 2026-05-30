@@ -1,6 +1,2 @@
 requests
 Flask>=3.1.3
-dotenv
-pydantic
-fastapi
-dotenv
