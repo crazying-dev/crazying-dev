@@ -73,7 +73,6 @@ def AboutMe():
 
 @app.route('/favicon.ico')
 def favicon():
-	
 	return redirect("https://img.crazying-dev.top/crazying-dev.top/favicon.ico")
 
 @app.route('/bg')
