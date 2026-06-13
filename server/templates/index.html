@@ -109,6 +109,20 @@
         <audio src="//assets.crazying-dev.top/audio/喵早安1.mp3" id="MusicPcCardForMusic"></audio>
     </div>
 
+    <div class="pc LeftPcCard" id="calendar">
+        <div id="calendarBox">
+            <div id="calendarHead">
+                <button id="prevBtn">&lt;</button>
+                <div id="ymText"></div>
+                <button id="nextBtn">&gt;</button>
+            </div>
+            <div id="weekRow">
+                <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+            </div>
+            <div id="dateBox"></div>
+        </div>
+    </div>
+
     <div class="pc LeftPcCard" id="MyWorkPcCard">
         <div id="MyWorkPcCardForTitle"><h1>我的作品</h1></div>
     </div>
@@ -154,4 +168,49 @@
 <script>
     let M = document.getElementById('MusicPcCardForIconAndMoreForInPut')
     M.style.marginLeft = '65px'
+</script>
+<script>
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth();
+
+    const ymText = document.getElementById('ymText');
+    const dateBox = document.getElementById('dateBox');
+
+    function render(y, m) {
+        const firstDay = new Date(y, m, 1).getDay();
+        const lastDate = new Date(y, m + 1, 0).getDate();
+        ymText.innerText = `${y}年${m + 1}月`;
+        dateBox.innerHTML = '';
+
+        for(let i = 0; i < firstDay; i++) {
+            const d = document.createElement('div');
+            d.className = 'cal-date';
+            dateBox.appendChild(d);
+        }
+
+        const today = new Date();
+        for(let d = 1; d <= lastDate; d++) {
+            const cell = document.createElement('div');
+            cell.className = 'cal-date';
+            cell.innerText = d;
+            if (today.getFullYear() === y && today.getMonth() === m && today.getDate() === d) {
+                cell.classList.add('cal-today');
+            }
+            dateBox.appendChild(cell);
+        }
+    }
+
+    render(year, month);
+
+    document.getElementById('prevBtn').onclick = () => {
+        month--;
+        if (month < 0) { month = 11; year--; }
+        render(year, month);
+    };
+    document.getElementById('nextBtn').onclick = () => {
+        month++;
+        if (month > 11) { month = 0; year++; }
+        render(year, month);
+    };
 </script>
