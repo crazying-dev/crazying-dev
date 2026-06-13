@@ -216,34 +216,48 @@
     };
 </script>
 <script>
-    let workFrom = "https://api.crazying-dev.top/work"
+    let workFrom = "`https://api.crazying-dev.top/work`"
     fetch(workFrom)
         .then(res => res.json())
         .then(
             list => {
-                console.log("Get list",list)
+                console.log("Get list", list)
                 let end = ""
-                list.forEach(function (ListJob){
-                    let t1 = "WorkOk"
-                    let t2 = "WorkOK"
-                    let t3 = "WorkNo"
-                    if(ListJob["join"] === 0){
-                        t1 = "WorkNo"
+                list.forEach(function (ListJob) {
+                    // 初始化按钮状态类名
+                    let joinClass = "work-btn"      // 加入按钮基础类
+                    let helpClass = "work-btn"      // 赞助按钮基础类
+                    let linkClass = "work-link"     // 链接基础类
+
+                    // 根据状态设置不同的样式类
+                    if (ListJob["join"] === 0) {
+                        joinClass += " disabled"    // 未加入状态，按钮禁用
+                    } else {
+                        joinClass += " active"       // 已加入状态，按钮可用
                     }
-                    if(ListJob["help"] === 0){
-                        t2 = "WorkNo"
+
+                    if (ListJob["help"] === 0) {
+                        helpClass += " disabled"    // 未赞助状态，按钮禁用
+                    } else {
+                        helpClass += " active"       // 已赞助状态，按钮可用
                     }
-                    if(ListJob["run"] === 1){
-                        t3 = "WorkOK"
+
+                    if (ListJob["run"] === 1) {
+                        linkClass += " running"     // 运行中状态，高亮显示
+                    } else {
+                        linkClass += " stopped"     // 未运行状态，灰色显示
                     }
+
+                    // 拼接卡片HTML结构
                     end = end + "\n" +
-                        "<div>"+
-                        `    <a href=\"${ListJob["from"]}\" class='${t3}'>\n` +
-                        `        <p>${ListJob["name"]}</p>\n` +
+                        "<div class='work-card'>" +                                    // 卡片容器
+                        `    <a href=\"${ListJob["from"]}\" class='${linkClass}'>\n` +   // 链接区域
+                        `        <span class='work-name'>${ListJob["name"]}</span>\n` +  // 工作名称
                         "    </a>" +
-                        `    <button class='${t1}' >加入</button>\n` +
-                        "    <span>|</span>\n" +
-                        `    <button class='${t2}' >赞助</button>\n`+
+                        "    <div class='work-actions'>" +                             // 按钮组容器
+                        `        <button class='${joinClass}'>加入</button>\n` +         // 加入按钮
+                        `        <button class='${helpClass}'>赞助</button>\n` +         // 赞助按钮
+                        "    </div>" +
                         "</div>"
                 })
                 let workList = document.getElementById('workList')
@@ -251,5 +265,4 @@
             }
         )
         .catch(err => console.error("Get error", err))
-
 </script>
