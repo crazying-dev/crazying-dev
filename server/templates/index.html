@@ -1,6 +1,3 @@
-<div class="card" from="MyCardWechat">
-    微信<img src="//img.crazying-dev.top/crazying-dev.top/WeChat.jpg" alt="me">公众号<img src="//img.crazying-dev.top/crazying-dev.top/OfficialAccount.jpg" alt="MeOfficialAccount">
-</div>
 <div>
     <div class="pc LeftPcCard" id="MyPcCard">
         <div id="mypolist">
@@ -23,7 +20,7 @@
                     <path d="M417.2 231.6C423.6 231.6 429.8 231.9 436 232.7C419.4 154.3 335.3 96 239.7 96C132.5 96 45 168.8 45 261.4C45 314.8 74.3 358.9 122.9 393L103.6 451.6L171.6 417.5C196 422.3 215.4 427.2 239.8 427.2C246 427.2 251.9 426.9 258.1 426.4C254.1 413.5 251.9 399.8 251.9 385.6C251.8 300.7 324.8 231.6 417.2 231.6zM312.7 178.7C327.2 178.7 336.9 188.4 336.9 203.1C336.9 217.6 327.2 227.3 312.7 227.3C297.9 227.3 283.4 217.6 283.4 203.1C283.5 188.4 298 178.7 312.7 178.7zM176.3 227.3C161.8 227.3 147 217.6 147 203.1C147 188.3 161.8 178.7 176.3 178.7C191.1 178.7 200.7 188.4 200.7 203.1C200.7 217.7 191.1 227.3 176.3 227.3zM595 383.4C595 305.5 517.1 242.1 429.6 242.1C336.9 242.1 264.2 305.5 264.2 383.4C264.2 461.3 337 524.7 429.6 524.7C448.9 524.7 468.5 519.6 488.2 514.8L541.6 544.1L526.8 495.5C566 466.1 595 427.2 595 383.4zM375.9 358.9C366.2 358.9 356.6 349.2 356.6 339.3C356.6 329.6 366.3 320 375.9 320C390.7 320 400.3 329.7 400.3 339.3C400.3 349.3 390.6 358.9 375.9 358.9zM483 358.9C473.3 358.9 463.7 349.2 463.7 339.3C463.7 329.6 473.4 320 483 320C497.5 320 507.4 329.7 507.4 339.3C507.5 349.3 497.5 358.9 483 358.9z"/>
                 </svg>
             </button>
-            <button onclick="alert(33)" id="MyCardQQ">
+            <button onclick="AddMyQQ()" id="MyCardQQ">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                     <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
                     <path d="M530.1 484.4C518.6 485.8 485.2 431.7 485.2 431.7C485.2 463 469.1 503.9 434.2 533.5C451 538.7 489 552.7 480 567.9C472.7 580.2 354.5 575.8 320.4 571.9C286.3 575.7 168.1 580.2 160.8 567.9C151.8 552.7 189.7 538.7 206.6 533.5C171.7 504 155.5 463.1 155.5 431.7C155.5 431.7 122.2 485.8 110.6 484.4C105.2 483.8 98.2 454.8 119.9 384.7C130.2 351.7 141.9 324.2 160 278.9C156.9 162 205.2 63.9 320.3 63.9C434 63.9 483.5 160 480.6 278.9C498.7 324.1 510.5 351.8 520.7 384.7C542.5 454.8 535.4 483.8 530 484.4z"/>
@@ -126,6 +123,11 @@
     <div class="pc LeftPcCard" id="MyWorkPcCard">
         <div id="MyWorkPcCardForTitle"><h1>我的作品</h1></div>
         <div id="workList"></div>
+    </div>
+</div>
+<div>
+    <div class="all" id="AllHead">
+
     </div>
 </div>
 <script>
@@ -265,4 +267,11 @@
             }
         )
         .catch(err => console.error("Get error", err))
+</script>
+<script>
+    function AddMyQQ(){
+        const uin = "3890320020"; // 目标QQ号
+        // PC端唤起加好友界面
+        window.location.href = `tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=${uin}`;
+    }
 </script>
