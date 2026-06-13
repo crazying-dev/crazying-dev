@@ -125,9 +125,7 @@
 
     <div class="pc LeftPcCard" id="MyWorkPcCard">
         <div id="MyWorkPcCardForTitle"><h1>我的作品</h1></div>
-        <div id="workList">
-
-        </div>
+        <div id="workList"></div>
     </div>
 </div>
 <script>
@@ -224,7 +222,18 @@
         .then(
             list => {
                 console.log("Get list",list)
-                alert(list)
+                let end = ""
+                list.forEach(function (ListJob){
+                    end = end + "\n" +
+                        "<a href=\"\">\n" +
+                        "    <p> </p>\n" +
+                        "    <button>加入</button>\n" +
+                        "    <hr>\n" +
+                        "    <button>赞助</button>\n" +
+                        "</a>"
+                })
+                let workList = document.getElementById('workList')
+                workList.innerHTML = end;
             }
         )
         .catch(err => console.error("Get error", err))
