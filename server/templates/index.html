@@ -224,13 +224,25 @@
                 console.log("Get list",list)
                 let end = ""
                 list.forEach(function (ListJob){
+                    let t1 = "WorkOk"
+                    let t2 = "WorkOK"
+                    let t3 = "WorkNo"
+                    if(ListJob["join"] === 0){
+                        t1 = "WorkNo"
+                    }
+                    if(ListJob["help"] === 0){
+                        t2 = "WorkNo"
+                    }
+                    if(ListJob["run"] === 1){
+                        t3 = "WorkOK"
+                    }
                     end = end + "\n" +
-                        `<a href=\"${ListJob["from"]}\">\n` +
-                        "    <p> </p>\n" +
-                        "    <button>加入</button>\n" +
-                        "    <span>|</span>\n" +
-                        "    <button>赞助</button>\n" +
-                        "</a>"
+                        `<a href=\"${ListJob["from"]}\" class='${t3}'>\n` +
+                        `    <p>${ListJob[name]}</p>\n` +
+                        "</a>" +
+                        `<button class='${t1}' >加入</button>\n` +
+                        "<span>|</span>\n" +
+                        `<button class='${t2}' >赞助</button>\n`
                 })
                 let workList = document.getElementById('workList')
                 workList.innerHTML = end;
