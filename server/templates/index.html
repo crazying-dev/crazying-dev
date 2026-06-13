@@ -218,8 +218,7 @@
     };
 </script>
 <script>
-    let workFrom = "https://api.crazying-dev.top/work"
-    fetch(workFrom)
+    fetch("/work")
         .then(res => res.json())
         .then(
             list => {

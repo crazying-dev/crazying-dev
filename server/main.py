@@ -125,7 +125,7 @@ def bg():
 
 @app.route('/rss.xml')
 def rss():
-	return http_request("https://api.crazying-dev.top/rss.xml")
+	return redirect("https://api.crazying-dev.top/rss.xml")
 
 @app.route('/post/<int:id>')
 def post(id):
