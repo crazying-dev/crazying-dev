@@ -125,6 +125,9 @@
 
     <div class="pc LeftPcCard" id="MyWorkPcCard">
         <div id="MyWorkPcCardForTitle"><h1>我的作品</h1></div>
+        <div id="workList">
+
+        </div>
     </div>
 </div>
 <script>
@@ -213,4 +216,17 @@
         if (month > 11) { month = 0; year++; }
         render(year, month);
     };
+</script>
+<script>
+    let workFrom = "https://api.crazying-dev.top/work"
+    fetch(workFrom)
+        .then(res => res.json())
+        .then(
+            list => {
+                console.log("Get list",list)
+                alert(list)
+            }
+        )
+        .catch(err => console.error("Get error", err))
+
 </script>

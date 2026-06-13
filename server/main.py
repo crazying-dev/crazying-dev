@@ -1,6 +1,8 @@
 import os
 import random
 import json
+import requests
+from typing import Literal
 
 from flask import *
 
@@ -23,6 +25,36 @@ def get_random_file(dir_path):
 	return os.path.abspath(os.path.normpath(random.choice(files)))
 
 # tool.py end
+
+
+def http_request(url, method: Literal["GET", "POST"] = "GET", params=None, json_data=None, timeout=5):
+	"""
+	    通用 HTTP 请求函数
+	    :param url: 请求地址
+	    :param method: 请求方式，GET / POST
+	    :param params: URL 查询参数，字典
+	    :param json_data: POST JSON 体，字典
+	    :param timeout: 超时时间
+	    :return: 响应文本 / 错误信息
+	    """
+	params = params or {}
+	json_data = json_data or {}
+	
+	try:
+		if method.upper() == "GET":
+			resp = requests.get(url, params=params, timeout=timeout)
+		elif method.upper() == "POST":
+			resp = requests.post(url, params=params, json=json_data, timeout=timeout)
+		else:
+			# 方法不合法：内容None，自定义状态码-1
+			return None, -1
+		
+		# 正常返回：(响应内容, 真实HTTP状态码)
+		return resp.text, resp.status_code
+	
+	except requests.exceptions.RequestException:
+		# 网络、超时、连接失败等：内容None，自定义状态码0
+		return None, 0
 
 
 
@@ -66,7 +98,6 @@ def index():
 
 @app.route('/AboutMe')
 def AboutMe():
-	print(2)
 	return render_template(base)
 
 #   page.py end
@@ -94,29 +125,7 @@ def bg():
 
 @app.route('/rss.xml')
 def rss():
-	f = app.open_resource('posts.json', 'r', encoding='utf-8')
-	posts = json.loads(f.read().replace('<;;;>',f'https://{webside}'))
-	
-
-	xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
-	xml += '<rss version="2.0">\n<channel>\n'
-	xml += f'<title>我的站点</title>\n<link>{webside}</link>\n<description>个人博客</description>\n'
-
-	for p in posts:
-		xml += f"""
-<item>
-  <title>{p['title']}</title>
-  <link>{p['link']}</link>
-  <description>{p['desc']}</description>
-  <pubDate>{p['date']}</pubDate>
-</item>
-"""
-	xml += '</channel>\n</rss>'
-
-	res = make_response(xml)
-	res.headers["Content-Type"] = "application/xml"
-	f.close()
-	return res
+	return http_request("https://api.crazying-dev.top/rss.xml")
 
 @app.route('/post/<int:id>')
 def post(id):
