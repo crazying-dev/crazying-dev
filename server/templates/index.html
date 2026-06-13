@@ -270,8 +270,21 @@
 </script>
 <script>
     function AddMyQQ(){
-        const uin = "3890320020"; // 目标QQ号
-        // PC端唤起加好友界面
-        window.location.href = `tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=${uin}`;
+        const uin = "3890320020";
+
+        // 方案1：用隐藏 <a> 标签点击，兼容性比 window.location.href 更好
+        const a = document.createElement("a");
+        a.href = `tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=${uin}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // 方案2：3秒后如果还在当前页面（说明没唤起QQ），打开网页版
+        const start = Date.now();
+        setTimeout(function() {
+            if (document.hasFocus() && Date.now() - start < 3500) {
+                window.open(`https://qm.qq.com/q/`, "_blank");
+            }
+        }, 3000);
     }
 </script>
