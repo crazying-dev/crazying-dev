@@ -126,7 +126,10 @@
     </div>
 </div>
 <div class="ui-col-right">
-    <div class="all" id="PostsList"></div>
+    <div class="all" id="PostsList">
+        <div class="posts-header"><h1>帖子</h1></div>
+        <div class="posts-body" id="PostsListBody"></div>
+    </div>
 </div>
 <script>
     let MusicPcCardForNowIsTOrF = 0
@@ -340,15 +343,24 @@
                 console.log("Get list", list)
                 let end = ""
                 list.forEach(function (ListJob) {
+                    const safeTitle = ListJob["title"] || "";
+                    const safeText = ListJob["text"] || "";
+                    const safeImg = ListJob["img"] || "";
                     end = end + "\n" +
-                        `<a href="${ListJob["link"]}">\n`+
-                        `    <h2>${ListJob["title"]}</h2>\n` +
-                        `    <h4>${ListJob["text"]}</h4>\n` +
-                        `    <img alt="" src="${ListJob["img"]}">\n` +
-                        "</a>"
+                        `<div class="post-card">\n` +
+                        `    <a class="post-link" href="${ListJob["link"]}">\n` +
+                        `        <div class="post-info">\n` +
+                        `            <h2 class="post-title" title="${safeTitle}">${safeTitle}</h2>\n` +
+                        (safeText ? `            <p class="post-text" title="${safeText}">${safeText}</p>\n` : "") +
+                        `        </div>\n` +
+                        (safeImg ? `        <img class="post-img" alt="" src="${safeImg}">\n` : "") +
+                        `    </a>\n` +
+                        `</div>`
                 })
-                let PostsList = document.getElementById('PostsList')
-                PostsList.innerHTML = end;
+                let PostsListBody = document.getElementById('PostsListBody')
+                if (PostsListBody) {
+                    PostsListBody.innerHTML = end;
+                }
             }
         )
         .catch(err => console.error("Get error", err))
