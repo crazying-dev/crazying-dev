@@ -344,10 +344,20 @@
                 list.forEach(function (ListJob) {
                     const safeTitle = ListJob["title"] || "";
                     const safeText = ListJob["text"] || "";
-                    const safeImg = ListJob["img"] || "";
+                    // 规范化链接：没有 http/https/协议相对前缀时，加 "//" 避免被当成相对路径
+                    let link = ListJob["link"] || "";
+                    if (link && !/^(https?:)?\/\//i.test(link)) {
+                        // 以 www. 开头 → 直接加协议前缀；其他裸域名也一样处理
+                        link = "//" + link;
+                    }
+                    // 图片同样处理（若 API 返回的是裸域名）
+                    let safeImg = ListJob["img"] || "";
+                    if (safeImg && !/^(https?:)?\/\//i.test(safeImg)) {
+                        safeImg = "//" + safeImg;
+                    }
                     end = end + "\n" +
                         `<div class="post-card">\n` +
-                        `    <a class="post-link" href="${ListJob["link"]}">\n` +
+                        `    <a class="post-link" href="${link}">\n` +
                         `        <div class="post-info">\n` +
                         `            <h2 class="post-title" title="${safeTitle}">${safeTitle}</h2>\n` +
                         (safeText ? `            <p class="post-text" title="${safeText}">${safeText}</p>\n` : "") +
