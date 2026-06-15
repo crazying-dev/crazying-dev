@@ -1,6 +1,6 @@
 <div id="PostHead">
     <p id="PostTitle"></p>
-    <div id="PostAvter"></div>
+    <div id="PostAvter"><img id="PostAvterImg" alt="avatar"></div>
     <p id="PostAuto"></p>
     <p id="PostDate"></p>
 </div>
@@ -10,22 +10,40 @@
 
 <script>
     const url = window.location.href;
-    // 匹配 /post/ 后面的数字
     const match = url.match(/\/post\/(\d+)/);
     let id = null;
     if (match) {
-        id = Number(match[1]); // 转数字
+        id = Number(match[1]);
     }
     let PostInfoFrom = `https://api.crazying-dev.top/post/${id}`
-    fetch(PostsFrom)
-        .then(res => res.json())
+    fetch(PostInfoFrom)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("HTTP " + res.status);
+            }
+            return res.json();
+        })
         .then(
             dict => {
-                console.log("Get dict", dict)
-                document.getElementById("PostAuto").innerText = dict["auto"];
-                document.getElementById("PostTitle").innerText = dict["title"];
-                document.getElementById("PostDate").innerText = dict["date"];
-                document.getElementById("PostText").innerHTML = dict["text"];
+                console.log("Get dict", dict);
+                document.getElementById("PostAuto").innerText = dict["auto"] || "";
+                document.getElementById("PostTitle").innerText = dict["title"] || "";
+                document.getElementById("PostDate").innerText = dict["date"] || "";
+                document.getElementById("PostText").innerHTML = dict["text"] || "";
+                const avter = dict["avter"];
+                const avterImg = document.getElementById("PostAvterImg");
+                if (avter) {
+                    let src = avter;
+                    if (src && !/^(https?:)?\/\//i.test(src)) {
+                        src = "//" + src;
+                    }
+                    avterImg.src = src;
+                }
             }
         )
+        .catch(err => {
+            console.error("Post fetch error", err);
+            document.getElementById("PostTitle").innerText = "加载失败";
+            document.getElementById("PostText").innerText = "文章信息获取失败：" + err;
+        })
 </script>
