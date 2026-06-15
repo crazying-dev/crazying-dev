@@ -1,0 +1,31 @@
+<div id="PostHead">
+    <p id="PostTitle"></p>
+    <div id="PostAvter"></div>
+    <p id="PostAuto"></p>
+    <p id="PostDate"></p>
+</div>
+<div id="PostBody">
+    <p id="PostText"></p>
+</div>
+
+<script>
+    const url = window.location.href;
+    // 匹配 /post/ 后面的数字
+    const match = url.match(/\/post\/(\d+)/);
+    let id = null;
+    if (match) {
+        id = Number(match[1]); // 转数字
+    }
+    let PostInfoFrom = `https://api.crazying-dev.top/post/${id}`
+    fetch(PostsFrom)
+        .then(res => res.json())
+        .then(
+            dict => {
+                console.log("Get dict", dict)
+                document.getElementById("PostAuto").innerText = dict["auto"];
+                document.getElementById("PostTitle").innerText = dict["title"];
+                document.getElementById("PostDate").innerText = dict["date"];
+                document.getElementById("PostText").innerHTML = dict["text"];
+            }
+        )
+</script>

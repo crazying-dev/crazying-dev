@@ -68,25 +68,7 @@ def indexGet():
 def AboutMeGet():
 	return render_template('HTML/AboutMe.html')
 
-@app.route('/post/<int:id>/GET')
-def postGet(id):
-	Type = request.args.get('type', None)
-	with open(f'post/{id}.json','r') as _f:
-		info = json.loads(_f.read())
-	if Type == 'avatar':
-		return info['avatar']
-	elif Type == 'message':
-		return info['message']
-	elif Type == 'data':
-		return info['data']
-	elif Type == 'desc':
-		return info['desc']
-	elif Type == 'title':
-		return info['title']
-	elif Type is None:
-		return render_template('/path/post.html')
-	else:
-		return abort(400)
+
 		
 #GET.py end
 
@@ -126,15 +108,20 @@ def bg():
 @app.route('/rss.xml')
 def rss():
 	return redirect("https://api.crazying-dev.top/rss.xml")
-
-@app.route('/post/<int:id>')
-def post(id):
-	return render_template(base)
-
 	
 @app.errorhandler(404)
 def not_found(error):
 	return render_template('error/404.html'),404
+
+
+@app.route('/post/<int:post_id>')
+def post(post_id):
+	return render_template(base)
+
+@app.route('/post/<int:post_id>/GET')
+def postGET(post_id):
+	return render_template("/HTML/PostBase.html")
+
 
 if __name__ == '__main__':
 	app.run(debug=True)
