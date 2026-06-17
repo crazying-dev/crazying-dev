@@ -399,6 +399,22 @@
                 })
                 let workList = document.getElementById('workList')
                 workList.innerHTML = end;
+
+                // 预热：短暂显示并关闭弹窗，初始化事件
+                setTimeout(() => {
+                    // 检查是否有可加入的项目，如果有则预热 join 弹窗
+                    const hasJoinable = list.some(job => job["from"] && job["join"] !== 0);
+                    if (hasJoinable) {
+                        join();
+                        closePageWindow();
+                    }
+                    // 检查是否有可赞助的项目，如果有则预热 help 弹窗
+                    const hasHelpable = list.some(job => job["help"] !== 0);
+                    if (hasHelpable) {
+                        help();
+                        closePageWindow();
+                    }
+                }, 100);
             }
         )
         .catch(err => console.error("Get error", err))
