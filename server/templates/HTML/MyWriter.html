@@ -10,8 +10,181 @@
 <div id="PageWindow"></div>
 
 <script>
-    setTimeout(function() {
-        const el = document.getElementById('workList');
-        if (window.renderWorkList && el) window.renderWorkList(el);
-    }, 50);
+    const PageWindow = document.getElementById("PageWindow");
+
+    function closePageWindow() {
+        PageWindow.innerHTML = '';
+        PageWindow.style.display = 'none';
+    }
+
+    function buildProjectOptions() {
+        if (!window.WorkList || window.WorkList.length === 0) {
+            return '<option value="">（暂无项目）</option>';
+        }
+        let options = '<option value="" disabled selected hidden>请选择要申请的项目</option>';
+        window.WorkList.forEach(function(job) {
+            // 只要可加入（join !== 0）就显示，不受 from 字段限制
+            if (job["join"] !== 0 && job["join"] !== undefined && job["join"] !== null) {
+                options += `<option value="${job["name"]}">${job["name"]}</option>`;
+            }
+        });
+        return options;
+    }
+
+    function join(){
+        const optionsHtml = buildProjectOptions();
+        PageWindow.style.display = 'flex';
+        PageWindow.innerHTML = `
+            <div class="page-window-overlay" onclick="closePageWindow()"></div>
+            <div class="page-window-box">
+                <button class="page-window-close" onclick="closePageWindow()">×</button>
+                <h2 class="page-window-title">撰写申请</h2>
+
+                <p class="page-window-label">联系方式（邮箱或QQ）</p>
+                <input class="page-window-input"
+                       id="PageWindowWithInputWithCon"
+                       type="text"
+                       placeholder="请输入您的邮箱或QQ号"
+                       autocomplete="off">
+
+                <p class="page-window-label">申请的项目</p>
+                <select class="page-window-select" id="PageWindowProjectSelect">
+                    ${optionsHtml}
+                </select>
+
+                <button class="page-window-submit" id="PageWindowSubmitBtn" onclick="SendEmail()">
+                    提交申请
+                </button>
+                <p class="page-window-tip" id="PageWindowTip"></p>
+            </div>
+        `;
+    }
+
+    function SendEmail(){
+        const contact = document.getElementById('PageWindowWithInputWithCon').value.trim();
+        const projectSelect = document.getElementById('PageWindowProjectSelect');
+        const objName = projectSelect.value;
+        const tip = document.getElementById('PageWindowTip');
+        const submitBtn = document.getElementById('PageWindowSubmitBtn');
+
+        if (!contact) {
+            tip.textContent = '请填写联系方式';
+            tip.className = 'page-window-tip error';
+            return;
+        }
+        if (!objName) {
+            tip.textContent = '请选择要申请的项目';
+            tip.className = 'page-window-tip error';
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = '提交中…';
+        tip.textContent = '';
+        tip.className = 'page-window-tip';
+
+        fetch('https://api.crazying-dev.top/SendEmail', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                to: '3890320020@qq.com',
+                subject: `【加入申请】${objName}`,
+                message: `项目：${objName}\n联系方式：${contact}\n\n（自动邮件，请勿直接回复）`
+            })
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+        })
+        .then(data => {
+            tip.textContent = '提交成功！感谢您的申请';
+            tip.className = 'page-window-tip success';
+            submitBtn.textContent = '已提交';
+            setTimeout(closePageWindow, 2000);
+        })
+        .catch(err => {
+            console.error('提交失败', err);
+            tip.textContent = '提交失败，请稍后重试';
+            tip.className = 'page-window-tip error';
+            submitBtn.disabled = false;
+            submitBtn.textContent = '重新提交';
+        });
+    }
+
+    function help(){
+        PageWindow.style.display = 'flex';
+        PageWindow.innerHTML = `
+            <div class="page-window-overlay" onclick="closePageWindow()"></div>
+            <div class="page-window-box" style="text-align:center; padding: 20px;">
+                <button class="page-window-close" onclick="closePageWindow()">×</button>
+                <img class="page-window-help-img"
+                     src="//img.crazying-dev.top/other/help.png"
+                     alt="赞助我们">
+            </div>
+        `;
+    }
+
+    function renderWorkList() {
+        const workListEl = document.getElementById('workList');
+        if (!workListEl) return;
+
+        const list = window.WorkList && window.WorkList.length > 0
+            ? window.WorkList
+            : null;
+
+        if (!list) {
+            setTimeout(renderWorkList, 100);
+            return;
+        }
+
+        let end = "";
+        list.forEach(function(ListJob) {
+            let joinClass = "work-btn";
+            let helpClass = "work-btn";
+            let linkClass = "work-link";
+
+            if (ListJob["join"] === 0) {
+                joinClass += " disabled";
+            } else {
+                joinClass += " active";
+            }
+            if (ListJob["help"] === 0) {
+                helpClass += " disabled";
+            } else {
+                helpClass += " active";
+            }
+            if (ListJob["run"] === 1) {
+                linkClass += " running";
+            } else {
+                linkClass += " stopped";
+            }
+
+            end = end +
+                "<div class='work-card'>" +
+                `    <a href="${ListJob["from"]}" class='${linkClass}'>` +
+                `        <span class='work-name' title='${ListJob["name"]}'>${ListJob["name"]}</span>` +
+                "    </a>" +
+                "    <div class='work-actions'>" +
+                `        <button class='${joinClass}' onclick='join()'>加入</button>` +
+                `        <button class='${helpClass}' onclick='help()'>赞助</button>` +
+                "    </div>" +
+                "</div>";
+        });
+        workListEl.innerHTML = end;
+
+        setTimeout(() => {
+            const hasJoinable = list.some(job => job["from"] && job["join"] !== 0);
+            if (hasJoinable) {
+                join();
+                closePageWindow();
+            }
+            const hasHelpable = list.some(job => job["help"] !== 0);
+            if (hasHelpable) {
+                help();
+                closePageWindow();
+            }
+        }, 100);
+    }
+
+    setTimeout(renderWorkList, 50);
 </script>
