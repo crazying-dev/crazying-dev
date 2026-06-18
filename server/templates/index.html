@@ -236,16 +236,13 @@
         if (!window.WorkList || window.WorkList.length === 0) {
             return '<option value="">（暂无项目）</option>';
         }
-        let options = '';
+        let options = '<option value="">请选择要申请的项目</option>';
         window.WorkList.forEach(function(job) {
             // 只显示有链接的（可加入的）项目
             if (job["from"] && job["join"] !== 0) {
                 options += `<option value="${job["name"]}">${job["name"]}</option>`;
             }
         });
-        if (!options) {
-            return '<option value="">（暂无可加入项目）</option>';
-        }
         return options;
     }
 
