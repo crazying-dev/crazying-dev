@@ -69,6 +69,11 @@ def AboutMeGet():
 	return render_template('HTML/AboutMe.html')
 
 
+@app.route('/MyWriter/GET')
+def MyWriterGet():
+	return render_template('HTML/MyWriter.html')
+
+
 		
 #GET.py end
 
@@ -80,6 +85,11 @@ def index():
 
 @app.route('/AboutMe')
 def AboutMe():
+	return render_template(base)
+
+
+@app.route('/MyWriter')
+def MyWriter():
 	return render_template(base)
 
 #   page.py end

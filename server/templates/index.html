@@ -349,75 +349,75 @@
     }
 
     // ============================================================
-    // 获取作品列表并渲染按钮
+    // 渲染作品列表按钮（使用全局 window.WorkList 数据）
     // ============================================================
-    let workFrom = "https://api.crazying-dev.top/work"
-    window.WorkList = []
-    fetch(workFrom)
-        .then(res => res.json())
-        .then(
-            list => {
-                console.log("Get list", list)
-                window.WorkList = list
-                let end = ""
-                list.forEach(function (ListJob) {
-                    // 初始化按钮状态类名
-                    let joinClass = "work-btn"      // 加入按钮基础类
-                    let helpClass = "work-btn"      // 赞助按钮基础类
-                    let linkClass = "work-link"     // 链接基础类
+    function renderWorkList() {
+        const workListEl = document.getElementById('workList');
+        if (!workListEl) return;
 
-                    // 根据状态设置不同的样式类
-                    if (ListJob["join"] === 0) {
-                        joinClass += " disabled"    // 未加入状态，按钮禁用
-                    } else {
-                        joinClass += " active"       // 已加入状态，按钮可用
-                    }
+        // 如果数据还没加载完成，等待加载
+        const list = window.WorkList && window.WorkList.length > 0
+            ? window.WorkList
+            : null;
 
-                    if (ListJob["help"] === 0) {
-                        helpClass += " disabled"    // 未赞助状态，按钮禁用
-                    } else {
-                        helpClass += " active"       // 已赞助状态，按钮可用
-                    }
+        if (!list) {
+            // 数据未加载，等待 100ms 重试
+            setTimeout(renderWorkList, 100);
+            return;
+        }
 
-                    if (ListJob["run"] === 1) {
-                        linkClass += " running"     // 运行中状态，高亮显示
-                    } else {
-                        linkClass += " stopped"     // 未运行状态，灰色显示
-                    }
+        let end = "";
+        list.forEach(function(ListJob) {
+            let joinClass = "work-btn";
+            let helpClass = "work-btn";
+            let linkClass = "work-link";
 
-                    // 拼接卡片HTML结构
-                    end = end + "\n" +
-                        "<div class='work-card'>" +
-                        `    <a href="${ListJob["from"]}" class='${linkClass}'>` +
-                        `        <span class='work-name' title='${ListJob["name"]}'>${ListJob["name"]}</span>` +
-                        "    </a>" +
-                        "    <div class='work-actions'>" +
-                        `        <button class='${joinClass}' onclick='join()'>加入</button>` +
-                        `        <button class='${helpClass}' onclick='help()'>赞助</button>` +
-                        "    </div>" +
-                        "</div>"
-                })
-                let workList = document.getElementById('workList')
-                workList.innerHTML = end;
-
-                // 预热：短暂显示并关闭弹窗，初始化事件
-                setTimeout(() => {
-                    // 检查是否有可加入的项目，如果有则预热 join 弹窗
-                    const hasJoinable = list.some(job => job["from"] && job["join"] !== 0);
-                    if (hasJoinable) {
-                        join();
-                        closePageWindow();
-                    }
-                    // 检查是否有可赞助的项目，如果有则预热 help 弹窗
-                    const hasHelpable = list.some(job => job["help"] !== 0);
-                    if (hasHelpable) {
-                        help();
-                        closePageWindow();
-                    }
-                }, 100);
+            if (ListJob["join"] === 0) {
+                joinClass += " disabled";
+            } else {
+                joinClass += " active";
             }
-        )
-        .catch(err => console.error("Get error", err))
+            if (ListJob["help"] === 0) {
+                helpClass += " disabled";
+            } else {
+                helpClass += " active";
+            }
+            if (ListJob["run"] === 1) {
+                linkClass += " running";
+            } else {
+                linkClass += " stopped";
+            }
+
+            end = end + "\n" +
+                "<div class='work-card'>" +
+                `    <a href="${ListJob["from"]}" class='${linkClass}'>` +
+                `        <span class='work-name' title='${ListJob["name"]}'>${ListJob["name"]}</span>` +
+                "    </a>" +
+                "    <div class='work-actions'>" +
+                `        <button class='${joinClass}' onclick='join()'>加入</button>` +
+                `        <button class='${helpClass}' onclick='help()'>赞助</button>` +
+                "    </div>" +
+                "</div>";
+        });
+        workListEl.innerHTML = end;
+
+        // 预热
+        setTimeout(() => {
+            const hasJoinable = list.some(job => job["from"] && job["join"] !== 0);
+            if (hasJoinable) {
+                join();
+                closePageWindow();
+            }
+            const hasHelpable = list.some(job => job["help"] !== 0);
+            if (hasHelpable) {
+                help();
+                closePageWindow();
+            }
+        }, 100);
+    }
+
+    // 立即尝试渲染（如果数据已经加载完成）
+    setTimeout(renderWorkList, 50);
 </script>
 <script>
     function AddMyQQ(){
