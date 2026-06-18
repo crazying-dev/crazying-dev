@@ -69,7 +69,7 @@ def AboutMeGet():
 	return render_template('HTML/AboutMe.html')
 
 
-@app.route('/MyWriter/GET')
+@app.route('/MyWrite/GET')
 def MyWriterGet():
 	return render_template('HTML/MyWriter.html')
 
@@ -88,7 +88,7 @@ def AboutMe():
 	return render_template(base)
 
 
-@app.route('/MyWriter')
+@app.route('/MyWrite')
 def MyWriter():
 	return render_template(base)
 
