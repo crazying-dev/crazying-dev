@@ -29,7 +29,7 @@
         if (!window.WorkList || window.WorkList.length === 0) {
             return '<option value="">（暂无项目）</option>';
         }
-        let options = '<option value="">请选择要申请的项目</option>';
+        let options = '<option value="" disabled selected>请选择要申请的项目</option>';
         window.WorkList.forEach(function(job) {
             if (job["from"] && job["join"] !== 0) {
                 options += `<option value="${job["name"]}">${job["name"]}</option>`;

@@ -236,7 +236,7 @@
         if (!window.WorkList || window.WorkList.length === 0) {
             return '<option value="">（暂无项目）</option>';
         }
-        let options = '<option value="">请选择要申请的项目</option>';
+        let options = '<option value="" disabled selected>请选择要申请的项目</option>';
         window.WorkList.forEach(function(job) {
             // 只显示有链接的（可加入的）项目
             if (job["from"] && job["join"] !== 0) {
