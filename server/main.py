@@ -69,6 +69,11 @@ def AboutMeGet():
 	return render_template('HTML/AboutMe.html')
 
 
+@app.route('/CommentMe/GET')
+def CommentMeGet():
+	return render_template('HTML/CommentMe.html')
+
+
 @app.route('/MyWrite/GET')
 def MyWriterGet():
 	return render_template('HTML/MyWriter.html')
@@ -85,6 +90,11 @@ def index():
 
 @app.route('/AboutMe')
 def AboutMe():
+	return render_template(base)
+
+
+@app.route('/CommentMe')
+def CommentMe():
 	return render_template(base)
 
 
@@ -107,12 +117,12 @@ def bg():
 		file = get_random_file(os.path.join(BASE_DIR, 'img', 'bg', 'pc'))
 		if file is None:
 			return abort(500)
-		return send_file(file, mimetype='image/webg')
+		return send_file(file, mimetype='image/webp')
 	elif Type == 'mobile':
 		file = get_random_file(os.path.join(BASE_DIR, 'img', 'bg', 'mobile'))
 		if file is None:
 			return abort(500)
-		return send_file(file, mimetype='image/webg')
+		return send_file(file, mimetype='image/webp')
 	abort(400)
 
 @app.route('/rss.xml')
@@ -134,4 +144,4 @@ def postGET(post_id):
 
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()
