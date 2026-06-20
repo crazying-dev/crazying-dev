@@ -130,8 +130,6 @@
         <div class="posts-body" id="PostsListBody"></div>
     </div>
 </div>
-<div id="PageWindow">
-</div>
 <script>
     let MusicPcCardForNowIsTOrF = 0
 
@@ -415,71 +413,6 @@
 
     // 立即尝试渲染（如果数据已经加载完成）
     setTimeout(renderWorkList, 50);
-</script>
-<script>
-    function AddMyQQ(){
-        const uin = "3890320020";
-        const ua = navigator.userAgent.toLowerCase();
-        const isMobile = /mobi|android|iphone|ipad|ipod/i.test(navigator.userAgent);
-
-        function openByLink(url){
-            // 通过隐藏 <a> 标签点击，兼容性比 window.location.href 更好
-            const a = document.createElement("a");
-            a.href = url;
-            a.rel = "noopener noreferrer";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-
-        function openWebFallback(){
-            // 通用回退：网页版加好友
-            window.open(`https://qm.qq.com/q/`, "_blank");
-        }
-
-        if (isMobile) {
-            // ========== 移动端：优先尝试移动端协议，失败则网页版 ==========
-            // Android: mqqwpa://im/chat?chat_type=wpa&uin=xxx&version=1
-            // iOS: mqqapi://card/show_pslcard?src_type=internal&version=1&uin=xxx
-            let mobileUrl = "";
-            if (ua.indexOf("iphone") !== -1 || ua.indexOf("ipad") !== -1) {
-                mobileUrl = `mqqapi://card/show_pslcard?src_type=internal&version=1&uin=${uin}`;
-            } else {
-                mobileUrl = `mqqwpa://im/chat?chat_type=wpa&uin=${uin}&version=1`;
-            }
-            openByLink(mobileUrl);
-
-            // 移动端 2秒回退
-            const start = Date.now();
-            setTimeout(function() {
-                if (document.hasFocus() && Date.now() - start < 2500) {
-                    openWebFallback();
-                }
-            }, 2000);
-
-        } else if (ua.indexOf("mac") !== -1) {
-            // ========== Mac 端：尝试 macQQ 协议 + 网页版回退 ==========
-            openByLink(`qq://im/chat?chat_type=wpa&uin=${uin}&version=1&src_type=web`);
-
-            const start = Date.now();
-            setTimeout(function() {
-                if (document.hasFocus() && Date.now() - start < 3500) {
-                    openWebFallback();
-                }
-            }, 3000);
-
-        } else {
-            // ========== Windows / Linux：tencent:// 协议 + 网页版回退 ==========
-            openByLink(`tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=${uin}`);
-
-            const start = Date.now();
-            setTimeout(function() {
-                if (document.hasFocus() && Date.now() - start < 3500) {
-                    openWebFallback();
-                }
-            }, 3000);
-        }
-    }
 </script>
 <script>
     let PostsFrom = "https://api.crazying-dev.top/post"

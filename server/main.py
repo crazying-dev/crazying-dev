@@ -84,22 +84,11 @@ def MyWriterGet():
 
 #page.py
 @app.route('/')
-def index():
-	return render_template(base)
-
-
 @app.route('/AboutMe')
-def AboutMe():
-	return render_template(base)
-
-
 @app.route('/CommentMe')
-def CommentMe():
-	return render_template(base)
-
-
 @app.route('/MyWrite')
-def MyWriter():
+
+def BaseWithAll():
 	return render_template(base)
 
 #   page.py end
