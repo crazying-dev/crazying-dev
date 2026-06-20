@@ -8,7 +8,7 @@
         <div class="contact-section">
             <h2 class="contact-section-title">快速联系</h2>
             <div class="contact-list">
-                <div class="contact-item" onclick="AddMyQQ()">
+                <div class="contact-item" onclick="SendMsgByContact(`3890320020&quot`)">
                     <div class="contact-icon qq-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M530.1 484.4C518.6 485.8 485.2 431.7 485.2 431.7C485.2 463 469.1 503.9 434.2 533.5C451 538.7 489 552.7 480 567.9C472.7 580.2 354.5 575.8 320.4 571.9C286.3 575.7 168.1 580.2 160.8 567.9C151.8 552.7 189.7 538.7 206.6 533.5C171.7 504 155.5 463.1 155.5 431.7C155.5 431.7 122.2 485.8 110.6 484.4C105.2 483.8 98.2 454.8 119.9 384.7C130.2 351.7 141.9 324.2 160 278.9C156.9 162 205.2 63.9 320.3 63.9C434 63.9 483.5 160 480.6 278.9C498.7 324.1 510.5 351.8 520.7 384.7C542.5 454.8 535.4 483.8 530 484.4z"/></svg>
                     </div>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
 
-                <div class="contact-item" onclick="SendMsgByContact(`邮箱:3890320020@qq.com`)">
+                <div class="contact-item" onclick="SendMsgByContact(`3890320020@qq.com`)">
                     <div class="contact-icon email-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M64 112c-8.188 0-14.84 6.656-14.84 14.84v266.3c0 8.188 6.652 14.84 14.84 14.84h512c8.188 0 14.84-6.656 14.84-14.84V126.8C590.9 118.7 584.2 112 576 112H64zM571.2 138.2l-227.7 189.7c-6.453 5.391-15.39 5.391-21.84 0L94.35 138.2C96.69 135.6 100.1 134 103.8 134h432.5C539.9 134 543.3 135.6 545.6 138.2zM91.71 151.7l226.6 188.8c12.88 10.78 31.81 10.78 44.69 0l225.3-188.8V384c0 .156-.002.312-.002.469V151.7z"/></svg>
                     </div>
@@ -103,7 +103,7 @@
             <div class="page-window-overlay" onclick="closePageWindow()"></div>
             <div class="page-window-box" id="page-window-box-all">
                 <button class="page-window-close" onclick="closePageWindow()">×</button>
-                <h2 class="page-window-title">已复制提示</h2>
+                <h2 class="page-window-title">请复制提示</h2>
                 <p id="page-window-box-text">${msg}</p>
                 <p id="page-window-box-title">请复制该信息进行联系喵～</p>
                 <button onclick="CopyText(${msg})">点击复制</button>
@@ -114,17 +114,27 @@
     // 传入字符串参数，一键复制
     async function CopyText(text) {
         try {
-            await navigator.clipboard.writeText(text);
-            return true; //复制成功返回true
-        } catch (err) {
-            //降级兼容方案
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
-            return false; //失败返回false
+            navigator.clipboard.writeText(text)
+                .then(() => console.log('Copy True'))
+                .catch(err => console.error('Copy Error:', err));
+        } catch (e) {
+            console.error('Copy Error For 1:', e)
+            try {
+                await navigator.clipboard.writeText(text);
+                console.log('Copy True')
+            } catch (e) {
+                console.error('Copy Error For 2:', e)
+                // 降级方案
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.cssText = 'position:fixed;opacity:0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(textarea);
+                return ok;
+            }
+
         }
     }
 

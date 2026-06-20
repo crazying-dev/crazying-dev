@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>友人</title>
+    <link rel="stylesheet" href="//assets.crazying-dev.top/CSS/all.css">
+</head>
+<body>
+<div class="mywriter-container">
+    <h1 class="mywriter-title">我的朋友</h1>
+    <p class="mywriter-subtitle">这些是我在互联网上认识的有趣的人</p>
+
+    <div id="FriendList" class="friend-list">
+        <div class="friend-loading">加载中...</div>
+    </div>
+</div>
+
+<script>
+(function () {
+    const listEl = document.getElementById('FriendList');
+
+    fetch('https://api.crazying-dev.top/friend')
+        .then(res => res.json())
+        .then(list => {
+            if (!list || list.length === 0) {
+                listEl.innerHTML = '<div class="friend-empty">暂无朋友信息</div>';
+                return;
+            }
+
+            let html = '';
+            list.forEach(function (f) {
+                const name = f.name || '无名';
+                const avatar = f.avter || '';
+                const site = f.OneWebSite || '';
+                const about = f.AboutTA || '';
+
+                html += `\n<div class="friend-card">\n`;
+
+                if (avatar) {
+                    html += `    <div class="friend-avatar-wrap"><img class="friend-avatar" src="${avatar}" alt="${name}"></div>\n`;
+                }
+
+                html += `    <div class="friend-info">\n`;
+                html += `        <div class="friend-name">${name}</div>\n`;
+
+                if (about) {
+                    html += `        <div class="friend-about">${about}</div>\n`;
+                }
+
+                if (site) {
+                    html += `        <a class="friend-site" href="${site}" target="_blank" rel="noopener noreferrer">TA 的网站</a>\n`;
+                }
+
+                html += `    </div>\n</div>`;
+            });
+
+            listEl.innerHTML = html;
+        })
+        .catch(err => {
+            console.error('friend error', err);
+            listEl.innerHTML = '<div class="friend-empty">加载失败，请稍后重试</div>';
+        });
+})();
+</script>
+</body>
+</html>

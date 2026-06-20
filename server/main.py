@@ -79,6 +79,11 @@ def MyWriterGet():
 	return render_template('HTML/MyWriter.html')
 
 
+@app.route('/friend/GET')
+def FriendGet():
+	return render_template('HTML/Friend.html')
+
+
 		
 #GET.py end
 
@@ -87,11 +92,10 @@ def MyWriterGet():
 @app.route('/AboutMe')
 @app.route('/CommentMe')
 @app.route('/MyWrite')
-
+@app.route('/friend')
 def BaseWithAll():
 	return render_template(base)
-
-#   page.py end
+#page.py end
 
 @app.route('/favicon.ico')
 def favicon():
