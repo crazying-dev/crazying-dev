@@ -84,6 +84,11 @@ def FriendGet():
 	return render_template('HTML/Friend.html')
 
 
+@app.route('/privacy/GET')
+def PrivacyGet():
+	return render_template('HTML/Privacy.html')
+
+
 		
 #GET.py end
 
@@ -93,6 +98,7 @@ def FriendGet():
 @app.route('/CommentMe')
 @app.route('/MyWrite')
 @app.route('/friend')
+@app.route('/privacy')
 def BaseWithAll():
 	return render_template(base)
 #page.py end
