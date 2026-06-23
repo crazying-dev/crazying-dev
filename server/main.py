@@ -12,6 +12,7 @@ base = 'path/base.html'
 webside = 'www.crazying-dev.top'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
 # tool.py
 def get_random_file(dir_path):
 	# 收集所有文件
@@ -23,6 +24,7 @@ def get_random_file(dir_path):
 	if not files:
 		return None
 	return os.path.abspath(os.path.normpath(random.choice(files)))
+
 
 # tool.py end
 
@@ -57,7 +59,6 @@ def http_request(url, method: Literal["GET", "POST"] = "GET", params=None, json_
 		return None, 0
 
 
-
 #GET.py
 @app.route('/GET')
 def indexGet():
@@ -89,9 +90,7 @@ def PrivacyGet():
 	return render_template('HTML/Privacy.html')
 
 
-		
 #GET.py end
-
 #page.py
 @app.route('/')
 @app.route('/AboutMe')
@@ -101,11 +100,14 @@ def PrivacyGet():
 @app.route('/privacy')
 def BaseWithAll():
 	return render_template(base)
+
+
 #page.py end
 
 @app.route('/favicon.ico')
 def favicon():
 	return redirect("https://img.crazying-dev.top/crazying-dev.top/favicon.ico")
+
 
 @app.route('/bg')
 def bg():
@@ -124,18 +126,21 @@ def bg():
 		return send_file(file, mimetype='image/webp')
 	abort(400)
 
+
 @app.route('/rss.xml')
 def rss():
 	return redirect("https://api.crazying-dev.top/rss.xml")
-	
+
+
 @app.errorhandler(404)
 def not_found(error):
-	return render_template('error/404.html'),404
+	return render_template('error/404.html'), 404
 
 
 @app.route('/post/<int:post_id>')
 def post(post_id):
 	return render_template(base)
+
 
 @app.route('/post/<int:post_id>/GET')
 def postGET(post_id):
