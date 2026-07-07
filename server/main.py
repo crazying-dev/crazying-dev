@@ -93,13 +93,28 @@ def PrivacyGet():
 #GET.py end
 #page.py
 @app.route('/')
+def index():
+	return render_template(base, content_template='index.html')
+
 @app.route('/AboutMe')
+def AboutMe():
+	return render_template(base, content_template='HTML/AboutMe.html')
+
 @app.route('/CommentMe')
+def CommentMe():
+	return render_template(base, content_template='HTML/CommentMe.html')
+
 @app.route('/MyWrite')
+def MyWrite():
+	return render_template(base, content_template='HTML/MyWriter.html')
+
 @app.route('/friend')
+def friend():
+	return render_template(base, content_template='HTML/Friend.html')
+
 @app.route('/privacy')
-def BaseWithAll():
-	return render_template(base)
+def privacy():
+	return render_template(base, content_template='HTML/Privacy.html')
 
 
 #page.py end
