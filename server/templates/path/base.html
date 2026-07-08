@@ -19,13 +19,12 @@
     <link rel="preconnect" href="//api.crazying-dev.top" crossorigin>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-<!-- 背景图混合 -->
 <div class="bg-box-for1 bg-box"></div>
 <div class="bg-box-for2 bg-box"></div>
 
-<!-- 提示栏 -->
 <div class="card" from="Go-to-Github">前往GitHub</div>
 <div class="card" from="AboutMeForHeader">emm...来让我做一下自我介绍吧</div>
 <div class="card" from="CommentMe">联系我</div>
@@ -33,35 +32,171 @@
 <div class="card" from="title">卡里の窝</div>
 <div class="card" from="MeWriter">我的作品</div>
 
-<!-- 头 -->
-<header>
-    <a href="https://github.com/crazying-dev" id="Go-to-Github">
-        <img src="//img.crazying-dev.top/crazying-dev.top/me.png" alt="This is me Github Avatar" id="me">
-    </a>
-    <a href="/AboutMe" class="HeaderButton" id="AboutMeForHeader">关于我</a>
-    <a href="/CommentMe" class="HeaderButton" id="CommentMe">联系我</a>
-    <a href="/friend" class="HeaderButton" id="friend">友人</a>
-    <a href="/MyWrite" class="HeaderButton" id="MeWriter">作品</a>
-
-    <a id="title" class="HeaderButton" href="/">卡里の窝</a>
-</header>
-
-<!-- <img src="https://count.getloli.com/@A?name=A&theme=sketch-2&padding=3&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="计数器"> -->
-
-
-<div id="ui">
-    {% if content_template %}
-        {% include content_template %}
-    {% endif %}
-</div>
+<div id="app"></div>
 <div id="PageWindow"></div>
+
+{% raw %}
+<template id="app-template">
+    <div id="app">
+        <header>
+            <a href="https://github.com/crazying-dev" id="Go-to-Github" target="_blank">
+                <img src="//img.crazying-dev.top/crazying-dev.top/me.png" alt="This is me Github Avatar" id="me">
+            </a>
+            <a href="#" @click.prevent="navigateTo('about')" class="HeaderButton" id="AboutMeForHeader">关于我</a>
+            <a href="#" @click.prevent="navigateTo('contact')" class="HeaderButton" id="CommentMe">联系我</a>
+            <a href="#" @click.prevent="navigateTo('friends')" class="HeaderButton" id="friend">友人</a>
+            <a href="#" @click.prevent="navigateTo('works')" class="HeaderButton" id="MeWriter">作品</a>
+            <a href="#" @click.prevent="navigateTo('home')" id="title" class="HeaderButton">卡里的窝</a>
+        </header>
+        
+        <div v-if="currentPage === 'home'">
+            <div class="ui-col-left">
+                <div class="pc LeftPcCard" id="MyPcCard">
+                    <div id="mypolist">
+                        <a href="#" @click.prevent="navigateTo('about')" id="Mya">
+                            <div id="MyAuBackground">
+                                <img id="MyAu" src="//img.crazying-dev.top/crazying-dev.top/me.png" alt="我" loading="lazy">
+                            </div>
+                            <p id="MyName">卡里</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="pc LeftPcCard" id="MusicPcCard">
+                    <div id="MusicPcCardForTurn">
+                        <button id="MusicPcCardForNow" @click="toggleMusic">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320z"/></svg>
+                        </button>
+                    </div>
+                    <audio src="//assets.crazying-dev.top/audio/miao.mp3" id="MusicPcCardForMusic"></audio>
+                </div>
+                <div class="pc LeftPcCard" id="calendar">
+                    <div id="calendarBox">
+                        <div id="calendarHead">
+                            <button id="prevBtn">&lt;</button>
+                            <div id="ymText"></div>
+                            <button id="nextBtn">&gt;</button>
+                        </div>
+                        <div id="weekRow"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+                        <div id="dateBox"></div>
+                    </div>
+                </div>
+                <div class="pc LeftPcCard" id="MyWorkPcCard">
+                    <div id="MyWorkPcCardForTitle"><h1>我的作品</h1></div>
+                    <div id="workList">
+                        <div v-for="job in workList" :key="job.name" class="work-card">
+                            <a :href="job.from" :class="['work-link', job.run === 1 ? 'running' : 'stopped']">
+                                <span class="work-name">{{ job.name }}</span>
+                            </a>
+                            <div class="work-actions">
+                                <button :class="['work-btn', job.join !== 0 ? 'active' : 'disabled']" @click="openJoinModal(workList)">加入</button>
+                                <button :class="['work-btn', job.help !== 0 ? 'active' : 'disabled']" @click="openHelpModal">赞助</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-col-right">
+                <div class="all" id="PostsList">
+                    <div class="posts-body" id="PostsListBody">
+                        <div v-for="post in posts" :key="post.title" class="post-card">
+                            <a :href="post.link" class="post-link">
+                                <div class="post-info">
+                                    <h2 class="post-title">{{ post.title }}</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-else-if="currentPage === 'about'">
+            <div class="AboutMe-container">
+                <div class="AboutMe-title-box">
+                    <h1>关于我</h1>
+                    <p class="AboutMe-subtitle">关于卡里的一切</p>
+                </div>
+                <div class="AboutMe-body">
+                    <div class="AboutMe-card">
+                        <h2>谁是卡里？</h2>
+                        <p>卡里是一个热爱编程的年轻人，喜欢探索新技术，热爱分享。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-else-if="currentPage === 'contact'">
+            <div class="CommentMe-container">
+                <div class="CommentMe-title-box">
+                    <h1>联系我</h1>
+                </div>
+                <div class="CommentMe-body">
+                    <div class="CommentMe-card">
+                        <input class="CommentMe-input" v-model="contactInput" type="text" placeholder="请输入您的邮箱或QQ号">
+                        <button class="CommentMe-submit" :disabled="isSubmitting" @click="submitContact">{{ isSubmitting ? '提交中...' : '提交留言' }}</button>
+                        <p class="CommentMe-tip" v-if="tip">{{ tip }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-else-if="currentPage === 'works'">
+            <div class="mywriter-container">
+                <div class="mywriter-title-box">
+                    <h1>我的作品</h1>
+                </div>
+                <div class="mywriter-list" id="workList">
+                    <div v-for="job in workList" :key="job.name" class="work-card">
+                        <a :href="job.from" :class="['work-link', job.run === 1 ? 'running' : 'stopped']">
+                            <span class="work-name">{{ job.name }}</span>
+                        </a>
+                        <div class="work-actions">
+                            <button :class="['work-btn', job.join !== 0 ? 'active' : 'disabled']" @click="openJoinModal(workList)">加入</button>
+                            <button :class="['work-btn', job.help !== 0 ? 'active' : 'disabled']" @click="openHelpModal">赞助</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-else-if="currentPage === 'friends'">
+            <div class="Friends-container">
+                <div class="Friends-title-box">
+                    <h1>友人链接</h1>
+                </div>
+                <div class="Friends-body">
+                    <div v-for="friend in friends" :key="friend.name" class="Friends-card">
+                        <a :href="friend.url" target="_blank">
+                            <img :src="friend.img" :alt="friend.name" class="Friends-img">
+                            <span class="Friends-name">{{ friend.name }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-else-if="currentPage === 'privacy'">
+            <div class="Privacy-container">
+                <div class="Privacy-title-box">
+                    <h1>隐私声明</h1>
+                </div>
+                <div class="Privacy-body">
+                    <div class="Privacy-card">
+                        <h2>我们尊重您的隐私</h2>
+                        <p>本站不会收集、存储或使用任何访客的个人信息。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+{% endraw %}
 
 <div id="FooterWithNone"></div>
 <footer class="DontTon" id="Footer">
     <div class="card" from="FooterConntWithMeTheDivFor1">喵喵喵？</div>
     <img class="card" from="Footer公众号" src="//img.crazying-dev.top/crazying-dev.top/OfficialAccount.jpg" alt="公众号" width="430" height="430" loading="lazy">
     <del class="card" from="FooterPrivacy">不同意也不行</del>
-
     <p style="font-family: -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;">© 2026-<span id="year"></span> Ryousuke. All rights reserved.</p>|<a href="/privacy" id="FooterPrivacy">隐私</a>|<a href="https://icp.gov.moe/?keyword=20261018" target="_blank">萌ICP备20261018号</a>|<a href="/rss.xml">rss</a>
     <br>
     本站平稳运行 <span id="siteRunningTime">0年0月0日 0时0分0秒</span><br>
@@ -76,10 +211,114 @@
     <br>
 </footer>
 
+<script>
+const { createApp, ref, onMounted } = Vue;
 
-<!-- 页面内容获取 -->
-<!-- 定义window的大小更改时的组件更改 -->
-<!-- 定义card的from属性 ＆ 自跟踪动作 ＆ 事件布置 ＆ 提示栏初始化 ＆ 事件函数 -->
+createApp({
+    setup() {
+        const currentPage = ref('home');
+        const workList = ref([]);
+        const posts = ref([]);
+        const friends = ref([]);
+        const contactInput = ref('');
+        const isSubmitting = ref(false);
+        const tip = ref('');
+
+        function loadWorkList() {
+            fetch('/api/work').then(r => r.json()).then(l => workList.value = l).catch(e => console.error(e));
+        }
+        function loadPosts() {
+            fetch('/api/post').then(r => r.json()).then(l => posts.value = l).catch(e => console.error(e));
+        }
+        function loadFriends() {
+            fetch('/api/friend').then(r => r.json()).then(l => friends.value = l).catch(e => console.error(e));
+        }
+        function navigateTo(page) {
+            currentPage.value = page;
+            window.scrollTo(0, 0);
+        }
+        function toggleMusic() {
+            const btn = document.getElementById('MusicPcCardForNow');
+            const audio = document.getElementById('MusicPcCardForMusic');
+            if (audio.paused) {
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M319.6 72C461.4 72 568 182.1 568 320C568 467.1 449.5 568 319.6 568C185.6 568 72 458.5 72 320C72 187.1 176.7 72 319.6 72z"/></svg>';
+                audio.play();
+            } else {
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320z"/></svg>';
+                audio.pause();
+            }
+        }
+        function openJoinModal(list) {
+            const w = document.getElementById('PageWindow');
+            w.style.display = 'flex';
+            let h = '<option value="" disabled selected hidden>请选择项目</option>';
+            list.forEach(j => { if (j.join !== 0) h += '<option value="' + j.name + '">' + j.name + '</option>'; });
+            w.innerHTML = '<div class="page-window-overlay" onclick="closePageWindow()"></div><div class="page-window-box"><button class="page-window-close" onclick="closePageWindow()">x</button><h2>撰写申请</h2><p>联系方式</p><input id="PageWindowWithInputWithCon" type="text"><p>申请项目</p><select id="PageWindowProjectSelect">' + h + '</select><button id="PageWindowSubmitBtn" onclick="SendEmail()">提交</button><p id="PageWindowTip"></p></div>';
+        }
+        function openHelpModal() {
+            const w = document.getElementById('PageWindow');
+            w.style.display = 'flex';
+            w.innerHTML = '<div class="page-window-overlay" onclick="closePageWindow()"></div><div class="page-window-box" style="text-align:center"><button class="page-window-close" onclick="closePageWindow()">x</button><img src="//img.crazying-dev.top/other/help.png"></div>';
+        }
+        function submitContact() {
+            if (!contactInput.value.trim()) { tip.value = '请填写联系方式'; return; }
+            isSubmitting.value = true;
+            tip.value = '';
+            fetch('https://api.crazying-dev.top/SendEmail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ to: '3890320020@qq.com', subject: '【留言】', message: contactInput.value })
+            })
+            .then(r => r.json())
+            .then(() => { tip.value = '提交成功'; contactInput.value = ''; isSubmitting.value = false; })
+            .catch(() => { tip.value = '提交失败'; isSubmitting.value = false; });
+        }
+
+        window.closePageWindow = function() {
+            const w = document.getElementById('PageWindow');
+            w.innerHTML = '';
+            w.style.display = 'none';
+        };
+        window.SendEmail = function() {
+            const c = document.getElementById('PageWindowWithInputWithCon').value.trim();
+            const p = document.getElementById('PageWindowProjectSelect').value;
+            const t = document.getElementById('PageWindowTip');
+            const b = document.getElementById('PageWindowSubmitBtn');
+            if (!c) { t.textContent = '请填写联系方式'; return; }
+            if (!p) { t.textContent = '请选择项目'; return; }
+            b.disabled = true;
+            b.textContent = '提交中...';
+            fetch('https://api.crazying-dev.top/SendEmail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ to: '3890320020@qq.com', subject: '【加入申请】' + p, message: '项目：' + p + '\n联系方式：' + c })
+            })
+            .then(r => r.json())
+            .then(() => { t.textContent = '提交成功'; setTimeout(window.closePageWindow, 2000); })
+            .catch(() => { t.textContent = '提交失败'; b.disabled = false; b.textContent = '重新提交'; });
+        };
+
+        onMounted(() => {
+            loadWorkList(); loadPosts(); loadFriends();
+            const now = new Date();
+            const y = now.getFullYear(), m = now.getMonth();
+            const ym = document.getElementById('ymText');
+            const db = document.getElementById('dateBox');
+            if (ym) ym.innerText = y + '年' + (m + 1) + '月';
+            if (db) {
+                db.innerHTML = '';
+                const fd = new Date(y, m, 1).getDay();
+                const ld = new Date(y, m + 1, 0).getDate();
+                for (let i = 0; i < fd; i++) { const d = document.createElement('div'); d.className = 'cal-date'; db.appendChild(d); }
+                for (let d = 1; d <= ld; d++) { const c = document.createElement('div'); c.className = 'cal-date'; c.innerText = d; if (now.getDate() === d) c.classList.add('cal-today'); db.appendChild(c); }
+            }
+        });
+
+        return { currentPage, workList, posts, friends, contactInput, isSubmitting, tip, navigateTo, toggleMusic, openJoinModal, openHelpModal, submitContact };
+    },
+    template: '#app-template'
+}).mount('#app');
+</script>
 <script src="//assets.crazying-dev.top/JS/AfterBody.js"></script>
 </body>
 </html>

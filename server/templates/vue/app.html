@@ -1,0 +1,96 @@
+<script>
+const { createApp, ref, onMounted, computed, watch } = Vue;
+
+const App = {
+    setup() {
+        const currentPage = ref('home');
+        const pageTitle = ref('卡里的窝');
+        const workList = ref([]);
+        const posts = ref([]);
+        const friends = ref([]);
+        const isLoading = ref(false);
+
+        const pageTitles = {
+            'home': '卡里的窝',
+            'about': '关于我',
+            'contact': '联系我',
+            'works': '我的作品',
+            'friends': '友人',
+            'privacy': '隐私声明'
+        };
+
+        watch(currentPage, (val) => {
+            pageTitle.value = pageTitles[val] || '卡里的窝';
+            window.scrollTo(0, 0);
+        });
+
+        function navigateTo(page) {
+            currentPage.value = page;
+        }
+
+        function loadWorkList() {
+            fetch('https://api.crazying-dev.top/work')
+                .then(res => res.json())
+                .then(list => {
+                    workList.value = list;
+                })
+                .catch(err => console.error('Work list error:', err));
+        }
+
+        function loadPosts() {
+            fetch('https://api.crazying-dev.top/post')
+                .then(res => res.json())
+                .then(list => {
+                    posts.value = list;
+                })
+                .catch(err => console.error('Posts error:', err));
+        }
+
+        function loadFriends() {
+            fetch('https://api.crazying-dev.top/friend')
+                .then(res => res.json())
+                .then(list => {
+                    friends.value = list;
+                })
+                .catch(err => console.error('Friends error:', err));
+        }
+
+        onMounted(() => {
+            loadWorkList();
+            loadPosts();
+            loadFriends();
+            
+            const path = window.location.pathname;
+            if (path === '/AboutMe') currentPage.value = 'about';
+            else if (path === '/CommentMe') currentPage.value = 'contact';
+            else if (path === '/MyWrite') currentPage.value = 'works';
+            else if (path === '/friend') currentPage.value = 'friends';
+            else if (path === '/privacy') currentPage.value = 'privacy';
+            else currentPage.value = 'home';
+        });
+
+        return {
+            currentPage,
+            pageTitle,
+            workList,
+            posts,
+            friends,
+            isLoading,
+            navigateTo,
+            loadWorkList,
+            loadPosts,
+            loadFriends
+        };
+    },
+    template: `
+        <div id="app">
+            <HomePage v-if="currentPage === 'home'" :posts="posts" :work-list="workList" @navigate="navigateTo" />
+            <AboutPage v-else-if="currentPage === 'about'" />
+            <ContactPage v-else-if="currentPage === 'contact'" />
+            <WorksPage v-else-if="currentPage === 'works'" :work-list="workList" />
+            <FriendsPage v-else-if="currentPage === 'friends'" :friends="friends" />
+            <PrivacyPage v-else-if="currentPage === 'privacy'" />
+        </div>
+    `
+};
+</script>

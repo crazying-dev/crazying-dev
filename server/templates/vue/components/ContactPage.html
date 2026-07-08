@@ -1,0 +1,26 @@
+<script>
+const ContactPage = {
+    setup() {
+        const contactInput = Vue.ref('');
+        const tip = Vue.ref('');
+        const isSubmitting = Vue.ref(false);
+
+        function submitContact() {
+            const contact = contactInput.value.trim();
+            if (!contact) { tip.value = '请填写联系方式'; return; }
+            isSubmitting.value = true;
+            tip.value = '';
+            fetch('https://api.crazying-dev.top/SendEmail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ to: '3890320020@qq.com', subject: '【留言】来自网站访客', message: '联系方式：' + contact + '\n\n用户通过留言页面提交' })
+            })
+            .then(res => res.json())
+            .then(data => { tip.value = '提交成功！我会尽快回复您'; contactInput.value = ''; isSubmitting.value = false; })
+            .catch(err => { tip.value = '提交失败，请稍后重试'; isSubmitting.value = false; });
+        }
+        return { contactInput, tip, isSubmitting, submitContact };
+    },
+    template: '<div class="CommentMe-container"><div class="CommentMe-title-box"><h1>联系我</h1><p class="CommentMe-subtitle">有什么想对我说的？</p></div><div class="CommentMe-body"><div class="CommentMe-card"><p class="CommentMe-label">联系方式（邮箱或QQ）</p><input class="CommentMe-input" v-model="contactInput" type="text" placeholder="请输入您的邮箱或QQ号" autocomplete="off"><button class="CommentMe-submit" :disabled="isSubmitting" @click="submitContact">{{ isSubmitting ? "提交中…" : "提交留言" }}</button><p class="CommentMe-tip" v-if="tip">{{ tip }}</p></div><div class="CommentMe-card"><h2>其他联系方式</h2><ul><li>邮箱：3890320020@qq.com</li><li>QQ：3890320020</li><li>Github：<a href="https://github.com/crazying-dev" target="_blank">crazying-dev</a></li></ul></div></div></div>'
+};
+</script>

@@ -1,0 +1,30 @@
+<script>
+const WorksPage = {
+    props: ['workList'],
+    setup(props) {
+        function buildProjectOptions(list) {
+            if (!list || list.length === 0) return '<option value="">（暂无项目）</option>';
+            let options = '<option value="" disabled selected hidden>请选择要申请的项目</option>';
+            list.forEach(job => {
+                if (job.join !== 0 && job.join !== undefined && job.join !== null) {
+                    options += '<option value="' + job.name + '">' + job.name + '</option>';
+                }
+            });
+            return options;
+        }
+        function openJoinModal(list) {
+            const optionsHtml = buildProjectOptions(list);
+            const PageWindow = document.getElementById("PageWindow");
+            PageWindow.style.display = 'flex';
+            PageWindow.innerHTML = '<div class="page-window-overlay" onclick="closePageWindow()"></div><div class="page-window-box"><button class="page-window-close" onclick="closePageWindow()">×</button><h2 class="page-window-title">撰写申请</h2><p class="page-window-label">联系方式（邮箱或QQ）</p><input class="page-window-input" id="PageWindowWithInputWithCon" type="text" placeholder="请输入您的邮箱或QQ号" autocomplete="off"><p class="page-window-label">申请的项目</p><select class="page-window-select" id="PageWindowProjectSelect">' + optionsHtml + '</select><button class="page-window-submit" id="PageWindowSubmitBtn" onclick="SendEmail()">提交申请</button><p class="page-window-tip" id="PageWindowTip"></p></div>';
+        }
+        function openHelpModal() {
+            const PageWindow = document.getElementById("PageWindow");
+            PageWindow.style.display = 'flex';
+            PageWindow.innerHTML = '<div class="page-window-overlay" onclick="closePageWindow()"></div><div class="page-window-box" style="text-align:center; padding: 20px;"><button class="page-window-close" onclick="closePageWindow()">×</button><img class="page-window-help-img" src="//img.crazying-dev.top/other/help.png" alt="赞助我们"></div>';
+        }
+        return { openJoinModal, openHelpModal };
+    },
+    template: '<div class="mywriter-container"><div class="mywriter-title-box"><h1>我的作品</h1><p class="mywriter-subtitle">卡里的项目与创作</p></div><div class="mywriter-list" id="workList"><div v-for="job in workList" :key="job.name" class="work-card"><a :href="job.from" :class="[\'work-link\', job.run === 1 ? \'running\' : \'stopped\']"><span class="work-name" :title="job.name">{{ job.name }}</span></a><div class="work-actions"><button :class="[\'work-btn\', job.join !== 0 ? \'active\' : \'disabled\']" @click="openJoinModal(workList)">加入</button><button :class="[\'work-btn\', job.help !== 0 ? \'active\' : \'disabled\']" @click="openHelpModal">赞助</button></div></div></div></div>'
+};
+</script>
