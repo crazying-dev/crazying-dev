@@ -1,7 +1,0 @@
-<script>
-const FriendsPage = {
-    props: ['friends'],
-    setup() { return {}; },
-    template: '<div class="friend-container"><div class="friend-title-box"><h1>友人</h1><p class="friend-subtitle">朋友们的小窝</p></div><div class="friend-list" id="FriendList"><div v-for="friend in friends" :key="friend.name" class="friend-card"><a :href="friend.from" target="_blank" class="friend-link"><img :src="friend.img" :alt="friend.name" class="friend-avatar" loading="lazy"><div class="friend-info"><h3 class="friend-name">{{ friend.name }}</h3><p class="friend-desc">{{ friend.desc }}</p></div></a></div></div></div>'
-};
-</script>
