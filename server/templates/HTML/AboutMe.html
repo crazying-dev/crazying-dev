@@ -1,336 +1,64 @@
-<div class="aboutme-wrapper">
-    <!-- 侧边栏目录 -->
-    <aside class="aboutme-sidebar" id="aboutmeSidebar">
-        <div class="aboutme-sidebar-header">
-            <h3>目录</h3>
-        </div>
-        <nav class="aboutme-sidebar-nav">
-            <ul>
-                <li><a href="#section-intro" class="aboutme-nav-link active">
-                    <i class="fa fa-user-circle"></i><span>自我介绍</span>
-                </a></li>
-                <li><a href="#section-hobby" class="aboutme-nav-link">
-                    <i class="fa fa-heart"></i><span>兴趣爱好</span>
-                </a></li>
-                <li><a href="#section-personality" class="aboutme-nav-link">
-                    <i class="fa fa-smile-o"></i><span>性格</span>
-                </a></li>
-                <li><a href="#section-contact" class="aboutme-nav-link">
-                    <i class="fa fa-envelope"></i><span>联系方式</span>
-                </a></li>
-                <li><a href="#section-code" class="aboutme-nav-link">
-                    <i class="fa fa-code"></i><span>编程之旅</span>
-                </a></li>
-                <li><a href="#section-note" class="aboutme-nav-link">
-                    <i class="fa fa-commenting-o"></i><span>备注</span>
-                </a></li>
-            </ul>
-        </nav>
-    </aside>
+<div class="aboutme-panels">
 
-    <!-- 主内容区 -->
-    <main class="aboutme-main">
-        <div class="aboutme-hero">
-            <h1 class="aboutme-greeting">很高兴认识你</h1>
-            <p class="aboutme-subtitle">喵～ 欢迎来看一个初中生发疯</p>
-        </div>
+<div class="aboutme-panel">
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;我的自我介绍</h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;身高/体重：170cm/50kg&nbsp;&nbsp;&nbsp;&nbsp;状态：地球oline在线</p>
+&nbsp;&nbsp;&nbsp;&nbsp;<button class="AboutMebutton" onclick="UpdataAboutMeMore()" id="AboutMeMore">more?</button>
+<br>
+<div id="AboutMeMoreContent" style="display:none;">
+<p>&nbsp;&nbsp;&nbsp;&nbsp;⭐小部分时间情绪不太稳定</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;❤️不具备对他人的攻击力（至少我是这么觉得的）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;🔬理科生，不会文科</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;💬不会吵架</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;😊稍稍有一点心理问题（没啥大不了的）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;💬平常闲着可无聊，会找人聊天</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;⚧是0（不许说我，不然我以后让我男朋友揍你）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;🐾单身（不准说我是单身狗）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;💡情商不高（不准说我）</p>
+</div>
+</div>
 
-        <section class="aboutme-section" id="section-intro">
-            <div class="aboutme-section-header">
-                <div class="aboutme-section-title-wrap">
-                    <i class="fa fa-user-circle aboutme-section-icon"></i>
-                    <h2>我的自我介绍</h2>
-                </div>
-                <div class="aboutme-section-divider"></div>
-            </div>
-            <div class="aboutme-section-content">
-                <div class="aboutme-basic-grid">
-                    <div class="aboutme-info-card">
-                        <div class="aboutme-info-label">身高 / 体重</div>
-                        <div class="aboutme-info-value">170cm / 50kg</div>
-                    </div>
-                    <div class="aboutme-info-card">
-                        <div class="aboutme-info-label">状态</div>
-                        <div class="aboutme-info-value aboutme-status-online">
-                            <span class="aboutme-status-dot"></span>
-                            地球oline在线
-                        </div>
-                    </div>
-                </div>
+<div class="aboutme-panel">
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;兴趣爱好</h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;🎮 喜欢play电脑</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;🐾 罗小黑死粉</p>
+</div>
 
-                <div class="aboutme-more-wrap">
-                    <button class="aboutme-expand-btn" id="AboutMeMore" onclick="UpdataAboutMeMore()">
-                        <span class="aboutme-expand-text">查看更多</span>
-                        <i class="fa fa-chevron-down aboutme-expand-icon"></i>
-                    </button>
-                </div>
+<div class="aboutme-panel">
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;性格</h2>
+<h3>&nbsp;&nbsp;&nbsp;&nbsp;MBIT:INFP</h3>
+<h3>&nbsp;&nbsp;&nbsp;&nbsp;SBIT:DREAM-R</h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;tips：不喜欢聊政治话题</p>
+</div>
 
-                <div class="aboutme-more-content" id="AboutMeMoreContent" style="display:none;">
-                    <div class="aboutme-more-grid">
-                        <div class="aboutme-more-item">
-                            <i class="fa fa-star-o aboutme-more-icon"></i>
-                            <span>小部分时间情绪不太稳定</span>
-                        </div>
-                        <div class="aboutme-more-item">
-                            <i class="fa fa-heart-o aboutme-more-icon"></i>
-                            <span>不具备对他人的攻击力（至少我是这么觉得的）</span>
-                        </div>
-                        <div class="aboutme-more-item">
-                            <i class="fa fa-flask aboutme-more-icon"></i>
-                            <span>理科生，不会文科</span>
-                        </div>
-                        <div class="aboutme-more-item">
-                            <i class="fa fa-comment-o aboutme-more-icon"></i>
-                            <span>不会吵架</span>
-                        </div>
-                        <div class="aboutme-more-item">
-                            <i class="fa fa-smile-o aboutme-more-icon"></i>
-                            <span>稍稍有一点心理问题（没啥大不了的）</span>
-                        </div>
-                        <div class="aboutme-more-item">
-                            <i class="fa fa-comments-o aboutme-more-icon"></i>
-                            <span>平常闲着可无聊，会找人聊天</span>
-                        </div>
-                        <div class="aboutme-more-item">
-                            <i class="fa fa-transgender aboutme-more-icon"></i>
-                            <span>是0（不许说我，不然我以后让我男朋友揍你）</span>
-                        </div>
-                        <div class="aboutme-more-item">
-                            <i class="fa fa-paw aboutme-more-icon"></i>
-                            <span>单身（不准说我是单身狗）</span>
-                        </div>
-                        <div class="aboutme-more-item">
-                            <i class="fa fa-lightbulb-o aboutme-more-icon"></i>
-                            <span>情商不高（不准说我）</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<div class="aboutme-panel">
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;联系方式</h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;📧 邮箱：3890320020@qq.com</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;🐙 GitHub（大号）：<div class="aBackground"><a href="https://github.com/crazying-dev">crazying-dev</a></div></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;🐙 GitHub（小号）：<div class="aBackground"><a href="https://github.com/cary-ing">cary-ing</a></div></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;📹 B站：不告诉你~（这不是名字-_-）（实际上是还没定下来）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;📑 小红书：<div class="aBackground"><a href="https://xhslink.com/m/7yCXhVvmCaJ">林</a></div></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;💬 微信号（来唠唠嗑喵？）：Alan_120615</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;公众号：<span id="OfficialAccount">扫码</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;不要尝试在上课时间让我回消息</p>
+</div>
 
-        <section class="aboutme-section" id="section-hobby">
-            <div class="aboutme-section-header">
-                <div class="aboutme-section-title-wrap">
-                    <i class="fa fa-heart aboutme-section-icon"></i>
-                    <h2>兴趣爱好</h2>
-                </div>
-                <div class="aboutme-section-divider"></div>
-            </div>
-            <div class="aboutme-section-content">
-                <div class="aboutme-hobby-list">
-                    <div class="aboutme-hobby-item">
-                        <div class="aboutme-hobby-icon">
-                            <i class="fa fa-gamepad"></i>
-                        </div>
-                        <div class="aboutme-hobby-info">
-                            <div class="aboutme-hobby-text">喜欢play电脑</div>
-                            <div class="aboutme-hobby-desc">各种游戏都有涉猎</div>
-                        </div>
-                    </div>
-                    <div class="aboutme-hobby-item">
-                        <div class="aboutme-hobby-icon">
-                            <i class="fa fa-paw"></i>
-                        </div>
-                        <div class="aboutme-hobby-info">
-                            <div class="aboutme-hobby-text">罗小黑死粉</div>
-                            <div class="aboutme-hobby-desc">罗小黑战记骨灰级粉丝</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<div class="aboutme-panel">
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;编程之旅</h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;小学的时候上过一些有关编程的社团课，正经开始学编程是在2025年，开始接触Python随后<span id="ICanLangForC++">C++</span>，JavaScript等扩展</p>
+<h3>&nbsp;&nbsp;&nbsp;&nbsp;我会什么语言<button class="AboutMebutton" onclick="UpdataAboutMeCan()" id="AboutMeCan">更多...</button></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Python</p>
+<div id="AboutMeMoreLangs" style="display:none;">
+<p>&nbsp;&nbsp;&nbsp;&nbsp;HTML / CSS / JavaScript</p>
+</div>
+</div>
 
-        <section class="aboutme-section" id="section-personality">
-            <div class="aboutme-section-header">
-                <div class="aboutme-section-title-wrap">
-                    <i class="fa fa-smile-o aboutme-section-icon"></i>
-                    <h2>性格</h2>
-                </div>
-                <div class="aboutme-section-divider"></div>
-            </div>
-            <div class="aboutme-section-content">
-                <div class="aboutme-personality">
-                    <div class="aboutme-personality-item">
-                        <div class="aboutme-personality-label">MBIT</div>
-                        <div class="aboutme-personality-value">INFP</div>
-                        <div class="aboutme-personality-desc">调停者型人格</div>
-                    </div>
-                    <div class="aboutme-personality-item">
-                        <div class="aboutme-personality-label">SBIT</div>
-                        <div class="aboutme-personality-value">DREAM-R</div>
-                        <div class="aboutme-personality-desc">梦幻型人格</div>
-                    </div>
-                </div>
-                <div class="aboutme-tip-box">
-                    <i class="fa fa-lightbulb-o aboutme-tip-icon"></i>
-                    <div class="aboutme-tip-text">
-                        <strong>tips：</strong>不喜欢聊政治话题
-                    </div>
-                </div>
-            </div>
-        </section>
+<div class="aboutme-panel aboutme-panel-note">
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;注：</h4>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;本人语文不太好，用词不太美观，谅解一下</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;情商也不太高〈捂脸〉</p>
+</div>
 
-        <section class="aboutme-section" id="section-contact">
-            <div class="aboutme-section-header">
-                <div class="aboutme-section-title-wrap">
-                    <i class="fa fa-envelope aboutme-section-icon"></i>
-                    <h2>联系方式</h2>
-                </div>
-                <div class="aboutme-section-divider"></div>
-            </div>
-            <div class="aboutme-section-content">
-                <div class="aboutme-contact-list">
-                    <div class="aboutme-contact-item">
-                        <div class="aboutme-contact-icon">
-                            <i class="fa fa-envelope-o"></i>
-                        </div>
-                        <div class="aboutme-contact-info">
-                            <div class="aboutme-contact-name">邮箱</div>
-                            <div class="aboutme-contact-value">3890320020@qq.com</div>
-                        </div>
-                    </div>
-                    <div class="aboutme-contact-item">
-                        <div class="aboutme-contact-icon">
-                            <i class="fa fa-github"></i>
-                        </div>
-                        <div class="aboutme-contact-info">
-                            <div class="aboutme-contact-name">GitHub（大号）</div>
-                            <div class="aboutme-contact-value">
-                                <div class="aBackground"><a href="https://github.com/crazying-dev">crazying-dev</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="aboutme-contact-item">
-                        <div class="aboutme-contact-icon">
-                            <i class="fa fa-github"></i>
-                        </div>
-                        <div class="aboutme-contact-info">
-                            <div class="aboutme-contact-name">GitHub（小号）</div>
-                            <div class="aboutme-contact-value">
-                                <div class="aBackground"><a href="https://github.com/cary-ing">cary-ing</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="aboutme-contact-item">
-                        <div class="aboutme-contact-icon">
-                            <i class="fa fa-video-camera"></i>
-                        </div>
-                        <div class="aboutme-contact-info">
-                            <div class="aboutme-contact-name">B站</div>
-                            <div class="aboutme-contact-value">不告诉你~（这不是名字-_-）</div>
-                        </div>
-                    </div>
-                    <div class="aboutme-contact-item">
-                        <div class="aboutme-contact-icon">
-                            <i class="fa fa-bookmark"></i>
-                        </div>
-                        <div class="aboutme-contact-info">
-                            <div class="aboutme-contact-name">小红书</div>
-                            <div class="aboutme-contact-value">
-                                <div class="aBackground"><a href="https://xhslink.com/m/7yCXhVvmCaJ">林</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="aboutme-contact-item">
-                        <div class="aboutme-contact-icon">
-                            <i class="fa fa-wechat"></i>
-                        </div>
-                        <div class="aboutme-contact-info">
-                            <div class="aboutme-contact-name">微信号 <span class="aboutme-contact-sub">（来唠唠嗑喵？）</span></div>
-                            <div class="aboutme-contact-value">Alan_120615</div>
-                        </div>
-                    </div>
-                    <div class="aboutme-contact-item aboutme-contact-item-qrcode">
-                        <div class="aboutme-contact-icon">
-                            <i class="fa fa-qrcode"></i>
-                        </div>
-                        <div class="aboutme-contact-info">
-                            <div class="aboutme-contact-name">公众号</div>
-                            <div class="aboutme-contact-value">
-                                <span class="aboutme-qrcode-hint">悬停查看二维码</span>
-                            </div>
-                        </div>
-                        <div class="aboutme-qrcode-popup">
-                            <img src="//img.crazying-dev.top/crazying-dev.top/OfficialAccount.jpg" alt="公众号二维码">
-                        </div>
-                    </div>
-                </div>
-                <div class="aboutme-contact-notice">
-                    <i class="fa fa-clock-o aboutme-notice-icon"></i>
-                    <div class="aboutme-notice-text">
-                        <strong>温馨提示：</strong>不要尝试在上课时间让我回消息
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="aboutme-section" id="section-code">
-            <div class="aboutme-section-header">
-                <div class="aboutme-section-title-wrap">
-                    <i class="fa fa-code aboutme-section-icon"></i>
-                    <h2>编程之旅</h2>
-                </div>
-                <div class="aboutme-section-divider"></div>
-            </div>
-            <div class="aboutme-section-content">
-                <div class="aboutme-journey-box">
-                    <p class="aboutme-journey-text">
-                        小学的时候上过一些有关编程的社团课，正经开始学编程是在2025年，开始接触Python随后
-                        <span class="aboutme-lang-pop" id="ICanLangForC++">C++</span>，JavaScript等扩展。
-                    </p>
-                </div>
-
-                <div class="aboutme-skills">
-                    <div class="aboutme-skills-header">
-                        <h3>我会什么语言</h3>
-                        <button class="aboutme-expand-btn aboutme-expand-btn-sm" id="AboutMeCan" onclick="UpdataAboutMeCan()">
-                            <span class="aboutme-expand-text">更多...</span>
-                            <i class="fa fa-chevron-down aboutme-expand-icon"></i>
-                        </button>
-                    </div>
-                    <div class="aboutme-skill-list">
-                        <div class="aboutme-skill-item">
-                            <div class="aboutme-skill-head">
-                                <div class="aboutme-skill-name">
-                                    <i class="fa fa-python aboutme-skill-icon"></i>
-                                    Python
-                                </div>
-                                <div class="aboutme-skill-percent">85%</div>
-                            </div>
-                            <div class="aboutme-skill-bar">
-                                <div class="aboutme-skill-fill" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="aboutme-more-langs" id="AboutMeMoreLangs" style="display:none;">
-                        <div class="aboutme-skill-item">
-                            <div class="aboutme-skill-head">
-                                <div class="aboutme-skill-name">
-                                    <i class="fa fa-html5 aboutme-skill-icon"></i>
-                                    HTML / CSS / JavaScript
-                                </div>
-                                <div class="aboutme-skill-percent">65%</div>
-                            </div>
-                            <div class="aboutme-skill-bar">
-                                <div class="aboutme-skill-fill" style="width: 65%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="aboutme-section aboutme-section-note" id="section-note">
-            <div class="aboutme-note-content">
-                <i class="fa fa-commenting-o aboutme-note-icon"></i>
-                <div class="aboutme-note-text-wrap">
-                    <h4>注：</h4>
-                    <p>本人语文不太好，用词不太美观，谅解一下</p>
-                    <p>情商也不太高〈捂脸〉</p>
-                </div>
-            </div>
-        </section>
-    </main>
 </div>
 
 <div class="card" from="ConntWithMeTheDivFor1">喵喵喵？</div>
@@ -346,77 +74,28 @@
     function UpdataAboutMeMore(){
         const AboutMeMore = document.getElementById("AboutMeMore");
         const AboutMeMoreContent = document.getElementById("AboutMeMoreContent");
-        const icon = AboutMeMore.querySelector('.aboutme-expand-icon');
-        const text = AboutMeMore.querySelector('.aboutme-expand-text');
-
         if (A === 0){
             AboutMeMoreContent.style.display = 'block';
-            text.textContent = "收起";
-            icon.style.transform = 'rotate(180deg)';
-            AboutMeMore.classList.add('expanded');
+            AboutMeMore.innerText = "收起";
             A = 1
         }else if (A === 1){
             AboutMeMoreContent.style.display = 'none';
-            text.textContent = "查看更多";
-            icon.style.transform = 'rotate(0deg)';
-            AboutMeMore.classList.remove('expanded');
+            AboutMeMore.innerText = "more?";
             A = 0
         }
     }
-
     let B = 0
     function UpdataAboutMeCan(){
         const AboutMeCan = document.getElementById("AboutMeCan");
         const AboutMeMoreLangs = document.getElementById("AboutMeMoreLangs");
-        const icon = AboutMeCan.querySelector('.aboutme-expand-icon');
-        const text = AboutMeCan.querySelector('.aboutme-expand-text');
-
         if (B === 0) {
             AboutMeMoreLangs.style.display = 'block';
-            text.textContent = "收起";
-            icon.style.transform = 'rotate(180deg)';
-            AboutMeCan.classList.add('expanded');
+            AboutMeCan.innerText = "收起";
             B = 1
         }else if (B === 1){
             AboutMeMoreLangs.style.display = 'none';
-            text.textContent = "更多...";
-            icon.style.transform = 'rotate(0deg)';
-            AboutMeCan.classList.remove('expanded');
+            AboutMeCan.innerText = "更多...";
             B = 0
         }
-    }
-
-    // 侧边栏目录滚动高亮
-    function initAboutmeSidebar() {
-        const sections = document.querySelectorAll('.aboutme-section');
-        const navLinks = document.querySelectorAll('.aboutme-nav-link');
-
-        function updateActiveNav() {
-            let currentSection = '';
-            const scrollPos = window.scrollY + 200;
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollPos >= sectionTop) {
-                    currentSection = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + currentSection) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', updateActiveNav);
-        updateActiveNav();
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initAboutmeSidebar);
-    } else {
-        initAboutmeSidebar();
     }
 </script>
