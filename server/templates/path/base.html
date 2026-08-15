@@ -241,13 +241,49 @@
     邮箱：3890320020@qq.com<br>
     <a href="https://github.com/crazying-dev">Github（大号）：crazying-dev</a><br>
     <a href="https://github.com/cary-ing">Github（小号）：cary-ing</a><br>
-    B站：不告诉你~（这不是名字-_-）(实际上是还没定下来)<br>
-    小红书：<a href="https://xhslink.com/m/7yCXhVvmCaJ">林</a><br>
+    B站：<a href="https://space.bilibili.com/3707022235142639" id="FooterBiliName">crazying-dev</a><br>
+    小红书：<a href="https://www.xiaohongshu.com/user/profile/682d321b000000000a03c93b" id="FooterXhsName">林</a><br>
     微信号：Alan_120615<br>
     公众号：林の窝<br>
     <br>
 </footer>
 
+
+<!-- B站用户名动态获取 -->
+<script>
+(function() {
+    var biliLink = document.getElementById('FooterBiliName');
+    if (!biliLink) return;
+    var biliUrl = biliLink.getAttribute('href');
+    var apiUrl = '/api/bili-title?url=' + encodeURIComponent(biliUrl);
+    fetch(apiUrl)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data && data.title) {
+                biliLink.textContent = data.title;
+            }
+        })
+        .catch(function() {});
+})();
+</script>
+
+<!-- 小红书用户名动态获取 -->
+<script>
+(function() {
+    var xhsLink = document.getElementById('FooterXhsName');
+    if (!xhsLink) return;
+    var xhsUrl = xhsLink.getAttribute('href');
+    var apiUrl = '/api/xhs-title?url=' + encodeURIComponent(xhsUrl);
+    fetch(apiUrl)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data && data.title) {
+                xhsLink.textContent = data.title;
+            }
+        })
+        .catch(function() {});
+})();
+</script>
 
 <!-- 页面内容获取 -->
 <!-- 定义window的大小更改时的组件更改 -->
