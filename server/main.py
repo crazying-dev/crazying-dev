@@ -133,23 +133,26 @@ def get_bili_title():
 
     try:
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+            'Referer': 'https://www.bilibili.com/'
         }
         resp = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
-        resp.encoding = resp.apparent_encoding or 'utf-8'
-        html = resp.text
+        data = resp.json()
 
-        # 提取 <title> 标签内容
-        match = re.search(r'<title\b[^>]*>(.*?)</title>', html, re.IGNORECASE | re.DOTALL)
-        if not match:
-            return jsonify({'error': '未找到页面标题'}), 404
+        # 从 JSON 中提取用户名
+        if data.get('code') == 0:
+            name = None
+            # web-interface/card 接口: data.card.name
+            if 'card' in data.get('data', {}):
+                name = data['data']['card'].get('name')
+            # space/acc/info 接口: data.name
+            elif 'name' in data.get('data', {}):
+                name = data['data'].get('name')
 
-        title = match.group(1).strip()
-        # 截取 "的个人空间" 前的内容
-        if '的个人空间' in title:
-            title = title.split('的个人空间')[0].strip()
+            if name:
+                return jsonify({'title': name})
 
-        return jsonify({'title': title})
+        return jsonify({'error': '未能从 API 响应中提取用户名'}), 404
     except Exception as e:
         return jsonify({'error': f'请求失败: {str(e)}'}), 500
 

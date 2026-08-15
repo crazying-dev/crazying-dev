@@ -254,8 +254,7 @@
 (function() {
     var biliLink = document.getElementById('FooterBiliName');
     if (!biliLink) return;
-    var biliUrl = biliLink.getAttribute('href');
-    var apiUrl = '/api/bili-title?url=' + encodeURIComponent(biliUrl);
+    var apiUrl = '/api/bili-title?url=' + encodeURIComponent('https://api.bilibili.com/x/web-interface/card?mid=3707022235142639');
     fetch(apiUrl)
         .then(function(res) { return res.json(); })
         .then(function(data) {
