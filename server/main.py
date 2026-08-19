@@ -227,6 +227,10 @@ def post(post_id):
 def postGET(post_id):
 	return render_template("/HTML/PostBase.html")
 
+@app.route('/pinshu/phone')
+def PinShu_Phone():
+	return render_template("/PinShu/Phone.html")
+
 
 if __name__ == '__main__':
 	app.run()
