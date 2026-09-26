@@ -1,140 +1,25 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>不好！找不到页面</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//assets.crazying-dev.top/CSS/body.css">
-    <link rel="stylesheet" href="//assets.crazying-dev.top/CSS/all.css">
+{# ------------------------------------------------------------------
+   404 页（片段，由 base.html include）
+   ------------------------------------------------------------------ #}
+<div class="notfound">
+    <div class="notfound__code">404</div>
 
-    <script src="//assets.crazying-dev.top/JS/BeforBody.js"></script>
-
-</head>
-<body>
-<!-- 背景图混合 -->
-<div class="bg-box-for1 bg-box"></div>
-<div class="bg-box-for2 bg-box"></div>
-
-<!-- 提示栏 -->
-<div class="card" from="Go-to-Github">前往GitHub</div>
-<div class="card" from="AboutMeForHeader">emm...来让我做一下自我介绍吧</div>
-<div class="card" from="CommentMe">联系我</div>
-<div class="card" from="friend">我的朋友</div>
-<div class="card" from="title">林の窝</div>
-<div class="card" from="MeWriter">我的作品</div>
-
-<!-- 头 -->
-<header>
-    <a href="https://github.com/crazying-dev" id="Go-to-Github">
-        <img src="//img.crazying-dev.top/crazying-dev.top/me.png" alt="This is me Github Avatar" id="me">
-    </a>
-    <a href="/AboutMe" class="HeaderButton" id="AboutMeForHeader">关于我</a>
-    <a href="/CommentMe" class="HeaderButton" id="CommentMe">联系我</a>
-    <a href="/friend" class="HeaderButton" id="friend">友人</a>
-    <a href="/MyWrite" class="HeaderButton" id="MeWriter">作品</a>
-
-
-    <a id="title" class="HeaderButton" href="/">林の窝</a>
-</header>
-
-<!-- <img src="https://count.getloli.com/@A?name=A&theme=sketch-2&padding=3&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="计数器"> -->
-
-
-<div id="ui">
-    <div class="errorTitle">
-        <div id="errorTitleForN1">N</div>
-        <div id="errorTitleForo1">o</div>
-        <div id="errorTitleFort">t</div>
-        <div id="errorTitleFor">  </div>
-        <div id="errorTitleForF">F</div>
-        <div id="errorTitleForo2">o</div>
-        <div id="errorTitleForu">u</div>
-        <div id="errorTitleForn2">n</div>
-        <div id="errorTitleFord">d</div>
-        <div id="errorTitleFormouse">|</div>
-        <script>
-            function sleep(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
-            }
-
-            function change(id){
-                let a = document.getElementById(id)
-                a.style.color = 'rgba(0,0,0,1)'
-                if (id === 'errorTitleFor'){
-                    a.style.width = '25px'
-                }else {
-                    a.style.width = 'auto'
-                }
-            }
-
-            // 使用
-            async function RunErrorTitle() {
-                change('errorTitleForN1')
-                await sleep(200);
-                change('errorTitleForo1')
-                await sleep(200);
-                change('errorTitleFort')
-                await sleep(200);
-                change('errorTitleFor')
-                await sleep(200);
-                change('errorTitleForF')
-                await sleep(200);
-                change('errorTitleForo2')
-                await sleep(200);
-                change('errorTitleForu')
-                await sleep(200);
-                change('errorTitleForn2')
-                await sleep(200);
-                change('errorTitleFord')
-            }
-        </script>
+    <div class="notfound__cn">
+        <span style="animation-delay:.05s">不</span>
+        <span style="animation-delay:.12s">好</span>
+        <span style="animation-delay:.19s">！</span>
+        <span style="animation-delay:.26s">找</span>
+        <span style="animation-delay:.33s">不</span>
+        <span style="animation-delay:.40s">到</span>
+        <span style="animation-delay:.47s">页</span>
+        <span style="animation-delay:.54s">面</span>
+        <span style="animation-delay:.61s">了</span>
     </div>
-    <div class="errorTitlefor2">
-        <div class="errorTiTleForChinese">不</div>
-        <div class="errorTiTleForChinese">好</div>
-        <div class="errorTiTleForChinese">！</div>
-        <div class="errorTiTleForChinese">找</div>
-        <div class="errorTiTleForChinese">不</div>
-        <div class="errorTiTleForChinese">到</div>
-        <div class="errorTiTleForChinese">页</div>
-        <div class="errorTiTleForChinese">面</div>
-        <div class="errorTiTleForChinese">了</div>
-        <script></script>
+
+    <p class="notfound__desc">这个页面大概是跑到二次元去玩了，要不要回首页重新找找喵？</p>
+
+    <div class="notfound__actions">
+        <a class="btn btn--primary" href="/">回到首页</a>
+        <a class="btn" href="/CommentMe">联系我</a>
     </div>
-    <script>
-        window.onload = function() {
-            RunErrorTitle();
-        }
-    </script>
 </div>
-
-<div id="FooterWithNone"></div>
-<footer class="DontTon">
-    <div class="card" from="FooterConntWithMeTheDivFor1">喵喵喵？</div>
-    <img class="card" from="Footer公众号" src="//img.crazying-dev.top/crazying-dev.top/OfficialAccount.jpg" alt="公众号" width="430" height="430">
-    <del class="card" from="FooterPrivacy">不同意也不行</del>
-
-    <p style="font-family: -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;">© 2026-<span id="year"></span> Ryousuke. All rights reserved.</p>|<a href="/privacy" id="FooterPrivacy">隐私</a>|<a href="https://icp.gov.moe/?keyword=20261018" target="_blank">萌ICP备20261018号</a><br>|<a href="/rss.xml">rss</a>
-    <br>
-    联系方式<br>
-    邮箱：3890320020@qq.com<br>
-    <a href="https://github.com/crazying-dev">Github（大号）：crazying-dev</a><br>
-    <a href="https://github.com/cary-ing">Github（小号）：cary-ing</a><br>
-    B站：<a href="https://space.bilibili.com/3707022235142639">crazying-dev</a><br>
-    小红书：<a href="https://www.xiaohongshu.com/user/profile/682d321b000000000a03c93b">林</a><br>
-    微信号<div id="FooterConntWithMeTheDivFor1">（来唠唠嗑喵？）</div>：Alan_120615<br>
-    公众号：<div id="Footer公众号">悬停扫码</div><br>
-    <br>
-</footer>
-
-<!-- 404不需要更新UI 即定义a阻止更新UI -->
-<script>
-    const a = 1
-</script>
-
-<!-- 定义window的大小更改时的组件更改 -->
-<!-- 定义card的from属性 ＆ 自跟踪动作 ＆ 事件布置 ＆ 提示栏初始化 ＆ 事件函数 -->
-<script src="//assets.crazying-dev.top/JS/AfterBody.js"></script>
-</body>
-</html>

@@ -1,451 +1,124 @@
-<div class="ui-col-left">
-    <div class="pc LeftPcCard" id="MyPcCard">
-        <div id="mypolist">
-            <a href="/AboutMe" id="Mya">
-                <div id="MyAuBackground">
-                    <img id="MyAu" src="//img.crazying-dev.top/crazying-dev.top/me.png" alt="我" loading="lazy">
+{% from 'HTML/_icons.html' import social_row, chip_row with context %}
+
+{# ============================== 移动端 Hero ============================== #}
+<section class="hero">
+    <div class="hero__card">
+        <div class="hero__main">
+            <img class="hero__avatar" id="heroAvatar" src="{{ IMG }}/crazying-dev.top/me.png" alt="林" width="76" height="76" loading="lazy">
+            <div>
+                <div class="hero__name">林 <span>Ryousuke</span></div>
+                <div class="hero__tagline">地球 online 在线中 · 罗小黑死忠 · 写代码的</div>
+            </div>
+        </div>
+        {{ chip_row('hero__chips') }}
+        {{ social_row('hero__socials') }}
+    </div>
+</section>
+
+<div class="layout">
+    {# ============================== 左栏 ============================== #}
+    <aside class="layout__side">
+
+        <!-- 个人卡片（桌面端） -->
+        <section class="panel" id="SideProfile">
+            <div class="profile">
+                <a class="profile__avatar-wrap" href="/AboutMe" aria-label="关于我">
+                    <img class="profile__avatar" src="{{ IMG }}/crazying-dev.top/me.png" alt="林" width="116" height="116" loading="lazy">
+                </a>
+                <div class="profile__name">林 <span>Ryousuke</span></div>
+                <div class="profile__handle">@crazying-dev</div>
+                <p class="profile__bio">一个喜欢玩电脑的理科生，罗小黑死粉，会一点点 Python。</p>
+                <div class="profile__status"><span class="profile__dot"></span>地球 online 在线中</div>
+                <hr class="profile__divider">
+                {{ chip_row('') }}
+                {{ social_row('') }}
+            </div>
+        </section>
+
+        <!-- 音乐播放器 -->
+        <section class="panel music" data-music>
+            <div class="panel__head">
+                <h2 class="panel__title">林の歌单 <span class="panel__title-sub">music</span></h2>
+            </div>
+
+            <div class="music__now">
+                <div class="music__disc" id="musicDisc">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12.6 1.3a.7.7 0 0 1 .9.67v8.4a2.6 2.6 0 1 1-1.4-2.3V4.6L6.9 5.9v5.6a2.6 2.6 0 1 1-1.4-2.3V4.2a.7.7 0 0 1 .5-.67l6.6-2.23z"/></svg>
                 </div>
-                <p id="MyName">林</p>
-            </a>
-            <br>
-            <a href="https://github.com/crazying-dev" id="MyCardGithub">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M237.9 461.4C237.9 463.4 235.6 465 232.7 465C229.4 465.3 227.1 463.7 227.1 461.4C227.1 459.4 229.4 457.8 232.3 457.8C235.3 457.5 237.9 459.1 237.9 461.4zM206.8 456.9C206.1 458.9 208.1 461.2 211.1 461.8C213.7 462.8 216.7 461.8 217.3 459.8C217.9 457.8 216 455.5 213 454.6C210.4 453.9 207.5 454.9 206.8 456.9zM251 455.2C248.1 455.9 246.1 457.8 246.4 460.1C246.7 462.1 249.3 463.4 252.3 462.7C255.2 462 257.2 460.1 256.9 458.1C256.6 456.2 253.9 454.9 251 455.2zM316.8 72C178.1 72 72 177.3 72 316C72 426.9 141.8 521.8 241.5 555.2C254.3 557.5 258.8 549.6 258.8 543.1C258.8 536.9 258.5 502.7 258.5 481.7C258.5 481.7 188.5 496.7 173.8 451.9C173.8 451.9 162.4 422.8 146 415.3C146 415.3 123.1 399.6 147.6 399.9C147.6 399.9 172.5 401.9 186.2 425.7C208.1 464.3 244.8 453.2 259.1 446.6C261.4 430.6 267.9 419.5 275.1 412.9C219.2 406.7 162.8 398.6 162.8 302.4C162.8 274.9 170.4 261.1 186.4 243.5C183.8 237 175.3 210.2 189 175.6C209.9 169.1 258 202.6 258 202.6C278 197 299.5 194.1 320.8 194.1C342.1 194.1 363.6 197 383.6 202.6C383.6 202.6 431.7 169 452.6 175.6C466.3 210.3 457.8 237 455.2 243.5C471.2 261.2 481 275 481 302.4C481 398.9 422.1 406.6 366.2 412.9C375.4 420.8 383.2 435.8 383.2 459.3C383.2 493 382.9 534.7 382.9 542.9C382.9 549.4 387.5 557.3 400.2 555C500.2 521.8 568 426.9 568 316C568 177.3 455.5 72 316.8 72zM169.2 416.9C167.9 417.9 168.2 420.2 169.9 422.1C171.5 423.7 173.8 424.4 175.1 423.1C176.4 422.1 176.1 419.8 174.4 417.9C172.8 416.3 170.5 415.6 169.2 416.9zM158.4 408.8C157.7 410.1 158.7 411.7 160.7 412.7C162.3 413.7 164.3 413.4 165 412C165.7 410.7 164.7 409.1 162.7 408.1C160.7 407.5 159.1 407.8 158.4 408.8zM190.8 444.4C189.2 445.7 189.8 448.7 192.1 450.6C194.4 452.9 197.3 453.2 198.6 451.6C199.9 450.3 199.3 447.3 197.3 445.4C195.1 443.1 192.1 442.8 190.8 444.4zM179.4 429.7C177.8 430.7 177.8 433.3 179.4 435.6C181 437.9 183.7 438.9 185 437.9C186.6 436.6 186.6 434 185 431.7C183.6 429.4 181 428.4 179.4 429.7z"/>
-                </svg>
-            </a>
-            <button id="MyCardWechat">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M417.2 231.6C423.6 231.6 429.8 231.9 436 232.7C419.4 154.3 335.3 96 239.7 96C132.5 96 45 168.8 45 261.4C45 314.8 74.3 358.9 122.9 393L103.6 451.6L171.6 417.5C196 422.3 215.4 427.2 239.8 427.2C246 427.2 251.9 426.9 258.1 426.4C254.1 413.5 251.9 399.8 251.9 385.6C251.8 300.7 324.8 231.6 417.2 231.6zM312.7 178.7C327.2 178.7 336.9 188.4 336.9 203.1C336.9 217.6 327.2 227.3 312.7 227.3C297.9 227.3 283.4 217.6 283.4 203.1C283.5 188.4 298 178.7 312.7 178.7zM176.3 227.3C161.8 227.3 147 217.6 147 203.1C147 188.3 161.8 178.7 176.3 178.7C191.1 178.7 200.7 188.4 200.7 203.1C200.7 217.7 191.1 227.3 176.3 227.3zM595 383.4C595 305.5 517.1 242.1 429.6 242.1C336.9 242.1 264.2 305.5 264.2 383.4C264.2 461.3 337 524.7 429.6 524.7C448.9 524.7 468.5 519.6 488.2 514.8L541.6 544.1L526.8 495.5C566 466.1 595 427.2 595 383.4zM375.9 358.9C366.2 358.9 356.6 349.2 356.6 339.3C356.6 329.6 366.3 320 375.9 320C390.7 320 400.3 329.7 400.3 339.3C400.3 349.3 390.6 358.9 375.9 358.9zM483 358.9C473.3 358.9 463.7 349.2 463.7 339.3C463.7 329.6 473.4 320 483 320C497.5 320 507.4 329.7 507.4 339.3C507.5 349.3 497.5 358.9 483 358.9z"/>
-                </svg>
-            </button>
-            <!-- <a href="//www.bilibili.com/"><i class="fa-brands fa-bilibili"></i></a> -->
-            <a href="https://xhslink.com/m/6qaVR74PhOg" id="MyCardXiaoHongShu">
-                <img
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAM0AAABgCAYAAAC+PvZZAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAA0KSURBVHgB7Z1LbFTXGce/cz1UlRKc6SqRghRLmAq6Cd0EKa2UwZC2uwRYFhV7SwWEVApSUxW7UqTSRXlYTdVsakdtd7y6ahMeU6lZkE1gA6iA4kog0Z1rg1SBZ07P/94Zezy+j+8+z70z3w+ZGY+vZ65n7v98z3OOohKjtzfGqOU0SFOdFL1OWplbvdP7IY2RUF0ULZjPc9Hc63zpW+b7m+Q4C+re5zepxCgqEXp8b4OobUSh3jHfQRx1EoYU1TRfEM9ldf9Kk0qEddF4QiEjkvYkiUgEfxZdESl9Wd27NkeWsSIaPfZunWpLx8zd90iEIsRjkZS6RCObZtTdvy2QBQoVjWdV9Enz1SBBSI1rfeaLtj6FiEbEIuQKkgpEM0WJJ1fRuG7YpuXTpPUkCULuGMtT2zSVt9uWm2j0tj3HjFimSWIWoXimaWX0rFq4tEg5kLlo9PYfjdHK8z+KKyZYxXXZRvblUfNxKENc67Ly7CsRjGAdFL916ys9PnGSMiYzS2NO7jR5KWRBKBnZxjqpRdNxxy52KviCUE7gro18Y3cWwkklGlcwrWfXpQ9MqAimMDqyO22ckzimEcEIFaTuxjnf3nOIUpDI0ohghMrjqEn1r6vzlIDYohHBCAODVvvUg6uXKCaxRCOCEQaMRDEOO6ZxW2JEMMJgUSdqXXSNQQz4iYDa0kkRjDBw4Jo2JRPXKDBhiaZTVZXCpTCgmBpj7Qm7cyAypvGKl8++JkEYfI6r+9fORB0UbWkQxwjCcHCSE9+EisZ1yySOEYaHutehH06ge1Ypt2z0RaIdW6OPu3GLCuXDnxLt/V74MXfuEx3+JZWWyQNEhw6EH/PoMdHB92lgiKjf1AJ/ceXZaaoKEMyffht93LY9VBhbXjEX3P7o42YTFaWLY/ML5m95OfwYpWmgcPRpk01rBk1i83XP9LaJSXPzLgnJ2ffD6GMemhH6wt9JKBkISWpLgdniIEuT+cSdoePAD6KPmf00/OdvG9du84uUKXceeC5hP/uNyF/1sSi7GDM+cI77AwYJuG54zaUnxGa083ywco/+Q/TlLW+AKZZjxtqc8bM2G0TjWhkJ/tPhXoCvRB8XFWP9/LDn5mXJuflg0ex6nRKBi/zUB+HHfP4F0ZUvoi0rYqgPD69/DII7ZwaY+fNUIPWOtZnu/8FG90yrVG3TguHoT6KPwcXzqPDR0x6wmhBW88/BA4GfYABE+YvDyUWdnGN+nQLrRNNZn6xBQnK4VubcpzSU4L25/Af/bGdU4uRI4eM5rM1k/4PrLY3SYmXSsp+RABg2K9MPLAeynb0WB1YkarDBMaMZx3iRYDH+9ayKRo816rKoX0rwoXJcCMmYeRf/rz+g8qMbnUX6V1mzNJuc6qaYCx99AuBYmRs3iy+ylhXuINMFGbQ4Wbis0HqdNtZEU+UEwOYSiAauBss1+4yEHqK6DXqZtRQH9oUtrmhc10wSAOk4wsiYSTFzI1xLg84Je+9dvddF8+o0IyMNlEGtEtWqAZae5mOe074218oAZI2Wn/BeJyhZwKnd4Dn8znf5qf/xbu3G5xpAcB71ekGvxTlPuNY4Dud1w2fWMd4DWGfrLm27Yf5r4l6nuFkCK3P5k+jY5MSpfNwbTmMlRrkTv/H/GcfKAFwcf/0k/JjGj9cuwIM/8z/m3lWKBIXEoPP146OP/R/H33b0ULLXghXh9ASC2/eD/95SoN7q3vNiGrX2gDU4wfzSU8oFjvUKipsghCjBccFIO0ipaK51KENMGonJonUKnU4nnrG7pCw3+7WcU+aE09c0+oL/429kWDuYu0BDSdB7WzZqT1ydOFSr2V+DmTvS5GVpOGIM8s+PMl2zKCBcuDlCiWl3RNO5YxVOIA7ycl2SivE747yWGQ6zQ9pWUyUUuak+p1IdzXkVtjiWxk8c2xmzRTlIKroaaP0t3DgmCfAa2eZVZgo1LzBng0N/7HL3AWVC1a3Mq0xPoeoo5VoapJzt74nJCQSXcxTNf5nPDdH0ihdpUhTd0nTf4vls1SDw90S995xaC2LSLSmEA9Hh9x8yBy9bdLyyGik9ZruuyUoEPCxBKtbvPNHif/6zzizLvgsQ80OiMmsI/m2lmT/+VTZzVBDbXf8LJebUibX7eC9uP/Dc1RImRpB2rhnBlMDSWM7Tcy9ajIh+sx7x+3N9swpxMR5lWKBhnVcTBFx1fGEQwvuK96dM8d43F+soblZDNI9yNt1pajV+yLya9EA8mO15pFy9xJnu7pwY24kALtx6ErcXbViLmXFBLSxON3SetKheDtFwyFs0HEvGdSM5vWhomfFz9QR/IJwyzJvStZKIhpOyzNuN4Tw/50ODlWHN3pR5NbHAe3+Isfhi3tRWFiCaRbKNzWbNOHDO8w3GXHcpZiZjl/3mFWCKmxURzXLO7hknEcCJaTi9aHOFrt81OBS/hNNG/ldfNClntWh1Atqo5WbNOES5kdzlm6YOeLWNfiCmOxl1GQwqcH8t1uyw4qYpbrZvGeHYs3vcFSRzj2kYiYCXIgQ+yfS5Iaz9fX/3w8fF12ywW0FUGn3v9/0X8OsFSZqkOx90YxWu64WBy5ZoFC3gpkZtY2lib4yeIZuZtY+8s2fLKSaiAbgOO8YpMVivuOiaTdA05f5jolhO2QqEJWuxgmZZ0spBaLWAG8f8i7UddOZw3LPbBaRmbzPcIrdXK+B8uWsEBDHsnQFVyCZqckcGkz0bsSsazlThRwU08nFH+aDNo3akmCYgnQH8plmbKL2AG4eeP18gm3AyIkUVATmvE2RR0sxzl/6ziuC4BsZRC02TPVP2rA0ncfdlQa3zafzy+YQtMYO2mMYAo+5faeLW6wjQ+h9kC86eI0XNN+GIM8gqIF2MZYziWkWZ5lwRVLN7r7b2gD5GNkAAiC7WoAD7RoFGEOJEtijsXMKsAmITqfQPKGuGxbM0rVaTbLXT4CINq5AXmVXBuYQVF6VfbIhxmqv38J/1uAbxQFA9oOipwEGWIqxfrCy7Fgj5YIqa3XgG9Oy5qS+b/xpkAwgGF+RkX3HLRioWU2z9XLSg2APZNEyUgrgRz8QpwsKq9U/pRYF075uUGjxP1BQFv9e3xUulHniavd+siWalPUc1B7s625nJiQlZ/aLhNjZm2cjXdRd7pyqHWZlu60zcvVbAwfc3Pvb7mWzWUkPdKKp2hE1rixANZwGPIxktupgH2pnv/XZVNHDR9NaJeWOK7CQEYFEwWncvPFyk/fEFRvX+qa/4MLJ2j+YvrF8U42KAYNK0zjx8vNH15DZ8VpE0C2/YBK7ZvTXXDPTtuelcIpvM9gjaL7WLUXHLy+u/uIKJ04rTn5w4H5AASDN33c/dS9uKU1ayXKaq+C7wmf4H1onGC3bW8tGFgzcWXxCPXyzTjX2SEHdhP1ibrlvmdy7cGZp++Ll7Sdy7KjE7T6lByr/ItSJcK3Ntrv/hms+RM1b3q0GBMKoWkmREjruIBT6csP1S0vjgw2RlunQHxDQDQ9Epf02+St+wRoB1axOVLeu++XFw46ME/Ws4lyArk/Qi97MyaZ6vSlz5JyUG7nKRhWPMnamZ5JgPAQtrqBkqM3FMfR6Tu9JYGb+kQpkzR1kCS5HEvYJYgnZqywtjZdTd5oLfj3xFY93aRAFLw5m9Bx8YLlaWtZ60VqE/qTAsVgZEdX/4Hf/R7+Jtg5gFbjHz2nTQj2uBv1hrTdGK8zWVFcQFfiM0ZhHCFctrc1OIFR/i22/Gnw7gNzsT84luWGrG4MxTcmdlRpxfnEEJCZawuAavh4XQkSlFpszOIpGhnlboRGc9PjFtbk6SIAwLiuZMxmwq7JDwxQJX2me6iwkIwsCDa32kHRnPh4rGa+Rs7yNBGA5mgoL/XiKXpVX3mnBoj5MgDDJanfUrZPrBWsvZZBKMm6YyKOkKQgmBW9ZqTXMP5y+A/rz1ntU5N4KQB14cs9sLRXiwReM+aa21TxIDwgDhxuycOKaXWFttuE9uVCnCEQYCraY6MXssYu9PI8IRBgJFU+rB1URTYRKv4qy3N8ao5VzvbhMtCJUBgmFmyvx/PQUiHKFiLJIyQX8Cl6yXVNsHrrpqklUTyo7X6v/dtILxnioj9NaJM9bWFxCEUFQTDchxs2SBz0YZoscnTC2H7K1oIwgbmQlr809C5ts5SZwjlAK4Y9qZ6l3kL7unzgnX6sBdE/EIRaPVWbTFxKnyxyHXjQM9q6OmzR+RYq0jQeBiYhfVOp5FsB/6KlQAIh4hXzA1X83k4Yr5vhoViIhHyJZixbL6qmSBVfGQektiHiEmi+56ZMq5VLRYutjcDN1Fj+9tGD90UgQkhICAvmk8lHnspZRXgM/Fumh6cQVE7Z3mtN4x35lbqfcMKd5+SVrfctcXX1m5aVsovZRKNP3obY2d1B4ZI2UEpOg1M9KMEYSkdF2sUsXpdslrteBuNa7p395j7Zt5Z7/S8n8dgsfPv/PfFwAAAABJRU5ErkJggg==" alt="xiaohongshu">
-            </a>
-        </div>
-
-    </div>
-
-    <div class="pc LeftPcCard" id="MusicPcCard">
-        <div id="MusicPcCardForIconAndMoreForOutPut">
-            <button id="MusicPcCardForIconAndMoreForInPut" onclick="MoreMusicList()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" id="MusicPcCardForIconAndMoreIcon">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM320 352C302.3 352 288 337.7 288 320C288 302.3 302.3 288 320 288C337.7 288 352 302.3 352 320C352 337.7 337.7 352 320 352zM224 320C224 373 267 416 320 416C373 416 416 373 416 320C416 267 373 224 320 224C267 224 224 267 224 320zM168 304C168 271.6 184.3 237.4 210.8 210.8C237.3 184.2 271.6 168 304 168C317.3 168 328 157.3 328 144C328 130.7 317.3 120 304 120C256.1 120 210.3 143.5 176.9 176.9C143.5 210.3 120 256.1 120 304C120 317.3 130.7 328 144 328C157.3 328 168 317.3 168 304z"/>
-                </svg>
-            </button>
-        </div>
-
-        <div id="MusicPcCardForTurn">
-            <button id="MusicPcCardForLastMusic">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="turn180">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M403.7 107.1C392.1 96 375 92.9 360.3 99.2C345.6 105.5 336 120 336 136L336 272.3L163.7 107.2C152.1 96 135 92.9 120.3 99.2C105.6 105.5 96 120 96 136L96 504C96 520 105.6 534.5 120.3 540.8C135 547.1 152.1 544 163.7 532.9L336 367.7L336 504C336 520 345.6 534.5 360.3 540.8C375 547.1 392.1 544 403.7 532.9L595.7 348.9C603.6 341.4 608 330.9 608 320C608 309.1 603.5 298.7 595.7 291.1L403.7 107.1z"/>
-                </svg>
-            </button>
-
-            <button id="MusicPcCardForNow" onclick="TurnAtNow()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z"/>
-                </svg>
-            </button>
-
-            <button id="MusicPcCardForNextMusic">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M403.7 107.1C392.1 96 375 92.9 360.3 99.2C345.6 105.5 336 120 336 136L336 272.3L163.7 107.2C152.1 96 135 92.9 120.3 99.2C105.6 105.5 96 120 96 136L96 504C96 520 105.6 534.5 120.3 540.8C135 547.1 152.1 544 163.7 532.9L336 367.7L336 504C336 520 345.6 534.5 360.3 540.8C375 547.1 392.1 544 403.7 532.9L595.7 348.9C603.6 341.4 608 330.9 608 320C608 309.1 603.5 298.7 595.7 291.1L403.7 107.1z"/>
-                </svg>
-            </button>
-
-            <template>
-                静音：
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M80 416L128 416L262.1 535.2C268.5 540.9 276.7 544 285.2 544C304.4 544 320 528.4 320 509.2L320 130.8C320 111.6 304.4 96 285.2 96C276.7 96 268.5 99.1 262.1 104.8L128 224L80 224C53.5 224 32 245.5 32 272L32 368C32 394.5 53.5 416 80 416zM399 239C389.6 248.4 389.6 263.6 399 272.9L446 319.9L399 366.9C389.6 376.3 389.6 391.5 399 400.8C408.4 410.1 423.6 410.2 432.9 400.8L479.9 353.8L526.9 400.8C536.3 410.2 551.5 410.2 560.8 400.8C570.1 391.4 570.2 376.2 560.8 366.9L513.8 319.9L560.8 272.9C570.2 263.5 570.2 248.3 560.8 239C551.4 229.7 536.2 229.6 526.9 239L479.9 286L432.9 239C423.5 229.6 408.3 229.6 399 239z"/>
-                </svg>
-                无音：
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M256 416L208 416C181.5 416 160 394.5 160 368L160 272C160 245.5 181.5 224 208 224L256 224L390.1 104.8C396.5 99.1 404.7 96 413.2 96C432.4 96 448 111.6 448 130.8L448 509.2C448 528.4 432.4 544 413.2 544C404.7 544 396.5 540.9 390.1 535.2L256 416z"/>
-                </svg>
-                小音：
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M144 416L192 416L326.1 535.2C332.5 540.9 340.7 544 349.2 544C368.4 544 384 528.4 384 509.2L384 130.8C384 111.6 368.4 96 349.2 96C340.7 96 332.5 99.1 326.1 104.8L192 224L144 224C117.5 224 96 245.5 96 272L96 368C96 394.5 117.5 416 144 416zM476.6 245.5C466.3 237.1 451.2 238.7 442.8 249C434.4 259.3 436 274.4 446.3 282.8C457.1 291.6 464 305 464 320C464 335 457.1 348.4 446.3 357.3C436 365.7 434.5 380.8 442.8 391.1C451.1 401.4 466.3 402.9 476.6 394.6C498.1 376.9 512 350.1 512 320C512 289.9 498.1 263.1 476.5 245.5z"/>
-                </svg>
-                中音：
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M112 416L160 416L294.1 535.2C300.5 540.9 308.7 544 317.2 544C336.4 544 352 528.4 352 509.2L352 130.8C352 111.6 336.4 96 317.2 96C308.7 96 300.5 99.1 294.1 104.8L160 224L112 224C85.5 224 64 245.5 64 272L64 368C64 394.5 85.5 416 112 416zM505.1 171C494.8 162.6 479.7 164.2 471.3 174.5C462.9 184.8 464.5 199.9 474.8 208.3C507.3 234.7 528 274.9 528 320C528 365.1 507.3 405.3 474.8 431.8C464.5 440.2 463 455.3 471.3 465.6C479.6 475.9 494.8 477.4 505.1 469.1C548.3 433.9 576 380.2 576 320.1C576 260 548.3 206.3 505.1 171.1zM444.6 245.5C434.3 237.1 419.2 238.7 410.8 249C402.4 259.3 404 274.4 414.3 282.8C425.1 291.6 432 305 432 320C432 335 425.1 348.4 414.3 357.3C404 365.7 402.5 380.8 410.8 391.1C419.1 401.4 434.3 402.9 444.6 394.6C466.1 376.9 480 350.1 480 320C480 289.9 466.1 263.1 444.5 245.5z"/>
-                </svg>
-                高音：
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M533.6 96.5C523.3 88.1 508.2 89.7 499.8 100C491.4 110.3 493 125.4 503.3 133.8C557.5 177.8 592 244.8 592 320C592 395.2 557.5 462.2 503.3 506.3C493 514.7 491.5 529.8 499.8 540.1C508.1 550.4 523.3 551.9 533.6 543.6C598.5 490.7 640 410.2 640 320C640 229.8 598.5 149.2 533.6 96.5zM473.1 171C462.8 162.6 447.7 164.2 439.3 174.5C430.9 184.8 432.5 199.9 442.8 208.3C475.3 234.7 496 274.9 496 320C496 365.1 475.3 405.3 442.8 431.8C432.5 440.2 431 455.3 439.3 465.6C447.6 475.9 462.8 477.4 473.1 469.1C516.3 433.9 544 380.2 544 320.1C544 260 516.3 206.3 473.1 171.1zM412.6 245.5C402.3 237.1 387.2 238.7 378.8 249C370.4 259.3 372 274.4 382.3 282.8C393.1 291.6 400 305 400 320C400 335 393.1 348.4 382.3 357.3C372 365.7 370.5 380.8 378.8 391.1C387.1 401.4 402.3 402.9 412.6 394.6C434.1 376.9 448 350.1 448 320C448 289.9 434.1 263.1 412.6 245.5zM80 416L128 416L262.1 535.2C268.5 540.9 276.7 544 285.2 544C304.4 544 320 528.4 320 509.2L320 130.8C320 111.6 304.4 96 285.2 96C276.7 96 268.5 99.1 262.1 104.8L128 224L80 224C53.5 224 32 245.5 32 272L32 368C32 394.5 53.5 416 80 416z"/>
-                </svg>
-                圆点：
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-                    <path d="M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320z"/>
-                </svg>
-            </template>
-
-        </div>
-
-
-        <audio src="//assets.crazying-dev.top/audio/喵早安1.mp3" id="MusicPcCardForMusic"></audio>
-    </div>
-
-    <div class="pc LeftPcCard" id="calendar">
-        <div id="calendarBox">
-            <div id="calendarHead">
-                <button id="prevBtn">&lt;</button>
-                <div id="ymText"></div>
-                <button id="nextBtn">&gt;</button>
+                <div class="music__meta">
+                    <div class="music__title" data-music-title>喵早安1</div>
+                    <div class="music__artist" data-music-artist>林の歌单 · 1 / 11</div>
+                </div>
             </div>
-            <div id="weekRow">
-                <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+
+            <div class="music__progress" data-music-progress role="slider" aria-label="音乐进度">
+                <div class="music__bar" data-music-bar></div>
             </div>
-            <div id="dateBox"></div>
-        </div>
-    </div>
+            <div class="music__time"><span data-music-cur>0:00</span><span data-music-dur>0:00</span></div>
 
-    <div class="pc LeftPcCard" id="MyWorkPcCard">
-        <div id="MyWorkPcCardForTitle"><h1>我的作品</h1></div>
-        <div id="workList"></div>
-    </div>
-</div>
-<div class="ui-col-right">
-    <div class="all" id="PostsList">
-        <div class="posts-body" id="PostsListBody"></div>
-    </div>
-</div>
-<script>
-    let MusicPcCardForNowIsTOrF = 0
-
-    // 音频状态改变
-    function TurnAtNow(){
-        // 1.改变状态码
-        if(MusicPcCardForNowIsTOrF === 0){
-            MusicPcCardForNowIsTOrF = 1
-        }else {
-            MusicPcCardForNowIsTOrF = 0
-        }
-        // 2.改变图标
-        let MusicPcCardForNow = document.getElementById("MusicPcCardForNow")
-        if(MusicPcCardForNowIsTOrF === 1){
-            MusicPcCardForNow.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 640\">\n" +
-                "        <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->\n" +
-                "        <path d=\"M319.6 72C461.4 72 568 182.1 568 320C568 467.1 449.5 568 319.6 568C185.6 568 72 458.5 72 320C72 187.1 176.7 72 319.6 72zM320.4 116.7C202.2 116.7 116.7 214.6 116.7 320C116.7 429.8 207.9 522.8 320.4 522.8C423.6 522.8 523.2 441.7 523.2 320C523.3 206.2 433 116.7 320.4 116.7zM324 169.9C326.8 169.6 335.5 170.9 335.5 181.4L342.1 288.6L347 229.3C347 223.3 351.7 218.7 357.6 218.7C363.5 218.7 368.2 223.4 368.2 229.3C368.2 231.8 367.7 223.6 373.9 310.8L379.7 246.6C380 243.7 382.6 237.3 389.9 237.3C393.7 237.3 399.8 239.6 400.5 246.2L412 342.7L417.3 329.9C419.1 325.5 422.5 323.3 427.5 323.3L485.5 323.3L485.5 344.6L434.6 344.6L416.4 388.9C412.5 398.8 396.9 398 395.6 385.8L391.6 353.9L384.1 446.5C383.8 449.5 381.1 455.8 373.9 455.8C370.9 455.8 364.1 453.7 363.3 446.5C363.3 444.6 363.9 452.3 357.1 368.6L351.8 440.8C350.7 445.6 347 450.1 341.2 450.1C338.3 450.1 331.4 448.1 330.6 440.8C330.6 438.9 331.1 447.5 324.8 353.1L319 447.9C319 454.2 315.4 460.3 308.4 460.3C303.2 460.3 297.8 456.2 297.8 448.3L292 360.6C286.2 453.1 286.7 444.6 286.7 446.5C285.6 451.3 281.9 455.8 276.1 455.8C273.1 455.8 266.3 453.7 265.5 446.5C265.5 445.8 265.1 445.4 265.1 443.9L258.9 355.3L254 412C253.3 418.5 247.3 421.3 243.4 421.3C237.6 421.3 233.8 417.2 232.8 412.4L221.7 336C219.7 340 218.2 344.4 210.6 344.4L159.2 344.4L159.2 323.1L204 323.1L217.7 295.2C222.1 285.3 235.9 288 237.6 297.9L240.7 318.3L249.1 220.4C249.1 214.4 253.9 209.8 259.7 209.8C260.2 209.8 270.3 209.6 270.3 222.2L275.2 291.3L281.8 198.7C281.8 188.6 291.3 188.1 292 188.1C292.6 188.1 302.6 188.8 302.6 198.7L307.9 279.3L314.1 181.4C314.2 180.3 313.5 171.1 324 169.9z\"/>\n" +
-                "    </svg>"
-        }else {
-            MusicPcCardForNow.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 640\">\n" +
-                "                <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->\n" +
-                "                <path d=\"M64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C178.6 576 64 461.4 64 320zM252.3 211.1C244.7 215.3 240 223.4 240 232L240 408C240 416.7 244.7 424.7 252.3 428.9C259.9 433.1 269.1 433 276.6 428.4L420.6 340.4C427.7 336 432.1 328.3 432.1 319.9C432.1 311.5 427.7 303.8 420.6 299.4L276.6 211.4C269.2 206.9 259.9 206.7 252.3 210.9z\"/>\n" +
-                "            </svg>"
-        }
-        // 3.改变音乐播放状态
-        let MusicPcCardForMusic = document.getElementById('MusicPcCardForMusic')
-        MusicPcCardForMusic.paused ? MusicPcCardForMusic.play() : MusicPcCardForMusic.pause();
-    }
-
-
-
-</script>
-<script>
-    const MoreMusicListBox = document.getElementById("MoreMusicListBox")
-    function MoreMusicList(){
-        MoreMusicListBox.style.height = 'auto'
-    }
-</script>
-<script>
-    let M = document.getElementById('MusicPcCardForIconAndMoreForInPut')
-    M.style.marginLeft = '65px'
-</script>
-<script>
-    let now = new Date();
-    let year = now.getFullYear();
-    let month = now.getMonth();
-
-    const ymText = document.getElementById('ymText');
-    const dateBox = document.getElementById('dateBox');
-
-    function render(y, m) {
-        const firstDay = new Date(y, m, 1).getDay();
-        const lastDate = new Date(y, m + 1, 0).getDate();
-        ymText.innerText = `${y}年${m + 1}月`;
-        dateBox.innerHTML = '';
-
-        for(let i = 0; i < firstDay; i++) {
-            const d = document.createElement('div');
-            d.className = 'cal-date';
-            dateBox.appendChild(d);
-        }
-
-        const today = new Date();
-        for(let d = 1; d <= lastDate; d++) {
-            const cell = document.createElement('div');
-            cell.className = 'cal-date';
-            cell.innerText = d;
-            if (today.getFullYear() === y && today.getMonth() === m && today.getDate() === d) {
-                cell.classList.add('cal-today');
-            }
-            dateBox.appendChild(cell);
-        }
-    }
-
-    render(year, month);
-
-    document.getElementById('prevBtn').onclick = () => {
-        month--;
-        if (month < 0) { month = 11; year--; }
-        render(year, month);
-    };
-    document.getElementById('nextBtn').onclick = () => {
-        month++;
-        if (month > 11) { month = 0; year++; }
-        render(year, month);
-    };
-</script>
-<script>
-    // ============================================================
-    // 页面窗口和弹窗函数（优先定义，确保随时可用）
-    // ============================================================
-    const PageWindow = document.getElementById("PageWindow");
-
-    // 关闭弹出窗口（通用）
-    function closePageWindow() {
-        PageWindow.innerHTML = '';
-        PageWindow.style.display = 'none';
-    }
-
-    // 生成下拉选项：根据 WorkList 动态生成
-    function buildProjectOptions() {
-        if (!window.WorkList || window.WorkList.length === 0) {
-            return '<option value="">（暂无项目）</option>';
-        }
-        let options = '<option value="" disabled selected hidden>请选择要申请的项目</option>';
-        window.WorkList.forEach(function(job) {
-            // 只要可加入（join !== 0）就显示，不受 from 字段限制
-            if (job["join"] !== 0 && job["join"] !== undefined && job["join"] !== null) {
-                options += `<option value="${job["name"]}">${job["name"]}</option>`;
-            }
-        });
-        return options;
-    }
-
-    // 打开"加入"弹窗
-    function join(){
-        const optionsHtml = buildProjectOptions();
-        PageWindow.style.display = 'flex';
-        PageWindow.innerHTML = `
-            <div class="page-window-overlay" onclick="closePageWindow()"></div>
-            <div class="page-window-box">
-                <button class="page-window-close" onclick="closePageWindow()">×</button>
-                <h2 class="page-window-title">撰写申请</h2>
-
-                <p class="page-window-label">联系方式（邮箱或QQ）</p>
-                <input class="page-window-input"
-                       id="PageWindowWithInputWithCon"
-                       type="text"
-                       placeholder="请输入您的邮箱或QQ号"
-                       autocomplete="off">
-
-                <p class="page-window-label">申请的项目</p>
-                <select class="page-window-select" id="PageWindowProjectSelect">
-                    ${optionsHtml}
-                </select>
-
-                <button class="page-window-submit" id="PageWindowSubmitBtn" onclick="SendEmail()">
-                    提交申请
+            <div class="music__controls">
+                <button class="music__btn" type="button" data-music-prev aria-label="上一首">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3.2h1.6v9.6H4V3.2zm8.6.5v8.6L6.4 8z"/></svg>
                 </button>
-                <p class="page-window-tip" id="PageWindowTip"></p>
+                <button class="music__btn music__btn--main" type="button" data-music-play aria-label="播放">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.6 3.2 13 8l-8.4 4.8V3.2z"/></svg>
+                </button>
+                <button class="music__btn" type="button" data-music-next aria-label="下一首">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.4 3.2H12v9.6h-1.6V3.2zM3.4 3.7 9.6 8l-6.2 4.3V3.7z"/></svg>
+                </button>
+                <button class="music__btn" type="button" data-music-list aria-label="播放列表">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0 3.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 3.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z"/></svg>
+                </button>
             </div>
-        `;
-    }
 
-    // 发送邮件（完善版：获取所选项目、状态反馈）
-    function SendEmail(){
-        const contact = document.getElementById('PageWindowWithInputWithCon').value.trim();
-        const projectSelect = document.getElementById('PageWindowProjectSelect');
-        const objName = projectSelect.value;
-        const tip = document.getElementById('PageWindowTip');
-        const submitBtn = document.getElementById('PageWindowSubmitBtn');
-
-        // 前端校验
-        if (!contact) {
-            tip.textContent = '请填写联系方式';
-            tip.className = 'page-window-tip error';
-            return;
-        }
-        if (!objName) {
-            tip.textContent = '请选择要申请的项目';
-            tip.className = 'page-window-tip error';
-            return;
-        }
-
-        // 提交中状态
-        submitBtn.disabled = true;
-        submitBtn.textContent = '提交中…';
-        tip.textContent = '';
-        tip.className = 'page-window-tip';
-
-        // 发向我的常用邮箱，方便查看
-        fetch('https://api.crazying-dev.top/SendEmail', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                to: '3890320020@qq.com',
-                subject: `【加入申请】${objName}`,
-                message: `项目：${objName}\n联系方式：${contact}\n\n（自动邮件，请勿直接回复）`
-            })
-        })
-        .then(res => {
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            return res.json();
-        })
-        .then(data => {
-            tip.textContent = '提交成功！感谢您的申请';
-            tip.className = 'page-window-tip success';
-            submitBtn.textContent = '已提交';
-            setTimeout(closePageWindow, 2000);
-        })
-        .catch(err => {
-            console.error('提交失败', err);
-            tip.textContent = '提交失败，请稍后重试';
-            tip.className = 'page-window-tip error';
-            submitBtn.disabled = false;
-            submitBtn.textContent = '重新提交';
-        });
-    }
-
-    // 打开"赞助"弹窗
-    function help(){
-        PageWindow.style.display = 'flex';
-        PageWindow.innerHTML = `
-            <div class="page-window-overlay" onclick="closePageWindow()"></div>
-            <div class="page-window-box" style="text-align:center; padding: 20px;">
-                <button class="page-window-close" onclick="closePageWindow()">×</button>
-                <img class="page-window-help-img"
-                     src="//img.crazying-dev.top/other/help.png"
-                     alt="赞助我们">
+            <div class="music__volume">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8.5 3.1a.6.6 0 0 1 .4.57v8.66a.6.6 0 0 1-.98.46L4.9 10.4H3a.6.6 0 0 1-.6-.6V6.2A.6.6 0 0 1 3 5.6h1.9l3.02-2.4a.6.6 0 0 1 .58-.1zm2.8 2.3a.7.7 0 0 1 1-.1A4.4 4.4 0 0 1 13.9 8c0 1.06-.42 2.02-1.1 2.73a.7.7 0 1 1-1-1A3 3 0 0 0 12.5 8a3 3 0 0 0-.73-1.95.7.7 0 0 1-.47-1.1z"/></svg>
+                <input type="range" min="0" max="1" step="0.01" value="0.7" data-music-volume aria-label="音量">
             </div>
-        `;
-    }
 
-    // ============================================================
-    // 渲染作品列表按钮（使用全局 window.WorkList 数据）
-    // ============================================================
-    function renderWorkList() {
-        const workListEl = document.getElementById('workList');
-        if (!workListEl) return;
+            <div class="playlist" data-music-playlist>
+                <div class="playlist__inner" data-music-items></div>
+            </div>
 
-        // 如果数据还没加载完成，等待加载
-        const list = window.WorkList && window.WorkList.length > 0
-            ? window.WorkList
-            : null;
+            <audio data-music-audio preload="none"></audio>
+        </section>
 
-        if (!list) {
-            // 数据未加载，等待 100ms 重试
-            setTimeout(renderWorkList, 100);
-            return;
-        }
+        <!-- 日历 -->
+        <section class="panel" data-calendar>
+            <div class="calendar__head">
+                <div class="calendar__title" id="calTitle" data-cal-title></div>
+                <div class="calendar__nav">
+                    <button class="calendar__btn" type="button" data-cal-prev aria-label="上个月">‹</button>
+                    <button class="calendar__btn" type="button" data-cal-next aria-label="下个月">›</button>
+                </div>
+            </div>
+            <div class="calendar__grid" data-cal-grid></div>
+        </section>
 
-        let end = "";
-        list.forEach(function(ListJob) {
-            let joinClass = "work-btn";
-            let helpClass = "work-btn";
-            let linkClass = "work-link";
+        <!-- 作品 -->
+        <section class="panel">
+            <div class="panel__head">
+                <h2 class="panel__title">我的作品 <span class="panel__title-sub">works</span></h2>
+                <a class="btn-link" href="/MyWrite">全部 →</a>
+            </div>
+            <div class="works" data-works></div>
+        </section>
 
-            if (ListJob["join"] === 0) {
-                joinClass += " disabled";
-            } else {
-                joinClass += " active";
-            }
-            if (ListJob["help"] === 0) {
-                helpClass += " disabled";
-            } else {
-                helpClass += " active";
-            }
-            if (ListJob["run"] === 1) {
-                linkClass += " running";
-            } else {
-                linkClass += " stopped";
-            }
+    </aside>
 
-            end = end + "\n" +
-                "<div class='work-card'>" +
-                `    <a href="${ListJob["from"]}" class='${linkClass}'>` +
-                `        <span class='work-name' title='${ListJob["name"]}'>${ListJob["name"]}</span>` +
-                "    </a>" +
-                "    <div class='work-actions'>" +
-                `        <button class='${joinClass}' onclick='join()'>加入</button>` +
-                `        <button class='${helpClass}' onclick='help()'>赞助</button>` +
-                "    </div>" +
-                "</div>";
-        });
-        workListEl.innerHTML = end;
+    {# ============================== 右栏 ============================== #}
+    <div class="layout__main">
+        <section class="panel" id="postsPanel">
+            <div class="panel__head">
+                <h2 class="panel__title">碎碎念 <span class="panel__title-sub">posts</span></h2>
+                <a class="btn-link" href="https://api.crazying-dev.top/rss.xml" target="_blank" rel="noopener noreferrer">RSS →</a>
+            </div>
+            <div class="posts" data-posts></div>
+        </section>
+    </div>
+</div>
 
-        // 预热
-        setTimeout(() => {
-            const hasJoinable = list.some(job => job["from"] && job["join"] !== 0);
-            if (hasJoinable) {
-                join();
-                closePageWindow();
-            }
-            const hasHelpable = list.some(job => job["help"] !== 0);
-            if (hasHelpable) {
-                help();
-                closePageWindow();
-            }
-        }, 100);
-    }
-
-    // 立即尝试渲染（如果数据已经加载完成）
-    setTimeout(renderWorkList, 50);
-</script>
-<script>
-    let PostsFrom = "https://api.crazying-dev.top/post"
-    fetch(PostsFrom)
-        .then(res => res.json())
-        .then(
-            list => {
-                console.log("Get list", list)
-                let end = ""
-                list.forEach(function (ListJob) {
-                    const safeTitle = ListJob["title"] || "";
-                    const safeText = ListJob["text"] || "";
-                    // 规范化链接：没有 http/https/协议相对前缀时，加 "//" 避免被当成相对路径
-                    let link = ListJob["link"] || "";
-                    if (link && !/^(https?:)?\/\//i.test(link)) {
-                        // 以 www. 开头 → 直接加协议前缀；其他裸域名也一样处理
-                        link = "//" + link;
-                    }
-                    // 图片同样处理（若 API 返回的是裸域名）
-                    let safeImg = ListJob["img"] || "";
-                    if (safeImg && !/^(https?:)?\/\//i.test(safeImg)) {
-                        safeImg = "//" + safeImg;
-                    }
-                    end = end + "\n" +
-                        `<div class="post-card">\n` +
-                        `    <a class="post-link" href="${link}">\n` +
-                        `        <div class="post-info">\n` +
-                        `            <h2 class="post-title" title="${safeTitle}">${safeTitle}</h2>\n` +
-                        (safeText ? `            <p class="post-text" title="${safeText}">${safeText}</p>\n` : "") +
-                        `        </div>\n` +
-                        (safeImg ? `        <img class="post-img" alt="" src="${safeImg}">\n` : "") +
-                        `    </a>\n` +
-                        `</div>`
-                })
-                let PostsListBody = document.getElementById('PostsListBody')
-                if (PostsListBody) {
-                    PostsListBody.innerHTML = end;
-                }
-            }
-        )
-        .catch(err => console.error("Get error", err))
-</script>
+<!-- 主页的悬停提示气泡 -->
+<div class="hint-bubble" data-from="heroAvatar">这是我本人（确信）</div>
+<div class="hint-bubble" data-from="musicDisc">点播放可以听我喜欢的歌喵～</div>
+<div class="hint-bubble" data-from="calTitle">今天也要开心一点喵</div>

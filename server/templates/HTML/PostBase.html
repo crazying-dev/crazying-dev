@@ -1,54 +1,18 @@
-<div id="PostHead">
-    <p id="PostTitle"></p>
-    <div class="post-meta">
-        <div id="PostAvter"><img id="PostAvterImg" alt="avatar"></div>
-        <p id="PostAuto"></p>
-        <span class="post-sep">·</span>
-        <p id="PostDate"></p>
+{# ------------------------------------------------------------------
+   文章详情（片段）
+   由 crazying-dev.js 的 initArticle() 从 /post/<id> 解析 id 并填充
+   ------------------------------------------------------------------ #}
+<article class="article" data-article>
+    <h1 class="article__title" data-article-title>正在把文章抱过来…</h1>
+
+    <div class="article__meta">
+        <img class="article__avatar" data-article-avatar src="{{ IMG }}/crazying-dev.top/me.png" alt="林" width="34" height="34" loading="lazy">
+        <span class="article__author" data-article-author>林</span>
+        <span class="article__sep">·</span>
+        <span class="article__date" data-article-date></span>
     </div>
-</div>
 
-<hr id="PostDivider">
-
-<div id="PostText">
-</div>
-
-<script>
-    const url = window.location.href;
-    const match = url.match(/\/post\/(\d+)/);
-    let id = null;
-    if (match) {
-        id = Number(match[1]);
-    }
-    let PostInfoFrom = `https://api.crazying-dev.top/post/${id}`
-    fetch(PostInfoFrom)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("HTTP " + res.status);
-            }
-            return res.json();
-        })
-        .then(
-            dict => {
-                console.log("Get dict", dict);
-                document.getElementById("PostAuto").innerText = dict["auto"] || "";
-                document.getElementById("PostTitle").innerText = dict["title"] || "";
-                document.getElementById("PostDate").innerText = dict["date"] || "";
-                document.getElementById("PostText").innerHTML = dict["text"] || "";
-                const avter = dict["avter"];
-                const avterImg = document.getElementById("PostAvterImg");
-                if (avter) {
-                    let src = avter;
-                    if (src && !/^(https?:)?\/\//i.test(src)) {
-                        src = "//" + src;
-                    }
-                    avterImg.src = src;
-                }
-            }
-        )
-        .catch(err => {
-            console.error("Post fetch error", err);
-            document.getElementById("PostTitle").innerText = "加载失败";
-            document.getElementById("PostText").innerText = "文章信息获取失败：" + err;
-        })
-</script>
+    <div class="article__body prose" data-article-body>
+        <p>正在加载文章内容，稍等一下喵～</p>
+    </div>
+</article>

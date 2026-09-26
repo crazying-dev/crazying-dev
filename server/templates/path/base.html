@@ -1,291 +1,181 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>林的窝</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page_title or '林の窝 · 一个写着玩的小站' }}</title>
+<meta name="description" content="{{ page_desc or '林の窝 —— 记录代码、作品与碎碎念的小小角落，欢迎来唠唠嗑喵～' }}">
+<meta name="theme-color" content="#F1F5F4">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-    <link rel="preload" href="//assets.crazying-dev.top/CSS/all.css" as="style">
-    <link rel="preload" href="//assets.crazying-dev.top/JS/BeforBody.js" as="script">
-    <link rel="preload" href="//assets.crazying-dev.top/JS/AfterBody.js" as="script">
-    <link rel="preload" href="//assets.crazying-dev.top/font/CEFFontsCJK.woff2" as="font" type="font/woff2" crossorigin>
+<!-- 资源域名预连接 -->
+<link rel="preconnect" href="{{ ASSETS }}" crossorigin>
+<link rel="preconnect" href="{{ IMG }}" crossorigin>
+<link rel="preconnect" href="{{ API }}" crossorigin>
 
-    <link rel="stylesheet" href="//assets.crazying-dev.top/CSS/all.css">
-    <script src="//assets.crazying-dev.top/JS/BeforBody.js"></script>
+<!-- 首屏前置：先定主题，避免闪白 -->
+<script>
+(function () {
+    try {
+        var saved = localStorage.getItem('cd-theme');
+        var mode = saved || ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', mode);
+    } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+})();
+</script>
 
-    <link rel="preconnect" href="//assets.crazying-dev.top" crossorigin>
-    <link rel="preconnect" href="//img.crazying-dev.top" crossorigin>
-    <link rel="preconnect" href="//api.crazying-dev.top" crossorigin>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-
-    <!-- navifox 风格覆盖样式 -->
-    <style>
-        /* 字体改为系统无衬线 */
-        html, body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
-            color: #333 !important;
-        }
-        body { background: #f5f5f4 !important; min-width: auto !important; }
-
-        /* 背景层弱化 */
-        .bg-box { filter: brightness(0.95) !important; transform: none !important; opacity: 0.15 !important; }
-
-        /* 头部 hero 区域 */
-        header {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-            padding: 48px 20px 24px !important;
-            height: auto !important;
-            text-align: center !important;
-        }
-        #Go-to-Github {
-            height: 80px !important;
-            width: 80px !important;
-            border-radius: 50% !important;
-            overflow: hidden !important;
-            flex-shrink: 0 !important;
-        }
-        #me {
-            width: 80px !important;
-            height: 80px !important;
-            margin: 0 !important;
-            border-radius: 50% !important;
-            object-fit: cover !important;
-            display: block !important;
-            border: 3px solid rgba(255,255,255,0.6) !important;
-        }
-        .HeaderButton {
-            display: inline-flex !important;
-            height: auto !important;
-            margin: 0 14px !important;
-            font-size: 15px !important;
-            color: #555 !important;
-            transition: color 0.2s ease !important;
-            text-decoration: none !important;
-        }
-        .HeaderButton:hover { color: #000 !important; }
-        #title {
-            display: block !important;
-            position: relative !important;
-            right: auto !important;
-            font-size: 28px !important;
-            font-weight: 600 !important;
-            margin-top: 14px !important;
-            margin-bottom: 16px !important;
-            color: #1a1a1a !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            letter-spacing: 2px !important;
-        }
-        .header-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 4px;
-        }
-
-        /* 主内容区域 */
-        #ui {
-            max-width: 1100px !important;
-            margin: 0 auto !important;
-            padding: 10px 20px 40px !important;
-        }
-
-        /* 卡片基础样式覆盖 */
-        .pc, .all {
-            background: rgba(255, 255, 255, 0.9) !important;
-            border: 1px solid rgba(0, 0, 0, 0.08) !important;
-            border-radius: 12px !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
-            color: #333 !important;
-        }
-
-        /* 页面标题容器 */
-        .mywriter-container {
-            max-width: 820px !important;
-            margin: 30px auto !important;
-            padding: 32px 40px !important;
-            background: rgba(255, 255, 255, 0.92) !important;
-            border-radius: 14px !important;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
-        }
-        .mywriter-title-box { text-align: center !important; margin-bottom: 28px !important; padding-bottom: 18px !important; border-bottom: 1px solid rgba(0,0,0,0.08) !important; }
-        .mywriter-title-box h1 { font-size: 28px !important; color: #1a1a1a !important; font-weight: 600 !important; }
-        .mywriter-subtitle { font-size: 14px !important; color: #888 !important; }
-
-        /* 卡片组件颜色调整 */
-        .work-card { background: rgba(245, 245, 244, 0.9) !important; border: 1px solid rgba(0,0,0,0.08) !important; }
-        .work-card:hover { background: rgba(235, 235, 234, 0.95) !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; }
-        .work-name { color: #333 !important; }
-        .work-link.running .work-name { color: #1a1a1a !important; }
-        .work-link.stopped .work-name { color: #888 !important; }
-
-        #MusicPcCard, #calendarBox, #PostsList, #MyPcCard {
-            background: rgba(255, 255, 255, 0.9) !important;
-            color: #333 !important;
-        }
-        #calendarBox { background: rgba(250, 250, 249, 0.95) !important; box-shadow: none !important; }
-        #ymText { color: #333 !important; }
-        #weekRow { color: #999 !important; }
-        .cal-date { color: #555 !important; }
-        .cal-today { background: rgba(100, 116, 139, 0.2) !important; color: #333 !important; }
-
-        /* 按钮样式 */
-        .work-btn.active { background: #475569 !important; color: #fff !important; border-color: #475569 !important; }
-        .work-btn.active:hover { background: #334155 !important; box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important; }
-        .work-btn.disabled { background: #e5e5e5 !important; color: #aaa !important; border-color: #ddd !important; }
-
-        /* 文章列表 */
-        #PostsList .posts-header h1 { color: #333 !important; }
-        .post-card { background: rgba(245, 245, 244, 0.8) !important; border: 1px solid rgba(0,0,0,0.06) !important; }
-        .post-card:hover { background: rgba(238, 238, 236, 0.95) !important; box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important; }
-        .post-title { color: #333 !important; }
-        .post-text { color: #666 !important; }
-        .posts-body::-webkit-scrollbar-thumb { background: rgba(100,100,100,0.2) !important; }
-
-        /* 关于我 */
-        .aboutme-wrapper { font-family: 'CEFFontsCJK', sans-serif !important; }
-        .aboutme-panel { background: rgba(210, 210, 210, 0.8) !important; }
-        .AboutMebutton { background: rgba(255,255,255,0.25) !important; border-color: rgba(255,255,255,0.35) !important; color: #333 !important; }
-        .aboutme-sidebar-list a { color: #555 !important; }
-        .aboutme-sidebar-list a:hover { background: rgba(0,0,0,0.05) !important; color: #222 !important; }
-
-        /* 联系我 */
-        .contact-section-title { color: #475569 !important; border-bottom: 1px solid rgba(71, 85, 105, 0.15) !important; }
-        .contact-item { background: rgba(248, 250, 252, 0.8) !important; border: 1px solid rgba(0,0,0,0.06) !important; }
-        .contact-item:hover { background: rgba(241, 245, 249, 0.95) !important; border-color: rgba(71,85,105,0.2) !important; }
-        .contact-icon { background: rgba(71, 85, 105, 0.1) !important; }
-        .contact-icon svg { fill: #475569 !important; }
-        .contact-name { color: #888 !important; }
-        .contact-value { color: #333 !important; }
-        .contact-form-box { background: rgba(248, 250, 252, 0.6) !important; border: 1px solid rgba(0,0,0,0.06) !important; }
-        .contact-form-input, .contact-form-textarea { background: rgba(255,255,255,0.8) !important; border: 1px solid #ddd !important; color: #333 !important; }
-        .contact-form-input:focus, .contact-form-textarea:focus { border-color: #6b7280 !important; box-shadow: 0 0 0 3px rgba(107,114,128,0.1) !important; }
-        .contact-form-submit { background: #475569 !important; color: #fff !important; }
-        .contact-form-submit:hover:not(:disabled) { background: #334155 !important; }
-        .contact-tips-box { background: rgba(248, 250, 252, 0.5) !important; border: 1px solid rgba(0,0,0,0.06) !important; }
-        .contact-tips-box p { color: #777 !important; }
-
-        /* 友人 */
-        .friend-card { background: rgba(248, 250, 252, 0.8) !important; border: 1px solid rgba(0,0,0,0.06) !important; }
-        .friend-card:hover { background: rgba(241, 245, 249, 0.95) !important; border-color: rgba(71,85,105,0.15) !important; }
-        .friend-name { color: #333 !important; }
-        .friend-about { color: #777 !important; }
-        .friend-site { background: rgba(71,85,105,0.1) !important; color: #475569 !important; }
-        .friend-site:hover { background: rgba(71,85,105,0.2) !important; }
-        .friend-loading, .friend-empty { color: #999 !important; }
-
-        /* 隐私 */
-        .privacy-heading { color: #1a1a1a !important; border-left-color: #475569 !important; }
-        .privacy-text { color: #555 !important; }
-        .privacy-text a { color: #475569 !important; }
-        .privacy-text a:hover { color: #334155 !important; }
-        .privacy-list { color: #555 !important; }
-        .privacy-last { color: #aaa !important; }
-
-        /* footer */
-        footer {
-            background: rgba(255, 255, 255, 0.8) !important;
-            color: #666 !important;
-            border-top: 1px solid rgba(0,0,0,0.06) !important;
-            backdrop-filter: blur(10px) !important;
-        }
-        footer a { color: #475569 !important; transition: color 0.2s ease !important; }
-        footer a:hover { color: #1a1a1a !important; }
-
-        /* 响应式 */
-        @media (max-width: 760px) {
-            .HeaderButton { margin: 0 8px !important; font-size: 14px !important; }
-            #title { font-size: 22px !important; }
-            .mywriter-container { padding: 20px 16px !important; }
-        }
-    </style>
+<link rel="stylesheet" href="{{ ASSETS }}/CSS/crazying-dev.css?v={{ ASSETS_VER }}">
 </head>
 <body>
-<!-- 背景图混合 -->
-<div class="bg-box-for1 bg-box"></div>
-<div class="bg-box-for2 bg-box"></div>
+<!-- 背景层：随机图 + 水墨晕染 + 淡网格 -->
+<div class="bg-layer bg-layer--pc" aria-hidden="true"></div>
+<div class="bg-layer bg-layer--mobile" aria-hidden="true"></div>
+<div class="bg-wash" aria-hidden="true"></div>
+<div class="bg-grain" aria-hidden="true"></div>
 
-<!-- 头部 hero -->
-<header>
-    <a href="https://github.com/crazying-dev" id="Go-to-Github">
-        <img src="//img.crazying-dev.top/crazying-dev.top/me.png" alt="This is me Github Avatar" id="me">
-    </a>
-    <a id="title" class="HeaderButton" href="/">林の窝</a>
-    <nav class="header-nav">
-        <a href="/AboutMe" class="HeaderButton" id="AboutMeForHeader">关于我</a>
-        <a href="/CommentMe" class="HeaderButton" id="CommentMe">联系我</a>
-        <a href="/friend" class="HeaderButton" id="friend">友人</a>
-        <a href="/MyWrite" class="HeaderButton" id="MeWriter">作品</a>
-    </nav>
+<a class="sr-only" href="#main">跳到主要内容</a>
+
+<header class="site-header">
+    <div class="site-header__inner">
+        <a class="brand" href="/">
+            <img class="brand__avatar" id="Go-to-Github" src="{{ IMG }}/crazying-dev.top/me.png" alt="林の窝" width="38" height="38">
+            <span class="brand__text">
+                <span class="brand__name" id="title">林の窝</span>
+                <span class="brand__sub">crazying-dev.top</span>
+            </span>
+        </a>
+
+        <nav class="nav" id="siteNav" data-nav aria-label="主导航">
+            <a class="nav__link" href="/">首页</a>
+            <a class="nav__link" href="/AboutMe" id="AboutMeForHeader">关于我</a>
+            <a class="nav__link" href="/CommentMe" id="CommentMe">联系我</a>
+            <a class="nav__link" href="/friend" id="friend">友人</a>
+            <a class="nav__link" href="/MyWrite" id="MeWriter">作品</a>
+        </nav>
+
+        <div class="header-tools">
+            <a class="icon-btn" href="https://github.com/crazying-dev" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.42 7.42 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            </a>
+            <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="切换深浅色">
+                <svg class="icon-moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg>
+            </button>
+            <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-label="打开菜单" aria-expanded="false" aria-controls="siteNav">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg>
+            </button>
+        </div>
+    </div>
 </header>
 
-<div id="ui">
-    {% if content_template %}
-        {% include content_template %}
-    {% endif %}
-</div>
-<div id="PageWindow"></div>
+<main class="container" id="main">
+{% if content_template %}{% include content_template %}{% endif %}
+</main>
 
-<div id="FooterWithNone"></div>
-<footer class="DontTon" id="Footer">
-    <p style="font-family: -apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;">© 2026-<span id="year"></span> Ryousuke. All rights reserved.</p>|<a href="/privacy" id="FooterPrivacy">隐私</a>|<a href="https://icp.gov.moe/?keyword=20261018" target="_blank">萌ICP备20261018号</a>|<a href="/rss.xml">rss</a>
-    <br>
-    本站平稳运行 <span id="siteRunningTime">0年0月0日 0时0分0秒</span><br>
-    联系方式<br>
-    邮箱：3890320020@qq.com<br>
-    <a href="https://github.com/crazying-dev">Github（大号）：crazying-dev</a><br>
-    <a href="https://github.com/cary-ing">Github（小号）：cary-ing</a><br>
-    B站：<a href="https://space.bilibili.com/3707022235142639" id="FooterBiliName">crazying-dev</a><br>
-    小红书：<a href="https://www.xiaohongshu.com/user/profile/682d321b000000000a03c93b" id="FooterXhsName">林</a><br>
-    微信号：Alan_120615<br>
-    公众号：林の窝<br>
-    <br>
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-brand">
+                    <img src="{{ IMG }}/crazying-dev.top/me.png" alt="林の窝" width="34" height="34">
+                    <strong>林の窝</strong>
+                </div>
+                <p>写着玩的小站：一点代码、一点画、一点碎碎念。</p>
+                <p class="footer-time mt-3">本站平稳运行 <span id="siteRunningTime">0 年 0 月 0 日 00:00:00</span></p>
+            </div>
+
+            <div class="footer-col">
+                <div class="footer-col__title">导航</div>
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/AboutMe">关于我</a></li>
+                    <li><a href="/CommentMe">联系我</a></li>
+                    <li><a href="/friend">友人</a></li>
+                    <li><a href="/MyWrite">作品</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <div class="footer-col__title">联系方式</div>
+                <ul>
+                    <li>邮箱：<a href="mailto:3890320020@qq.com">3890320020@qq.com</a></li>
+                    <li>QQ：3890320020</li>
+                    <li>微信：<span id="FooterConntWithMeTheDivFor1">Alan_120615</span></li>
+                    <li>公众号：<span id="Footer公众号">林の窝</span></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <div class="footer-col__title">在别处</div>
+                <ul>
+                    <li>GitHub：<a href="https://github.com/crazying-dev" target="_blank" rel="noopener noreferrer">crazying-dev</a></li>
+                    <li>GitHub：<a href="https://github.com/cary-ing" target="_blank" rel="noopener noreferrer">cary-ing</a></li>
+                    <li>B 站：<a href="https://space.bilibili.com/3707022235142639" target="_blank" rel="noopener noreferrer" id="FooterBiliName">crazying-dev</a></li>
+                    <li>小红书：<a href="https://www.xiaohongshu.com/user/profile/682d321b000000000a03c93b" target="_blank" rel="noopener noreferrer" id="FooterXhsName">林</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© <span id="year"></span> Ryousuke. All rights reserved.</p>
+            <div class="footer-bottom__links">
+                <a href="/privacy" id="FooterPrivacy">隐私政策</a>
+                <a href="https://icp.gov.moe/?keyword=20261018" target="_blank" rel="noopener noreferrer">萌ICP备20261018号</a>
+                <a href="/rss.xml">RSS</a>
+            </div>
+        </div>
+    </div>
 </footer>
 
+<!-- 弹窗容器 -->
+<div class="modal" id="PageWindow"></div>
 
-<!-- B站用户名动态获取 -->
+<button class="back-top" type="button" data-back-top aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6 3.9 11.7l1.5 1.5L11 7.7v12.7h2V7.7l5.6 5.5 1.5-1.5L12 3.6z"/></svg>
+</button>
+
+<!-- 悬停提示气泡：data-from 对应触发元素的 id -->
+<div class="hint-bubble" data-from="Go-to-Github">前往 GitHub</div>
+<div class="hint-bubble" data-from="title">林の窝 · 进来坐坐喵～</div>
+<div class="hint-bubble" data-from="AboutMeForHeader">emm...来让我做一下自我介绍吧</div>
+<div class="hint-bubble" data-from="CommentMe">想找我聊天？点这里喵</div>
+<div class="hint-bubble" data-from="friend">我的朋友都很有趣</div>
+<div class="hint-bubble" data-from="MeWriter">我写的东西都在这儿</div>
+<div class="hint-bubble" data-from="FooterPrivacy">不同意也不行（笑）</div>
+<div class="hint-bubble" data-from="FooterConntWithMeTheDivFor1">来唠唠嗑喵？</div>
+<div class="hint-bubble" data-from="Footer公众号">扫一下就能找我玩</div>
+<div class="hint-bubble" data-from="Footer公众号"><img src="{{ IMG }}/crazying-dev.top/OfficialAccount.jpg" alt="公众号二维码" width="180" height="180" loading="lazy"></div>
+
+<!-- B 站用户名动态获取 -->
 <script>
-(function() {
-    var biliLink = document.getElementById('FooterBiliName');
-    if (!biliLink) return;
-    var apiUrl = '/api/bili-title?url=' + encodeURIComponent('https://api.bilibili.com/x/web-interface/card?mid=3707022235142639');
-    fetch(apiUrl)
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-            if (data && data.title) {
-                biliLink.textContent = data.title;
-            }
-        })
-        .catch(function() {});
+(function () {
+    var link = document.getElementById('FooterBiliName');
+    if (!link) return;
+    fetch('/api/bili-title?url=' + encodeURIComponent('https://api.bilibili.com/x/web-interface/card?mid=3707022235142639'))
+        .then(function (res) { return res.json(); })
+        .then(function (data) { if (data && data.title) link.textContent = data.title; })
+        .catch(function () {});
 })();
 </script>
 
 <!-- 小红书用户名动态获取 -->
 <script>
-(function() {
-    var xhsLink = document.getElementById('FooterXhsName');
-    if (!xhsLink) return;
-    var xhsUrl = xhsLink.getAttribute('href');
-    var apiUrl = '/api/xhs-title?url=' + encodeURIComponent(xhsUrl);
-    fetch(apiUrl)
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-            if (data && data.title) {
-                xhsLink.textContent = data.title;
-            }
-        })
-        .catch(function() {});
+(function () {
+    var link = document.getElementById('FooterXhsName');
+    if (!link) return;
+    fetch('/api/xhs-title?url=' + encodeURIComponent('https://www.xiaohongshu.com/user/profile/682d321b000000000a03c93b'))
+        .then(function (res) { return res.json(); })
+        .then(function (data) { if (data && data.title) link.textContent = data.title; })
+        .catch(function () {});
 })();
 </script>
 
-<!-- 页面内容获取 -->
-<!-- 定义window的大小更改时的组件更改 -->
-<script src="//assets.crazying-dev.top/JS/AfterBody.js"></script>
+<script>
+window.CD = { api: '{{ API }}', assets: '{{ ASSETS }}', img: '{{ IMG }}' };
+</script>
+<script src="{{ ASSETS }}/JS/crazying-dev.js?v={{ ASSETS_VER }}"></script>
 </body>
 </html>
