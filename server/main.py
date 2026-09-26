@@ -6,11 +6,66 @@ from typing import Literal
 
 from flask import *
 
+# 可选：本地运行时从 .env 读配置；Vercel 上由平台注入环境变量，没有 .env 也不会报错
+try:
+	from dotenv import load_dotenv
+	load_dotenv()
+except ImportError:
+	pass
+
 app = Flask(__name__)
 
 base = 'path/base.html'
 webside = 'www.crazying-dev.top'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# ---------------------------------------------------------------------------
+# 静态资源域名 / 版本号
+# 都可用环境变量覆盖，方便本地预览（默认走线上 CDN）：
+#   CRAZYING_ASSETS_BASE   assets.crazying-dev.top（CSS / JS）
+#   CRAZYING_IMG_BASE      img.crazying-dev.top（图片 / 头像）
+#   CRAZYING_API_BASE      api.crazying-dev.top（文章 / 作品 / 友人 / 邮件）
+#   CRAZYING_ASSETS_VER    资源版本号，改这个就能让浏览器立刻拿到新 CSS/JS
+# ---------------------------------------------------------------------------
+ASSETS = os.environ.get('CRAZYING_ASSETS_BASE', '//assets.crazying-dev.top').rstrip('/')
+IMG = os.environ.get('CRAZYING_IMG_BASE', '//img.crazying-dev.top').rstrip('/')
+API = os.environ.get('CRAZYING_API_BASE', 'https://api.crazying-dev.top').rstrip('/')
+ASSETS_VER = os.environ.get('CRAZYING_ASSETS_VER', '28')
+
+# 注入模板全局变量：模板里直接写 {{ ASSETS }} / {{ IMG }} / {{ API }} / {{ ASSETS_VER }}
+app.jinja_env.globals.update(ASSETS=ASSETS, IMG=IMG, API=API, ASSETS_VER=ASSETS_VER)
+
+
+def render_page(content_template, page_title=None, page_desc=None, status=200):
+	"""
+	统一的整页渲染：把 HTML 片段塞进 path/base.html 骨架里。
+	片段仍然是 fragment-only（没有 <html>/<head>/<body>），这样它既能被 include，
+	也能单独渲染成一个完整页面。
+	"""
+	return render_template(
+		base,
+		content_template=content_template,
+		page_title=page_title,
+		page_desc=page_desc,
+	), status
+
+
+# 页面元信息：内容片段 -> (标题, 描述)
+PAGES = {
+	'index.html': ('林の窝 · 一个写着玩的小站',
+				   '林の窝 —— 记录代码、作品与碎碎念的小小角落，欢迎来唠唠嗑喵～'),
+	'HTML/AboutMe.html': ('关于我 · 林の窝', 'emm...来让我做一下自我介绍吧'),
+	'HTML/CommentMe.html': ('联系我 · 林の窝', '欢迎与我交流喵～邮箱、QQ、微信、小红书都能找到我'),
+	'HTML/MyWriter.html': ('我的作品 · 林の窝', '林的项目与创作，感兴趣就点进去看看喵～'),
+	'HTML/Friend.html': ('我的朋友 · 林の窝', '这些是我认识的有趣的人，欢迎来换友链喵～'),
+	'HTML/Privacy.html': ('隐私声明 · 林の窝', '本站承诺保护你的隐私'),
+}
+
+
+def render_named(name, status=200):
+	"""按 PAGES 里登记的片段名渲染整页（自动带上标题 / 描述）"""
+	title, desc = PAGES[name]
+	return render_page(name, title, desc, status)
 
 
 # tool.py
@@ -59,35 +114,36 @@ def http_request(url, method: Literal["GET", "POST"] = "GET", params=None, json_
 		return None, 0
 
 
-#GET.py
+#GET.py —— 旧版给直链 / 爬虫用的裸片段入口
+# 现在统一渲染整页（片段仍然 fragment-only），直接访问也不会再看到没有样式的半张页面
 @app.route('/GET')
 def indexGet():
-	return render_template('index.html')
+	return render_named('index.html')
 
 
 @app.route('/AboutMe/GET')
 def AboutMeGet():
-	return render_template('HTML/AboutMe.html')
+	return render_named('HTML/AboutMe.html')
 
 
 @app.route('/CommentMe/GET')
 def CommentMeGet():
-	return render_template('HTML/CommentMe.html')
+	return render_named('HTML/CommentMe.html')
 
 
 @app.route('/MyWrite/GET')
 def MyWriterGet():
-	return render_template('HTML/MyWriter.html')
+	return render_named('HTML/MyWriter.html')
 
 
 @app.route('/friend/GET')
 def FriendGet():
-	return render_template('HTML/Friend.html')
+	return render_named('HTML/Friend.html')
 
 
 @app.route('/privacy/GET')
 def PrivacyGet():
-	return render_template('HTML/Privacy.html')
+	return render_named('HTML/Privacy.html')
 
 
 #GET.py end
@@ -160,27 +216,27 @@ def get_bili_title():
 #page.py
 @app.route('/')
 def index():
-	return render_template(base, content_template='index.html')
+	return render_named('index.html')
 
 @app.route('/AboutMe')
 def AboutMe():
-	return render_template(base, content_template='HTML/AboutMe.html')
+	return render_named('HTML/AboutMe.html')
 
 @app.route('/CommentMe')
 def CommentMe():
-	return render_template(base, content_template='HTML/CommentMe.html')
+	return render_named('HTML/CommentMe.html')
 
 @app.route('/MyWrite')
 def MyWrite():
-	return render_template(base, content_template='HTML/MyWriter.html')
+	return render_named('HTML/MyWriter.html')
 
 @app.route('/friend')
 def friend():
-	return render_template(base, content_template='HTML/Friend.html')
+	return render_named('HTML/Friend.html')
 
 @app.route('/privacy')
 def privacy():
-	return render_template(base, content_template='HTML/Privacy.html')
+	return render_named('HTML/Privacy.html')
 
 
 #page.py end
@@ -215,17 +271,20 @@ def rss():
 
 @app.errorhandler(404)
 def not_found(error):
-	return render_template('error/404.html'), 404
+	return render_page('error/404.html', '不好！找不到页面 · 林の窝',
+					   '这个页面大概是跑到二次元去玩了，要不要回首页重新找找喵？', 404)
 
 
+# 文章详情：旧版这里漏了 content_template，导致文章页永远是空白，已修正
 @app.route('/post/<int:post_id>')
 def post(post_id):
-	return render_template(base)
+	return render_page('HTML/PostBase.html', '文章 · 林の窝', '林の碎碎念')
 
 
 @app.route('/post/<int:post_id>/GET')
 def postGET(post_id):
-	return render_template("/HTML/PostBase.html")
+	return render_page('HTML/PostBase.html', '文章 · 林の窝', '林の碎碎念')
+
 
 @app.route('/pinshu/phone')
 def PinShu_Phone():
@@ -233,4 +292,6 @@ def PinShu_Phone():
 
 
 if __name__ == '__main__':
-	app.run()
+	# 本地预览：python server/main.py  （可用 HOST / PORT 环境变量覆盖）
+	app.run(host=os.environ.get('HOST', '127.0.0.1'),
+			port=int(os.environ.get('PORT', '5000')))
