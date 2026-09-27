@@ -17,7 +17,7 @@ Hello,欢迎来到我的主页
 ---
 
 ## 目前正在维护的项目(已完成的)
-- [forum(妖精论坛)]((https://github.com/crazying-dev/forum)
+- [forum(妖精论坛)](https://github.com/crazying-dev/forum)
 - - [生产地址](https://yjlt.top)
 
 ---
