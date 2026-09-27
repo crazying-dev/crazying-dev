@@ -1,25 +1,33 @@
-![crazying-dev](https://count.getloli.com/get/@crazying-dev?theme=moebooru)  
-
-
-Hello,欢迎来到我的主页，小号在此👉[cary-ing(中文名:卡里)](https://github.com/cary-ing)  
-[个人主页](http://crazying-dev.top)  
+Hello,欢迎来到我的主页  
 也欢迎来看一个12年的小屁孩发疯  
-我是罗小黑的铁粉，永久铁粉，会更一些有关罗小黑的仓库，比如[众生之门](https://github.com/crazying-dev/The-Door-of-All-Beings),[妖精论坛](https://github.com/crazying-dev/fairy-forum)
+[这里是我的个人博客~](http://crazying-dev.top)    
+罗小黑的铁粉一枚  
+会更一些有关罗小黑的仓库，比如
+- [众生之门(有点累了，不想写了)](https://github.com/crazying-dev/The-Door-of-All-Beings)
+- [妖精论坛(这个已经完成了)](https://github.com/crazying-dev/forum)
 
 ---
 
-关注一下我的bilibili吧，粉丝太少哩
-[![bilibili](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.bilibili.com%2Fx%2Frelation%2Fstat%3Fvmid%3D3707022235142639&query=%24.data.follower&suffix=%E5%90%8D%E7%B2%89%E4%B8%9D&style=social&logo=bilibili&label=bilibili)](https://space.bilibili.com/3707022235142639)  
-小红书也要
-[![动态-小红书](https://img.shields.io/badge/动态-小红书-E4405F?style=flat&logo=xiaohongshu&labelColor=444444&logoColor=white&logoSize=auto)](https://www.xiaohongshu.com/user/profile/682d321b000000000a03c93b)  
-既然这样了，再给我一点点Q(os:我是不是有点不要脸,不管了，我就要）
-[![打赏](https://img.shields.io/badge/-创作支持-946ce6?logo=wechat&style=flat&labelColor=444444&logoSize=auto)](https://raw.githubusercontent.com/crazying-dev/other/main/%E5%8B%9F%E6%8D%90.md)  
+- 关注一下我的bilibili吧，粉丝太少哩[![bilibili](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.bilibili.com%2Fx%2Frelation%2Fstat%3Fvmid%3D3707022235142639&query=%24.data.follower&suffix=%E5%90%8D%E7%B2%89%E4%B8%9D&style=social&logo=bilibili&label=bilibili)](https://space.bilibili.com/3707022235142639)  
+- 小红书也要[![动态-小红书](https://img.shields.io/badge/动态-小红书-E4405F?style=flat&logo=xiaohongshu&labelColor=444444&logoColor=white&logoSize=auto)](https://www.xiaohongshu.com/user/profile/682d321b000000000a03c93b)  
+- 既然这样了，再给我一点点Q(os:我是不是有点不要脸,不管了，我就要）[![打赏](https://img.shields.io/badge/-创作支持-946ce6?logo=wechat&style=flat&labelColor=444444&logoSize=auto)](https://raw.githubusercontent.com/crazying-dev/other/main/%E5%8B%9F%E6%8D%90.md)  
 <img src="https://raw.githubusercontent.com/crazying-dev/other/main/%E5%8B%9F%E6%8D%90%E7%A0%81.png" alt="投喂二维码" nerror="this.src='https://raw.githubusercontent.com/crazying-dev/other/main/photo-error.png'" style="width:200px;height:auto;border-radius:8px;">  
 谢谢哥哥姐姐们，喵~
 
+---
+
+## 目前正在维护的项目(已完成的)
+- [forum(妖精论坛)]((https://github.com/crazying-dev/forum)
+- - [生产地址](https://yjlt.top)
+
+---
 
 <picture> 
   <source media="(prefers-color-scheme: dark)" srcset="https://crazying-dev.github.io/crazying-dev/github-contribution-grid-snake-dark.svg" />  
   <source media="(prefers-color-scheme: light)" srcset="https://crazying-dev.github.io/crazying-dev/github-contribution-grid-snake.svg" />   
   <img alt="github-snake" src="https://crazying-dev.github.io/crazying-dev/github-contribution-grid-snake.svg" /> 
 </picture>
+
+---
+
+![crazying-dev](https://count.getloli.com/get/@crazying-dev?theme=moebooru)  
