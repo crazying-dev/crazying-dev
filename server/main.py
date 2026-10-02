@@ -25,28 +25,33 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #   CRAZYING_ASSETS_BASE   assets.crazying-dev.top（CSS / JS）
 #   CRAZYING_IMG_BASE      img.crazying-dev.top（图片 / 头像）
 #   CRAZYING_API_BASE      api.crazying-dev.top（文章 / 作品 / 友人 / 邮件）
+#   CRAZYING_STATUS_API    妖精论坛的状态日志接口（网站状态统计图的数据源）
+#                          注意用 www 域名：裸域会 301 且跳转响应没有 CORS 头
 #   CRAZYING_ASSETS_VER    资源版本号，改这个就能让浏览器立刻拿到新 CSS/JS
 # ---------------------------------------------------------------------------
 ASSETS = os.environ.get('CRAZYING_ASSETS_BASE', '//assets.crazying-dev.top').rstrip('/')
 IMG = os.environ.get('CRAZYING_IMG_BASE', '//img.crazying-dev.top').rstrip('/')
 API = os.environ.get('CRAZYING_API_BASE', 'https://api.crazying-dev.top').rstrip('/')
-ASSETS_VER = os.environ.get('CRAZYING_ASSETS_VER', '28')
+STATUS_API = os.environ.get('CRAZYING_STATUS_API', 'https://www.yjlt.top/api/status-log')
+ASSETS_VER = os.environ.get('CRAZYING_ASSETS_VER', '29')
 
 # 注入模板全局变量：模板里直接写 {{ ASSETS }} / {{ IMG }} / {{ API }} / {{ ASSETS_VER }}
-app.jinja_env.globals.update(ASSETS=ASSETS, IMG=IMG, API=API, ASSETS_VER=ASSETS_VER)
+app.jinja_env.globals.update(ASSETS=ASSETS, IMG=IMG, API=API, STATUS_API=STATUS_API, ASSETS_VER=ASSETS_VER)
 
 
-def render_page(content_template, page_title=None, page_desc=None, status=200):
+def render_page(content_template, page_title=None, page_desc=None, status=200, **extra):
 	"""
 	统一的整页渲染：把 HTML 片段塞进 path/base.html 骨架里。
 	片段仍然是 fragment-only（没有 <html>/<head>/<body>），这样它既能被 include，
 	也能单独渲染成一个完整页面。
+	**extra 会原样透传给模板（片段 include 时同样能拿到）。
 	"""
 	return render_template(
 		base,
 		content_template=content_template,
 		page_title=page_title,
 		page_desc=page_desc,
+		**extra
 	), status
 
 
@@ -59,13 +64,14 @@ PAGES = {
 	'HTML/MyWriter.html': ('我的作品 · 林の窝', '林的项目与创作，感兴趣就点进去看看喵～'),
 	'HTML/Friend.html': ('我的朋友 · 林の窝', '这些是我认识的有趣的人，欢迎来换友链喵～'),
 	'HTML/Privacy.html': ('隐私声明 · 林の窝', '本站承诺保护你的隐私'),
+	'HTML/StatusPage.html': ('网站状态 · 林の窝', '妖精论坛（yjlt.top）的最近请求状态日志，折线 / 柱状随便看喵～'),
 }
 
 
-def render_named(name, status=200):
+def render_named(name, status=200, **extra):
 	"""按 PAGES 里登记的片段名渲染整页（自动带上标题 / 描述）"""
 	title, desc = PAGES[name]
-	return render_page(name, title, desc, status)
+	return render_page(name, title, desc, status, **extra)
 
 
 # tool.py
@@ -237,6 +243,17 @@ def friend():
 @app.route('/privacy')
 def privacy():
 	return render_named('HTML/Privacy.html')
+
+
+@app.route('/stats')
+def stats():
+	# status_more=False：状态页自己就不再显示「查看详情 →」链接了
+	return render_named('HTML/StatusPage.html', status_more=False)
+
+
+@app.route('/stats/GET')
+def statsGet():
+	return render_named('HTML/StatusPage.html', status_more=False)
 
 
 #page.py end

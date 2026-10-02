@@ -1,0 +1,34 @@
+{# ------------------------------------------------------------------
+   网站状态统计（片段）
+   · 首页（碎碎念上方）与 /stats 独立页面共用同一份片段
+   · 数据源：https://yjlt.top/api/status-log（可用 CRAZYING_STATUS_API 覆盖）
+   · 渲染与交互全部由 crazying-dev.js 的 initStatusChart() 接管
+   ------------------------------------------------------------------ #}
+<section class="panel status" data-status-chart>
+    <div class="panel__head">
+        <h2 class="panel__title">网站状态 <span class="panel__title-sub">status</span></h2>
+        <span class="status__head-right">
+            <span class="status__updated" data-status-updated>读取中…</span>
+            {% if status_more is not defined or status_more %}<a class="btn-link" href="/stats">查看详情 →</a>{% endif %}
+        </span>
+    </div>
+
+    {# 汇总数字卡：总数 / 2xx / 3xx / 4xx / 5xx 及占比，由 JS 填充 #}
+    <div class="status__stats" data-status-stats></div>
+
+    <div class="status__toolbar">
+        <div class="status__modes" role="group" aria-label="切换图表形态">
+            <button class="status__mode is-active" type="button" data-status-mode="line" aria-pressed="true">折线</button>
+            <button class="status__mode" type="button" data-status-mode="bar" aria-pressed="false">柱状</button>
+        </div>
+        <div class="status__legend" data-status-legend></div>
+    </div>
+
+    <div class="status__chart-wrap" data-status-chart-wrap>
+        <div class="status__canvas" data-status-canvas></div>
+        <div class="status__tip" data-status-tip hidden aria-hidden="true"></div>
+    </div>
+
+    {# 最近请求明细（时间 + 状态码） #}
+    <div class="status__recent" data-status-recent></div>
+</section>
